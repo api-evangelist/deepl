@@ -1,0 +1,37 @@
+name: DeepL Vocabulary
+description: >-
+  Shared vocabulary of terms used across DeepL's translation,
+  document, glossary, write, and usage APIs.
+terms:
+  - term: Source Language
+    definition: The language of the text being translated.
+  - term: Target Language
+    definition: The language the text should be translated into.
+  - term: Detected Source Language
+    definition: >-
+      The source language inferred by DeepL when one is not explicitly
+      provided.
+  - term: Formality
+    definition: >-
+      A control parameter (more, less, prefer_more, prefer_less) for
+      adjusting tone in supported target languages.
+  - term: Glossary
+    definition: >-
+      A user-defined dictionary that overrides DeepL's default term
+      choices for a specific source/target language pair.
+  - term: Document Translation
+    definition: >-
+      Asynchronous translation of supported file formats with status
+      polling and a final download step.
+  - term: Usage
+    definition: >-
+      The volume of characters translated against the account's quota
+      for the current billing period.
+  - term: Write
+    definition: >-
+      DeepL's text-improvement and rephrasing endpoint, separate from
+      machine translation.
+  - term: Auth Key
+    definition: >-
+      The DeepL-Auth-Key authentication token sent in the
+      Authorization header on every request.

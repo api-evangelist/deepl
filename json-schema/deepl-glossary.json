@@ -1,0 +1,17 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://api-evangelist.github.io/deepl/json-schema/deepl-glossary.json",
+  "title": "DeepL Glossary",
+  "description": "A custom glossary used to enforce terminology in DeepL translations.",
+  "type": "object",
+  "properties": {
+    "glossary_id": {"type": "string"},
+    "name": {"type": "string"},
+    "ready": {"type": "boolean"},
+    "source_lang": {"type": "string"},
+    "target_lang": {"type": "string"},
+    "creation_time": {"type": "string", "format": "date-time"},
+    "entry_count": {"type": "integer"}
+  },
+  "required": ["glossary_id", "name"]
+}

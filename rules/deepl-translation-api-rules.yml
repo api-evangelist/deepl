@@ -1,0 +1,40 @@
+extends:
+  - spectral:oas
+rules:
+  deepl-info-contact:
+    description: API info should include the DeepL developer contact.
+    given: $.info
+    severity: warn
+    then:
+      field: contact
+      function: truthy
+  deepl-base-url:
+    description: Servers should reference api.deepl.com or api-free.deepl.com.
+    given: $.servers[*].url
+    severity: warn
+    then:
+      function: pattern
+      functionOptions:
+        match: "deepl\\.com"
+  deepl-auth-key:
+    description: API should declare the DeepL-Auth-Key authentication scheme.
+    given: $.components.securitySchemes
+    severity: error
+    then:
+      field: authKey
+      function: truthy
+  deepl-translate-resource:
+    description: API should expose a /translate endpoint.
+    given: $.paths
+    severity: error
+    then:
+      function: pattern
+      functionOptions:
+        match: "/translate"
+  deepl-operation-tags:
+    description: Operations should be tagged Translate, Documents, Glossaries, Languages, Usage, or Write.
+    given: $.paths[*][*]
+    severity: warn
+    then:
+      field: tags
+      function: truthy

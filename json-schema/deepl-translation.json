@@ -1,0 +1,21 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://api-evangelist.github.io/deepl/json-schema/deepl-translation.json",
+  "title": "DeepL Translation",
+  "description": "A translation result returned by the DeepL /translate endpoint.",
+  "type": "object",
+  "properties": {
+    "translations": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "detected_source_language": {"type": "string"},
+          "text": {"type": "string"}
+        },
+        "required": ["text"]
+      }
+    }
+  },
+  "required": ["translations"]
+}

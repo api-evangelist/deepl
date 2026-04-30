@@ -1,0 +1,20 @@
+{
+  "@context": {
+    "@version": 1.1,
+    "@vocab": "https://schema.deepl.com/",
+    "schema": "https://schema.org/",
+    "deepl": "https://schema.deepl.com/",
+    "Translation": "deepl:Translation",
+    "Glossary": "deepl:Glossary",
+    "Document": "schema:DigitalDocument",
+    "translations": {"@id": "deepl:translations"},
+    "text": {"@id": "schema:text", "@type": "schema:Text"},
+    "detected_source_language": {"@id": "deepl:detectedSourceLanguage", "@type": "schema:Text"},
+    "source_lang": {"@id": "deepl:sourceLanguage", "@type": "schema:Text"},
+    "target_lang": {"@id": "deepl:targetLanguage", "@type": "schema:Text"},
+    "glossary_id": {"@id": "schema:identifier"},
+    "name": {"@id": "schema:name", "@type": "schema:Text"},
+    "creation_time": {"@id": "schema:dateCreated", "@type": "schema:DateTime"},
+    "entry_count": {"@id": "deepl:entryCount", "@type": "schema:Integer"}
+  }
+}
