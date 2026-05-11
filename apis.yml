@@ -79,6 +79,10 @@ common:
     url: json-ld/deepl-context.jsonld
   - type: Vocabulary
     url: vocabulary/deepl-vocabulary.yml
+  - type: Integrations
+    url: https://www.deepl.com/en/integrations
+integrations:
+  - name: DeepL
 maintainers:
   - FN: Kin Lane
     email: kin@apievangelist.com
