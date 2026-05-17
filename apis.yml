@@ -1,7 +1,7 @@
 aid: deepl
 name: DeepL
 url: https://raw.githubusercontent.com/api-evangelist/deepl/refs/heads/main/apis.yml
-type: Contract
+kind: contract
 position: Consuming
 access: 3rd-Party
 image: https://kinlane-productions.s3.amazonaws.com/apis-json/apis-json-logo.jpg
@@ -16,7 +16,7 @@ tags:
 created: '2024-11-07'
 modified: '2026-04-28'
 specificationVersion: '0.19'
-xType: company
+kind: company
 description: >-
   DeepL is an AI-powered translation service that delivers high-quality
   machine translation between dozens of languages, with support for
@@ -71,11 +71,11 @@ common:
     url: https://github.com/DeepLcom/deepl-python
   - type: SDK
     url: https://github.com/DeepLcom/deepl-node
-  - type: Terms of Service
+  - type: TermsOfService
     url: https://www.deepl.com/pro-license
-  - type: Privacy Policy
+  - type: PrivacyPolicy
     url: https://www.deepl.com/privacy
-  - type: JSON-LD
+  - type: JSONLD
     url: json-ld/deepl-context.jsonld
   - type: Vocabulary
     url: vocabulary/deepl-vocabulary.yml
