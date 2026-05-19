@@ -1,0 +1,72 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: DeepL Translation API — Languages
+  description: 'DeepL Translation API — Languages. 1 operations. Lead operation: List supported languages. Self-contained
+    Naftiko capability covering one Deepl business surface.'
+  tags:
+  - Deepl
+  - Languages
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    DEEPL_API_KEY: DEEPL_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: translation-languages
+    baseUri: https://api.deepl.com/v2
+    description: DeepL Translation API — Languages business capability. Self-contained, no shared references.
+    resources:
+    - name: languages
+      path: /languages
+      operations:
+      - name: listlanguages
+        method: GET
+        description: List supported languages
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    authentication:
+      type: apikey
+      key: Authorization
+      value: '{{env.DEEPL_API_KEY}}'
+      placement: header
+  exposes:
+  - type: rest
+    namespace: translation-languages-rest
+    port: 8080
+    description: REST adapter for DeepL Translation API — Languages. One Spectral-compliant resource per consumed operation,
+      prefixed with /v1.
+    resources:
+    - path: /v1/languages
+      name: languages
+      description: REST surface for languages.
+      operations:
+      - method: GET
+        name: listlanguages
+        description: List supported languages
+        call: translation-languages.listlanguages
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: translation-languages-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for DeepL Translation API — Languages. One tool per consumed operation, routed inline through
+      this capability's consumes block.
+    tools:
+    - name: list-supported-languages
+      description: List supported languages
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: translation-languages.listlanguages
+      outputParameters:
+      - type: object
+        mapping: $.

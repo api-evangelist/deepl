@@ -1,0 +1,154 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: DeepL Translation API — Documents
+  description: 'DeepL Translation API — Documents. 3 operations. Lead operation: Upload a document for translation. Self-contained
+    Naftiko capability covering one Deepl business surface.'
+  tags:
+  - Deepl
+  - Documents
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    DEEPL_API_KEY: DEEPL_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: translation-documents
+    baseUri: https://api.deepl.com/v2
+    description: DeepL Translation API — Documents business capability. Self-contained, no shared references.
+    resources:
+    - name: document
+      path: /document
+      operations:
+      - name: uploaddocument
+        method: POST
+        description: Upload a document for translation
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: document-documentId
+      path: /document/{documentId}
+      operations:
+      - name: getdocumentstatus
+        method: GET
+        description: Check document translation status
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: documentId
+          in: path
+          type: string
+          required: true
+    - name: document-documentId-result
+      path: /document/{documentId}/result
+      operations:
+      - name: downloaddocument
+        method: GET
+        description: Download translated document
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: documentId
+          in: path
+          type: string
+          required: true
+    authentication:
+      type: apikey
+      key: Authorization
+      value: '{{env.DEEPL_API_KEY}}'
+      placement: header
+  exposes:
+  - type: rest
+    namespace: translation-documents-rest
+    port: 8080
+    description: REST adapter for DeepL Translation API — Documents. One Spectral-compliant resource per consumed operation,
+      prefixed with /v1.
+    resources:
+    - path: /v1/document
+      name: document
+      description: REST surface for document.
+      operations:
+      - method: POST
+        name: uploaddocument
+        description: Upload a document for translation
+        call: translation-documents.uploaddocument
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/document/{documentid}
+      name: document-documentid
+      description: REST surface for document-documentId.
+      operations:
+      - method: GET
+        name: getdocumentstatus
+        description: Check document translation status
+        call: translation-documents.getdocumentstatus
+        with:
+          documentId: rest.documentId
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/document/{documentid}/result
+      name: document-documentid-result
+      description: REST surface for document-documentId-result.
+      operations:
+      - method: GET
+        name: downloaddocument
+        description: Download translated document
+        call: translation-documents.downloaddocument
+        with:
+          documentId: rest.documentId
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: translation-documents-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for DeepL Translation API — Documents. One tool per consumed operation, routed inline through
+      this capability's consumes block.
+    tools:
+    - name: upload-document-translation
+      description: Upload a document for translation
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: translation-documents.uploaddocument
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: check-document-translation-status
+      description: Check document translation status
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: translation-documents.getdocumentstatus
+      with:
+        documentId: tools.documentId
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: download-translated-document
+      description: Download translated document
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: translation-documents.downloaddocument
+      with:
+        documentId: tools.documentId
+      outputParameters:
+      - type: object
+        mapping: $.
