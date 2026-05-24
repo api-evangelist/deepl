@@ -88,6 +88,8 @@ common:
   url: vocabulary/deepl-vocabulary.yml
 - type: Integrations
   url: https://www.deepl.com/en/integrations
+- type: LLMsTxt
+  url: https://developers.deepl.com/llms.txt
 integrations:
 - name: DeepL
 maintainers:
