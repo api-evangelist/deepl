@@ -14,7 +14,7 @@ tags:
 - Machine Translation
 - Translation
 created: '2024-11-07'
-modified: '2026-05-19'
+modified: '2026-05-30'
 specificationVersion: '0.19'
 description: DeepL is an AI-powered translation service that delivers high-quality machine translation between dozens of languages,
   with support for context-aware translation, document translation, glossaries, and rephrasing/improvement via DeepL Write.
@@ -61,6 +61,33 @@ apis:
     url: capabilities/translation-usage.yaml
   - type: NaftikoCapability
     url: capabilities/translation-write.yaml
+- aid: deepl:deepl-voice-api
+  name: DeepL Voice API
+  description: The DeepL Voice API provides real-time speech transcription and translation. A POST to /v3/voice/realtime
+    issues an ephemeral token and WebSocket streaming URL; clients then open a WSS channel to stream source audio chunks and
+    receive incremental source-language transcriptions, translated transcriptions, and (closed beta) synthesized translated
+    audio. There is no documented webhook callback URL on the REST APIs; document translation remains polling-based.
+  humanURL: https://developers.deepl.com/api-reference/voice
+  baseURL: https://api.deepl.com/v3
+  tags:
+  - Real-Time
+  - Speech-to-Text
+  - Streaming
+  - Transcription
+  - Translation
+  - Voice
+  - WebSocket
+  properties:
+  - type: Documentation
+    url: https://developers.deepl.com/api-reference/voice
+  - type: Reference
+    url: https://developers.deepl.com/api-reference/voice/websocket-streaming
+  - type: OpenAPI
+    url: openapi/deepl-voice-api-openapi.yml
+  - type: AsyncAPI
+    url: asyncapi/deepl-voice-api-asyncapi.yml
+  - type: AsyncAPI
+    url: https://developers.deepl.com/api-reference/voice.asyncapi.yaml
 common:
 - type: LinkedIn
   url: https://www.linkedin.com/company/deepl

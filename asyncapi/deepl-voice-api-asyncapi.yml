@@ -1,0 +1,229 @@
+asyncapi: 3.0.0
+info:
+  title: DeepL Voice API - WebSocket Streaming
+  version: 1.0.0
+  description: >-
+    WebSocket streaming API for real-time voice transcription and translation.
+    After obtaining a streaming URL and token via the REST API (POST
+    /v3/voice/realtime), establish a WebSocket connection to stream audio
+    data and receive real-time transcriptions and translations.
+
+    This is a local mirror modelling the publicly documented surface; the
+    authoritative AsyncAPI document is published by DeepL at
+    https://developers.deepl.com/api-reference/voice.asyncapi.yaml.
+  contact:
+    name: DeepL - Contact us
+    url: https://www.deepl.com/contact-us
+servers:
+  production:
+    host: api.deepl.com
+    pathname: /v1/voice/realtime/connect
+    protocol: wss
+    description: DeepL Voice API WebSocket endpoint.
+    variables:
+      token:
+        description: Ephemeral authentication token obtained from the REST API.
+        examples:
+          - VGhpcyBpcyBhIGZha2UgdG9rZW4K
+channels:
+  voiceStream:
+    address: /v1/voice/realtime/connect?token={token}
+    title: Voice streaming channel
+    description: >-
+      Bidirectional channel for streaming source audio chunks to DeepL and
+      receiving incremental source-language transcriptions, translated
+      transcriptions, and (closed beta) synthesized translated audio.
+    parameters:
+      token:
+        description: Ephemeral, single-use token issued by POST /v3/voice/realtime.
+    messages:
+      sourceMediaChunk:
+        $ref: '#/components/messages/SourceMediaChunk'
+      endOfSourceMedia:
+        $ref: '#/components/messages/EndOfSourceMedia'
+      sourceTranscriptUpdate:
+        $ref: '#/components/messages/SourceTranscriptUpdate'
+      targetTranscriptUpdate:
+        $ref: '#/components/messages/TargetTranscriptUpdate'
+      targetMediaChunk:
+        $ref: '#/components/messages/TargetMediaChunk'
+      endOfSourceTranscript:
+        $ref: '#/components/messages/EndOfSourceTranscript'
+      endOfTargetTranscript:
+        $ref: '#/components/messages/EndOfTargetTranscript'
+      endOfTargetMedia:
+        $ref: '#/components/messages/EndOfTargetMedia'
+      endOfStream:
+        $ref: '#/components/messages/EndOfStream'
+      errorMessage:
+        $ref: '#/components/messages/ErrorMessage'
+operations:
+  sendAudioData:
+    action: send
+    channel:
+      $ref: '#/channels/voiceStream'
+    summary: Send a source-audio chunk or end-of-source signal to DeepL.
+    messages:
+      - $ref: '#/channels/voiceStream/messages/sourceMediaChunk'
+      - $ref: '#/channels/voiceStream/messages/endOfSourceMedia'
+  receiveTranscriptions:
+    action: receive
+    channel:
+      $ref: '#/channels/voiceStream'
+    summary: Receive transcriptions, translations, synthesized audio, and lifecycle events.
+    messages:
+      - $ref: '#/channels/voiceStream/messages/sourceTranscriptUpdate'
+      - $ref: '#/channels/voiceStream/messages/targetTranscriptUpdate'
+      - $ref: '#/channels/voiceStream/messages/targetMediaChunk'
+      - $ref: '#/channels/voiceStream/messages/endOfSourceTranscript'
+      - $ref: '#/channels/voiceStream/messages/endOfTargetTranscript'
+      - $ref: '#/channels/voiceStream/messages/endOfTargetMedia'
+      - $ref: '#/channels/voiceStream/messages/endOfStream'
+      - $ref: '#/channels/voiceStream/messages/errorMessage'
+components:
+  messages:
+    SourceMediaChunk:
+      name: source_media_chunk
+      summary: Chunk of audio data from the client.
+      payload:
+        type: object
+        properties:
+          source_media_chunk:
+            type: object
+            properties:
+              data:
+                type: string
+                description: Base64-encoded audio chunk (JSON mode) or raw bytes (MessagePack).
+    EndOfSourceMedia:
+      name: end_of_source_media
+      summary: Client signals it has finished sending source audio.
+      payload:
+        type: object
+        properties:
+          end_of_source_media:
+            type: object
+    SourceTranscriptUpdate:
+      name: source_transcript_update
+      summary: Incremental source-language transcription (concluded + tentative segments).
+      payload:
+        type: object
+        properties:
+          source_transcript_update:
+            type: object
+            properties:
+              concluded:
+                type: array
+                items:
+                  $ref: '#/components/schemas/TranscriptSegment'
+              tentative:
+                type: array
+                items:
+                  $ref: '#/components/schemas/TranscriptSegment'
+    TargetTranscriptUpdate:
+      name: target_transcript_update
+      summary: Incremental target-language translation (concluded + tentative segments).
+      payload:
+        type: object
+        properties:
+          target_transcript_update:
+            type: object
+            properties:
+              language:
+                type: string
+              concluded:
+                type: array
+                items:
+                  $ref: '#/components/schemas/TranscriptSegment'
+              tentative:
+                type: array
+                items:
+                  $ref: '#/components/schemas/TranscriptSegment'
+    TargetMediaChunk:
+      name: target_media_chunk
+      summary: Synthesized translated audio (closed beta).
+      payload:
+        type: object
+        properties:
+          target_media_chunk:
+            type: object
+            properties:
+              language:
+                type: string
+              content_type:
+                type: string
+              headers:
+                type: integer
+              data:
+                type: array
+                items:
+                  type: string
+              duration:
+                type: integer
+              text:
+                type: string
+    EndOfSourceTranscript:
+      name: end_of_source_transcript
+      payload:
+        type: object
+        properties:
+          end_of_source_transcript:
+            type: object
+    EndOfTargetTranscript:
+      name: end_of_target_transcript
+      payload:
+        type: object
+        properties:
+          end_of_target_transcript:
+            type: object
+            properties:
+              language:
+                type: string
+    EndOfTargetMedia:
+      name: end_of_target_media
+      payload:
+        type: object
+        properties:
+          end_of_target_media:
+            type: object
+            properties:
+              language:
+                type: string
+    EndOfStream:
+      name: end_of_stream
+      summary: Server indicates all processing is complete; safe to close the connection.
+      payload:
+        type: object
+        properties:
+          end_of_stream:
+            type: object
+    ErrorMessage:
+      name: error
+      summary: Processing error reported by the server.
+      payload:
+        type: object
+        properties:
+          error:
+            type: object
+            properties:
+              request_type:
+                type: string
+              error_code:
+                type: integer
+              reason_code:
+                type: integer
+              error_message:
+                type: string
+  schemas:
+    TranscriptSegment:
+      type: object
+      properties:
+        language:
+          type: string
+        text:
+          type: string
+        start_time:
+          type: integer
+          description: Milliseconds from start of stream.
+        end_time:
+          type: integer
+          description: Milliseconds from start of stream.

@@ -1,0 +1,117 @@
+openapi: 3.1.0
+info:
+  title: DeepL Voice API
+  description: >-
+    REST surface of the DeepL Voice API used to request and reconnect a
+    real-time voice transcription / translation session. The session metadata
+    returned by these endpoints (streaming_url + token) is then used to
+    establish a WebSocket connection described by the companion AsyncAPI
+    specification.
+  version: "3"
+  contact:
+    name: DeepL Developers
+    url: https://developers.deepl.com/
+servers:
+  - url: https://api.deepl.com/v3
+    description: DeepL Pro
+tags:
+  - name: Voice
+paths:
+  /voice/realtime:
+    post:
+      summary: Request a real-time voice session
+      operationId: requestVoiceSession
+      tags: [Voice]
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                source_media_content_type:
+                  type: string
+                  description: Audio format for the source media (e.g., "audio/ogg; codecs=opus").
+                message_format:
+                  type: string
+                  enum: [json, msgpack]
+                  default: json
+                source_language:
+                  type: string
+                source_language_mode:
+                  type: string
+                  enum: [auto, fixed]
+                  default: auto
+                target_languages:
+                  type: array
+                  maxItems: 5
+                  items:
+                    type: string
+                target_media_languages:
+                  type: array
+                  maxItems: 1
+                  items:
+                    type: string
+                target_media_content_type:
+                  type: string
+                target_media_voice:
+                  type: string
+                  enum: [male, female]
+                spoken_terms_id:
+                  type: string
+                  format: uuid
+                glossary_id:
+                  type: string
+                formality:
+                  type: string
+                  enum: [default, formal, more, informal, less]
+              required:
+                - source_media_content_type
+      responses:
+        "200":
+          description: Session created. Returns the WebSocket streaming URL and an ephemeral token.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/VoiceSession'
+    get:
+      summary: Reconnect to an existing real-time voice session
+      operationId: reconnectVoiceSession
+      tags: [Voice]
+      parameters:
+        - in: query
+          name: token
+          required: true
+          schema:
+            type: string
+          description: The latest ephemeral token obtained for the stream.
+      responses:
+        "200":
+          description: Reconnect details. Returns a fresh streaming URL and token.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/VoiceSession'
+components:
+  securitySchemes:
+    authKey:
+      type: apiKey
+      in: header
+      name: Authorization
+      description: "DeepL-Auth-Key <key>"
+  schemas:
+    VoiceSession:
+      type: object
+      properties:
+        streaming_url:
+          type: string
+          format: uri
+          description: WebSocket URL for the real-time voice channel.
+        token:
+          type: string
+          description: Ephemeral, single-use authentication token for the WebSocket connection.
+        session_id:
+          type: string
+          format: uuid
+security:
+  - authKey: []
