@@ -1,0 +1,236 @@
+{
+  "item": [
+    {
+      "id": "e6f5e227-cbf8-4a00-acbe-5c8b5073e71f",
+      "name": "Voice",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "141f5aee-6d04-4de5-965b-0d6c370ce4ad",
+          "name": "Request a real-time voice session",
+          "request": {
+            "name": "Request a real-time voice session",
+            "description": {},
+            "url": {
+              "path": [
+                "voice",
+                "realtime"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"source_media_content_type\": \"<string>\",\n  \"message_format\": \"json\",\n  \"source_language\": \"<string>\",\n  \"source_language_mode\": \"auto\",\n  \"target_languages\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"target_media_languages\": [\n    \"<string>\"\n  ],\n  \"target_media_content_type\": \"<string>\",\n  \"target_media_voice\": \"<string>\",\n  \"spoken_terms_id\": \"<uuid>\",\n  \"glossary_id\": \"<string>\",\n  \"formality\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "18814bc8-edc3-434c-beca-e4e3cfeaa69c",
+              "name": "Session created. Returns the WebSocket streaming URL and an ephemeral token.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "voice",
+                    "realtime"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"source_media_content_type\": \"<string>\",\n  \"message_format\": \"json\",\n  \"source_language\": \"<string>\",\n  \"source_language_mode\": \"auto\",\n  \"target_languages\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"target_media_languages\": [\n    \"<string>\"\n  ],\n  \"target_media_content_type\": \"<string>\",\n  \"target_media_voice\": \"<string>\",\n  \"spoken_terms_id\": \"<uuid>\",\n  \"glossary_id\": \"<string>\",\n  \"formality\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"streaming_url\": \"http://JGF.kmnGs4T+jIGgKGt3my\",\n  \"token\": \"string\",\n  \"session_id\": \"ba053cfc-33f0-1e7d-f5f6-85a4247f68f6\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "0dafa6dd-8391-4821-a076-20417dce71d0",
+          "name": "Reconnect to an existing real-time voice session",
+          "request": {
+            "name": "Reconnect to an existing real-time voice session",
+            "description": {},
+            "url": {
+              "path": [
+                "voice",
+                "realtime"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "token",
+                  "value": "<string>",
+                  "description": "(Required) The latest ephemeral token obtained for the stream."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "c46fe32d-1814-46ff-b060-0c68ddb1ba01",
+              "name": "Reconnect details. Returns a fresh streaming URL and token.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "voice",
+                    "realtime"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "token",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"streaming_url\": \"http://JGF.kmnGs4T+jIGgKGt3my\",\n  \"token\": \"string\",\n  \"session_id\": \"ba053cfc-33f0-1e7d-f5f6-85a4247f68f6\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.deepl.com/v3",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "Authorization"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}"
+      },
+      {
+        "key": "in",
+        "value": "header"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "fa1431e9-c0bd-4042-8503-fcb0de3b2929",
+    "name": "DeepL Voice API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "REST surface of the DeepL Voice API used to request and reconnect a real-time voice transcription / translation session. The session metadata returned by these endpoints (streaming_url + token) is then used to establish a WebSocket connection described by the companion AsyncAPI specification.\n\nContact Support:\n Name: DeepL Developers",
+      "type": "text/plain"
+    }
+  }
+}

@@ -1,0 +1,248 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "DeepL Translation API",
+    "version": "2"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "Authorization",
+      "value": "{{Authorization}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Translate",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Translate text",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.deepl.com/v2/translate",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Translate text"
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Documents",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Upload a document for translation",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.deepl.com/v2/document"
+          },
+          "docs": "Upload a document for translation"
+        },
+        {
+          "info": {
+            "name": "Check document translation status",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.deepl.com/v2/document/:documentId",
+            "params": [
+              {
+                "name": "documentId",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Check document translation status"
+        },
+        {
+          "info": {
+            "name": "Download translated document",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.deepl.com/v2/document/:documentId/result",
+            "params": [
+              {
+                "name": "documentId",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Download translated document"
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Glossaries",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List glossaries",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.deepl.com/v2/glossaries"
+          },
+          "docs": "List glossaries"
+        },
+        {
+          "info": {
+            "name": "Create a glossary",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.deepl.com/v2/glossaries"
+          },
+          "docs": "Create a glossary"
+        },
+        {
+          "info": {
+            "name": "Get a glossary",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.deepl.com/v2/glossaries/:glossaryId",
+            "params": [
+              {
+                "name": "glossaryId",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Get a glossary"
+        },
+        {
+          "info": {
+            "name": "Delete a glossary",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.deepl.com/v2/glossaries/:glossaryId",
+            "params": [
+              {
+                "name": "glossaryId",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Delete a glossary"
+        },
+        {
+          "info": {
+            "name": "Get glossary entries",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.deepl.com/v2/glossaries/:glossaryId/entries",
+            "params": [
+              {
+                "name": "glossaryId",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Get glossary entries"
+        },
+        {
+          "info": {
+            "name": "List supported glossary language pairs",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.deepl.com/v2/glossary-language-pairs"
+          },
+          "docs": "List supported glossary language pairs"
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Languages",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List supported languages",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.deepl.com/v2/languages"
+          },
+          "docs": "List supported languages"
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Usage",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Retrieve usage and quota",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.deepl.com/v2/usage"
+          },
+          "docs": "Retrieve usage and quota"
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Write",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Rephrase or improve text",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.deepl.com/v2/write/rephrase"
+          },
+          "docs": "Rephrase or improve text"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}
