@@ -4,7 +4,7 @@ url: https://raw.githubusercontent.com/api-evangelist/deepl/refs/heads/main/apis
 kind: company
 position: Consuming
 access: 3rd-Party
-image: https://kinlane-productions.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
 tags:
   - Artificial Intelligence
   - Deep Learning
