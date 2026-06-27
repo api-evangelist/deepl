@@ -93,9 +93,9 @@ common:
     url: https://developers.deepl.com/docs/getting-started/auth
   - type: Pricing
     url: https://www.deepl.com/pro
-  - type: SDK
+  - type: SDKs
     url: https://github.com/DeepLcom/deepl-python
-  - type: SDK
+  - type: SDKs
     url: https://github.com/DeepLcom/deepl-node
   - type: TermsOfService
     url: https://www.deepl.com/pro-license
@@ -107,7 +107,7 @@ common:
     url: vocabulary/deepl-vocabulary.yml
   - type: Integrations
     url: https://www.deepl.com/en/integrations
-  - type: LLMsTxt
+  - type: LlmsText
     url: https://developers.deepl.com/llms.txt
 integrations:
   - name: DeepL
