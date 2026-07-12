@@ -1,0 +1,17 @@
+generated: '2026-07-11'
+method: derived
+source: openapi/deepl-translation-api-openapi.yml, openapi/deepl-voice-api-openapi.yml
+summary:
+  types:
+  - apiKey
+  api_key_in:
+  - header
+schemes:
+- name: authKey
+  type: apiKey
+  in: header
+  parameter: Authorization
+  description: DeepL-Auth-Key <key>
+  sources:
+  - openapi/deepl-translation-api-openapi.yml
+  - openapi/deepl-voice-api-openapi.yml

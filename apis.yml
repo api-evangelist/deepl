@@ -81,6 +81,14 @@ apis:
       - type: AsyncAPI
         url: https://developers.deepl.com/api-reference/voice.asyncapi.yaml
 common:
+  - type: TrustCenter
+    url: security/deepl-trust-center.yml
+  - type: VulnerabilityDisclosure
+    url: security/deepl-vulnerability-disclosure.yml
+  - type: DomainSecurity
+    url: security/deepl-domain-security.yml
+  - type: Authentication
+    url: authentication/deepl-authentication.yml
   - type: LinkedIn
     url: https://www.linkedin.com/company/deepl
   - type: Website
@@ -109,6 +117,8 @@ common:
     url: https://www.deepl.com/en/integrations
   - type: LlmsText
     url: https://developers.deepl.com/llms.txt
+  - url: https://www.deepl.com/en/blog/rss.xml
+    type: Blog
 integrations:
   - name: DeepL
 maintainers:
