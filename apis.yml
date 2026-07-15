@@ -81,6 +81,8 @@ apis:
       - type: AsyncAPI
         url: https://developers.deepl.com/api-reference/voice.asyncapi.yaml
 common:
+  - type: AgenticAccess
+    url: agentic-access/deepl-agentic-access.yml
   - type: TrustCenter
     url: security/deepl-trust-center.yml
   - type: VulnerabilityDisclosure
