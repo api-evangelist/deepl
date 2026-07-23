@@ -1,27 +1,27 @@
 openapi: 3.1.0
 info:
-  title: DeepL Voice API
-  description: >-
-    REST surface of the DeepL Voice API used to request and reconnect a
-    real-time voice transcription / translation session. The session metadata
-    returned by these endpoints (streaming_url + token) is then used to
-    establish a WebSocket connection described by the companion AsyncAPI
-    specification.
-  version: "3"
+  title: DeepL Translation Documents Voice API
+  description: The DeepL API exposes machine translation, document translation, glossary management, write/improve, and usage endpoints. Both Pro and Free tiers are available, hosted on different base URLs.
+  version: '2'
   contact:
     name: DeepL Developers
     url: https://developers.deepl.com/
 servers:
-  - url: https://api.deepl.com/v3
-    description: DeepL Pro
+- url: https://api.deepl.com/v2
+  description: DeepL Pro
+- url: https://api-free.deepl.com/v2
+  description: DeepL Free
+security:
+- authKey: []
 tags:
-  - name: Voice
+- name: Voice
 paths:
   /voice/realtime:
     post:
       summary: Request a real-time voice session
       operationId: requestVoiceSession
-      tags: [Voice]
+      tags:
+      - Voice
       requestBody:
         required: true
         content:
@@ -34,13 +34,17 @@ paths:
                   description: Audio format for the source media (e.g., "audio/ogg; codecs=opus").
                 message_format:
                   type: string
-                  enum: [json, msgpack]
+                  enum:
+                  - json
+                  - msgpack
                   default: json
                 source_language:
                   type: string
                 source_language_mode:
                   type: string
-                  enum: [auto, fixed]
+                  enum:
+                  - auto
+                  - fixed
                   default: auto
                 target_languages:
                   type: array
@@ -56,7 +60,9 @@ paths:
                   type: string
                 target_media_voice:
                   type: string
-                  enum: [male, female]
+                  enum:
+                  - male
+                  - female
                 spoken_terms_id:
                   type: string
                   format: uuid
@@ -64,11 +70,16 @@ paths:
                   type: string
                 formality:
                   type: string
-                  enum: [default, formal, more, informal, less]
+                  enum:
+                  - default
+                  - formal
+                  - more
+                  - informal
+                  - less
               required:
-                - source_media_content_type
+              - source_media_content_type
       responses:
-        "200":
+        '200':
           description: Session created. Returns the WebSocket streaming URL and an ephemeral token.
           content:
             application/json:
@@ -77,28 +88,23 @@ paths:
     get:
       summary: Reconnect to an existing real-time voice session
       operationId: reconnectVoiceSession
-      tags: [Voice]
+      tags:
+      - Voice
       parameters:
-        - in: query
-          name: token
-          required: true
-          schema:
-            type: string
-          description: The latest ephemeral token obtained for the stream.
+      - in: query
+        name: token
+        required: true
+        schema:
+          type: string
+        description: The latest ephemeral token obtained for the stream.
       responses:
-        "200":
+        '200':
           description: Reconnect details. Returns a fresh streaming URL and token.
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/VoiceSession'
 components:
-  securitySchemes:
-    authKey:
-      type: apiKey
-      in: header
-      name: Authorization
-      description: "DeepL-Auth-Key <key>"
   schemas:
     VoiceSession:
       type: object
@@ -113,5 +119,9 @@ components:
         session_id:
           type: string
           format: uuid
-security:
-  - authKey: []
+  securitySchemes:
+    authKey:
+      type: apiKey
+      in: header
+      name: Authorization
+      description: DeepL-Auth-Key <key>

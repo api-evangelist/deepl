@@ -1,0 +1,64 @@
+openapi: 3.1.0
+info:
+  title: DeepL Translation Documents API
+  description: The DeepL API exposes machine translation, document translation, glossary management, write/improve, and usage endpoints. Both Pro and Free tiers are available, hosted on different base URLs.
+  version: '2'
+  contact:
+    name: DeepL Developers
+    url: https://developers.deepl.com/
+servers:
+- url: https://api.deepl.com/v2
+  description: DeepL Pro
+- url: https://api-free.deepl.com/v2
+  description: DeepL Free
+security:
+- authKey: []
+tags:
+- name: Documents
+paths:
+  /document:
+    post:
+      summary: Upload a document for translation
+      operationId: uploadDocument
+      tags:
+      - Documents
+      responses:
+        '200':
+          description: Document uploaded; translation in progress.
+  /document/{documentId}:
+    get:
+      summary: Check document translation status
+      operationId: getDocumentStatus
+      tags:
+      - Documents
+      parameters:
+      - in: path
+        name: documentId
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Document status.
+  /document/{documentId}/result:
+    get:
+      summary: Download translated document
+      operationId: downloadDocument
+      tags:
+      - Documents
+      parameters:
+      - in: path
+        name: documentId
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Translated document.
+components:
+  securitySchemes:
+    authKey:
+      type: apiKey
+      in: header
+      name: Authorization
+      description: DeepL-Auth-Key <key>

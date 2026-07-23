@@ -1,0 +1,34 @@
+openapi: 3.1.0
+info:
+  title: DeepL Translation Documents Write API
+  description: The DeepL API exposes machine translation, document translation, glossary management, write/improve, and usage endpoints. Both Pro and Free tiers are available, hosted on different base URLs.
+  version: '2'
+  contact:
+    name: DeepL Developers
+    url: https://developers.deepl.com/
+servers:
+- url: https://api.deepl.com/v2
+  description: DeepL Pro
+- url: https://api-free.deepl.com/v2
+  description: DeepL Free
+security:
+- authKey: []
+tags:
+- name: Write
+paths:
+  /write/rephrase:
+    post:
+      summary: Rephrase or improve text
+      operationId: rephraseText
+      tags:
+      - Write
+      responses:
+        '200':
+          description: Rephrased text using DeepL Write.
+components:
+  securitySchemes:
+    authKey:
+      type: apiKey
+      in: header
+      name: Authorization
+      description: DeepL-Auth-Key <key>

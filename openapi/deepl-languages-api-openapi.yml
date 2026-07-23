@@ -1,0 +1,34 @@
+openapi: 3.1.0
+info:
+  title: DeepL Translation Documents Languages API
+  description: The DeepL API exposes machine translation, document translation, glossary management, write/improve, and usage endpoints. Both Pro and Free tiers are available, hosted on different base URLs.
+  version: '2'
+  contact:
+    name: DeepL Developers
+    url: https://developers.deepl.com/
+servers:
+- url: https://api.deepl.com/v2
+  description: DeepL Pro
+- url: https://api-free.deepl.com/v2
+  description: DeepL Free
+security:
+- authKey: []
+tags:
+- name: Languages
+paths:
+  /languages:
+    get:
+      summary: List supported languages
+      operationId: listLanguages
+      tags:
+      - Languages
+      responses:
+        '200':
+          description: Supported source/target languages.
+components:
+  securitySchemes:
+    authKey:
+      type: apiKey
+      in: header
+      name: Authorization
+      description: DeepL-Auth-Key <key>

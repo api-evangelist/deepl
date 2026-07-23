@@ -1,0 +1,34 @@
+openapi: 3.1.0
+info:
+  title: DeepL Translation Documents Usage API
+  description: The DeepL API exposes machine translation, document translation, glossary management, write/improve, and usage endpoints. Both Pro and Free tiers are available, hosted on different base URLs.
+  version: '2'
+  contact:
+    name: DeepL Developers
+    url: https://developers.deepl.com/
+servers:
+- url: https://api.deepl.com/v2
+  description: DeepL Pro
+- url: https://api-free.deepl.com/v2
+  description: DeepL Free
+security:
+- authKey: []
+tags:
+- name: Usage
+paths:
+  /usage:
+    get:
+      summary: Retrieve usage and quota
+      operationId: getUsage
+      tags:
+      - Usage
+      responses:
+        '200':
+          description: Character usage and quota for the current billing period.
+components:
+  securitySchemes:
+    authKey:
+      type: apiKey
+      in: header
+      name: Authorization
+      description: DeepL-Auth-Key <key>

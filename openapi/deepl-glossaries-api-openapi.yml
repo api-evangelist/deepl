@@ -1,0 +1,95 @@
+openapi: 3.1.0
+info:
+  title: DeepL Translation Documents Glossaries API
+  description: The DeepL API exposes machine translation, document translation, glossary management, write/improve, and usage endpoints. Both Pro and Free tiers are available, hosted on different base URLs.
+  version: '2'
+  contact:
+    name: DeepL Developers
+    url: https://developers.deepl.com/
+servers:
+- url: https://api.deepl.com/v2
+  description: DeepL Pro
+- url: https://api-free.deepl.com/v2
+  description: DeepL Free
+security:
+- authKey: []
+tags:
+- name: Glossaries
+paths:
+  /glossaries:
+    get:
+      summary: List glossaries
+      operationId: listGlossaries
+      tags:
+      - Glossaries
+      responses:
+        '200':
+          description: A list of glossaries.
+    post:
+      summary: Create a glossary
+      operationId: createGlossary
+      tags:
+      - Glossaries
+      responses:
+        '201':
+          description: Glossary created.
+  /glossaries/{glossaryId}:
+    get:
+      summary: Get a glossary
+      operationId: getGlossary
+      tags:
+      - Glossaries
+      parameters:
+      - in: path
+        name: glossaryId
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: A glossary resource.
+    delete:
+      summary: Delete a glossary
+      operationId: deleteGlossary
+      tags:
+      - Glossaries
+      parameters:
+      - in: path
+        name: glossaryId
+        required: true
+        schema:
+          type: string
+      responses:
+        '204':
+          description: Glossary deleted.
+  /glossaries/{glossaryId}/entries:
+    get:
+      summary: Get glossary entries
+      operationId: getGlossaryEntries
+      tags:
+      - Glossaries
+      parameters:
+      - in: path
+        name: glossaryId
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Glossary entries.
+  /glossary-language-pairs:
+    get:
+      summary: List supported glossary language pairs
+      operationId: listGlossaryLanguagePairs
+      tags:
+      - Glossaries
+      responses:
+        '200':
+          description: Supported language pairs.
+components:
+  securitySchemes:
+    authKey:
+      type: apiKey
+      in: header
+      name: Authorization
+      description: DeepL-Auth-Key <key>
