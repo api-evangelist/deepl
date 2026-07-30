@@ -2,9 +2,22 @@ aid: deepl
 name: DeepL
 url: https://raw.githubusercontent.com/api-evangelist/deepl/refs/heads/main/apis.yml
 kind: company
+accessModel:
+  pricing: freemium
+  onboarding: self-serve
+  trial: false
+  try_now: true
+  public: false
+  label: Freemium · Self-serve signup
+  confidence: high
+  source:
+  - plans
+  - authentication
+  generated: '2026-07-22'
+  method: derived
 position: Consuming
 access: 3rd-Party
-image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/icons/deepl.png
 tags:
   - Artificial Intelligence
   - Deep Learning
@@ -22,65 +35,170 @@ description: >-
   Write. The DeepL API is offered in Pro and Free tiers and exposes endpoints for text translation, document
   translation, glossaries, language metadata, usage, and write/rephrase.
 apis:
-  - aid: deepl:deepl-translation-api
-    name: DeepL Translation API
-    description: >-
-      The DeepL Translation API provides programmatic access to DeepL's machine translation technology including text
-      translate, document translate, glossaries, language metadata, usage, and DeepL Write rephrasing.
-    humanURL: https://developers.deepl.com/
-    baseURL: https://api.deepl.com/v2
-    tags:
-      - Documents
-      - Glossaries
-      - Languages
-      - Translate
-      - Usage
-      - Write
-    properties:
-      - type: Documentation
-        url: https://developers.deepl.com/docs
-      - type: Reference
-        url: https://developers.deepl.com/docs/api-reference
-      - type: OpenAPI
-        url: openapi/deepl-translation-api-openapi.yml
-      - type: JSONSchema
-        url: json-schema/deepl-translation.json
-      - type: JSONSchema
-        url: json-schema/deepl-glossary.json
-      - type: Rules
-        url: rules/deepl-translation-api-rules.yml
-      - type: Capabilities
-        url: capabilities/deepl-translation-api-capabilities.yml
-  - aid: deepl:deepl-voice-api
-    name: DeepL Voice API
-    description: >-
-      The DeepL Voice API provides real-time speech transcription and translation. A POST to /v3/voice/realtime issues
-      an ephemeral token and WebSocket streaming URL; clients then open a WSS channel to stream source audio chunks and
-      receive incremental source-language transcriptions, translated transcriptions, and (closed beta) synthesized
-      translated audio. There is no documented webhook callback URL on the REST APIs; document translation remains
-      polling-based.
-    humanURL: https://developers.deepl.com/api-reference/voice
-    baseURL: https://api.deepl.com/v3
-    tags:
-      - Real-Time
-      - Speech-to-Text
-      - Streaming
-      - Transcription
-      - Translation
-      - Voice
-      - WebSocket
-    properties:
-      - type: Documentation
-        url: https://developers.deepl.com/api-reference/voice
-      - type: Reference
-        url: https://developers.deepl.com/api-reference/voice/websocket-streaming
-      - type: OpenAPI
-        url: openapi/deepl-voice-api-openapi.yml
-      - type: AsyncAPI
-        url: asyncapi/deepl-voice-api-asyncapi.yml
-      - type: AsyncAPI
-        url: https://developers.deepl.com/api-reference/voice.asyncapi.yaml
+- aid: deepl:deepl-voice-api
+  name: DeepL Voice API
+  description: >-
+    The DeepL Voice API provides real-time speech transcription and translation. A POST to /v3/voice/realtime
+    issues an ephemeral token and WebSocket streaming URL; clients then open a WSS channel to stream source
+    audio chunks and receive incremental source-language transcriptions, translated transcriptions, and
+    (closed beta) synthesized translated audio. There is no documented webhook callback URL on the REST
+    APIs; document translation remains polling-based.
+  humanURL: https://developers.deepl.com/api-reference/voice
+  baseURL: https://api.deepl.com/v3
+  tags:
+  - Real-Time
+  - Speech-to-Text
+  - Streaming
+  - Transcription
+  - Translation
+  - Voice
+  - WebSocket
+  properties:
+  - type: Documentation
+    url: https://developers.deepl.com/api-reference/voice
+  - type: Reference
+    url: https://developers.deepl.com/api-reference/voice/websocket-streaming
+  - type: OpenAPI
+    url: openapi/deepl-voice-api-openapi.yml
+  - type: AsyncAPI
+    url: asyncapi/deepl-voice-api-asyncapi.yml
+  - type: AsyncAPI
+    url: https://developers.deepl.com/api-reference/voice.asyncapi.yaml
+- aid: deepl:deepl-documents-api
+  name: DeepL Documents API
+  description: The Documents API from DeepL — 3 operation(s) for documents.
+  humanURL: https://developers.deepl.com/
+  baseURL: https://api.deepl.com/v2
+  tags:
+  - Documents
+  properties:
+  - type: OpenAPI
+    url: openapi/deepl-documents-api-openapi.yml
+  - type: Documentation
+    url: https://developers.deepl.com/docs
+  - type: Reference
+    url: https://developers.deepl.com/docs/api-reference
+  - type: JSONSchema
+    url: json-schema/deepl-translation.json
+  - type: JSONSchema
+    url: json-schema/deepl-glossary.json
+  - type: Rules
+    url: rules/deepl-translation-api-rules.yml
+  - type: Capabilities
+    url: capabilities/deepl-translation-api-capabilities.yml
+- aid: deepl:deepl-glossaries-api
+  name: DeepL Glossaries API
+  description: The Glossaries API from DeepL — 4 operation(s) for glossaries.
+  humanURL: https://developers.deepl.com/
+  baseURL: https://api.deepl.com/v2
+  tags:
+  - Glossaries
+  properties:
+  - type: OpenAPI
+    url: openapi/deepl-glossaries-api-openapi.yml
+  - type: Documentation
+    url: https://developers.deepl.com/docs
+  - type: Reference
+    url: https://developers.deepl.com/docs/api-reference
+  - type: JSONSchema
+    url: json-schema/deepl-translation.json
+  - type: JSONSchema
+    url: json-schema/deepl-glossary.json
+  - type: Rules
+    url: rules/deepl-translation-api-rules.yml
+  - type: Capabilities
+    url: capabilities/deepl-translation-api-capabilities.yml
+- aid: deepl:deepl-languages-api
+  name: DeepL Languages API
+  description: The Languages API from DeepL — 1 operation(s) for languages.
+  humanURL: https://developers.deepl.com/
+  baseURL: https://api.deepl.com/v2
+  tags:
+  - Languages
+  properties:
+  - type: OpenAPI
+    url: openapi/deepl-languages-api-openapi.yml
+  - type: Documentation
+    url: https://developers.deepl.com/docs
+  - type: Reference
+    url: https://developers.deepl.com/docs/api-reference
+  - type: JSONSchema
+    url: json-schema/deepl-translation.json
+  - type: JSONSchema
+    url: json-schema/deepl-glossary.json
+  - type: Rules
+    url: rules/deepl-translation-api-rules.yml
+  - type: Capabilities
+    url: capabilities/deepl-translation-api-capabilities.yml
+- aid: deepl:deepl-translate-api
+  name: DeepL Translate API
+  description: The Translate API from DeepL — 1 operation(s) for translate.
+  humanURL: https://developers.deepl.com/
+  baseURL: https://api.deepl.com/v2
+  tags:
+  - Translate
+  properties:
+  - type: OpenAPI
+    url: openapi/deepl-translate-api-openapi.yml
+  - type: Documentation
+    url: https://developers.deepl.com/docs
+  - type: Reference
+    url: https://developers.deepl.com/docs/api-reference
+  - type: JSONSchema
+    url: json-schema/deepl-translation.json
+  - type: JSONSchema
+    url: json-schema/deepl-glossary.json
+  - type: Rules
+    url: rules/deepl-translation-api-rules.yml
+  - type: Capabilities
+    url: capabilities/deepl-translation-api-capabilities.yml
+- aid: deepl:deepl-usage-api
+  name: DeepL Usage API
+  description: The Usage API from DeepL — 1 operation(s) for usage.
+  humanURL: https://developers.deepl.com/
+  baseURL: https://api.deepl.com/v2
+  tags:
+  - Usage
+  properties:
+  - type: OpenAPI
+    url: openapi/deepl-usage-api-openapi.yml
+  - type: Documentation
+    url: https://developers.deepl.com/docs
+  - type: Reference
+    url: https://developers.deepl.com/docs/api-reference
+  - type: JSONSchema
+    url: json-schema/deepl-translation.json
+  - type: JSONSchema
+    url: json-schema/deepl-glossary.json
+  - type: Rules
+    url: rules/deepl-translation-api-rules.yml
+  - type: Capabilities
+    url: capabilities/deepl-translation-api-capabilities.yml
+- aid: deepl:deepl-write-api
+  name: DeepL Write API
+  description: The Write API from DeepL — 1 operation(s) for write.
+  humanURL: https://developers.deepl.com/
+  baseURL: https://api.deepl.com/v2
+  tags:
+  - Write
+  properties:
+  - type: OpenAPI
+    url: openapi/deepl-write-api-openapi.yml
+  - type: Documentation
+    url: https://developers.deepl.com/docs
+  - type: Reference
+    url: https://developers.deepl.com/docs/api-reference
+  - type: JSONSchema
+    url: json-schema/deepl-translation.json
+  - type: JSONSchema
+    url: json-schema/deepl-glossary.json
+  - type: Rules
+    url: rules/deepl-translation-api-rules.yml
+  - type: Capabilities
+    url: capabilities/deepl-translation-api-capabilities.yml
 common:
+  - type: PostmanWorkspace
+    url: https://www.postman.com/kinlaneapi/deepl/overview
   - type: AgenticAccess
     url: agentic-access/deepl-agentic-access.yml
   - type: TrustCenter
