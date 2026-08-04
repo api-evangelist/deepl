@@ -1,0 +1,471 @@
+{
+  "info": {
+    "_postman_id": "379a5f01-3ae1-4374-b5d2-1699a3ab2243",
+    "name": "DeepL Translation Documents Glossaries API",
+    "description": "The DeepL API exposes machine translation, document translation, glossary management, write/improve, and usage endpoints. Both Pro and Free tiers are available, hosted on different base URLs.\n\nContact Support:\n Name: DeepL Developers",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-07-28T01:29:37.000Z",
+    "updatedAt": "2026-07-28T01:29:38.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-379a5f01-3ae1-4374-b5d2-1699a3ab2243"
+  },
+  "item": [
+    {
+      "name": "glossaries",
+      "item": [
+        {
+          "name": "{glossaryId}",
+          "item": [
+            {
+              "name": "entries",
+              "item": [
+                {
+                  "name": "Get glossary entries",
+                  "id": "47d68556-c2de-4b57-af46-0abea8b63c57",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "method": "GET",
+                    "header": [],
+                    "url": {
+                      "raw": "{{baseUrl}}/glossaries/:glossaryId/entries",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "glossaries",
+                        ":glossaryId",
+                        "entries"
+                      ],
+                      "variable": [
+                        {
+                          "id": "368008a7-e870-4164-9a79-503c300987f6",
+                          "key": "glossaryId",
+                          "value": "<string>",
+                          "description": "(Required) "
+                        }
+                      ]
+                    }
+                  },
+                  "response": [
+                    {
+                      "id": "7c4ebe89-f4fc-432a-b670-bf33f9fe8330",
+                      "name": "Glossary entries.",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "description": "Added as a part of security scheme: apikey",
+                            "key": "Authorization",
+                            "value": "<API Key>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/glossaries/:glossaryId/entries",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "glossaries",
+                            ":glossaryId",
+                            "entries"
+                          ],
+                          "variable": [
+                            {
+                              "key": "glossaryId"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "OK",
+                      "code": 200,
+                      "_postman_previewlanguage": "text",
+                      "header": [],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": null,
+                      "createdAt": "2026-07-28T01:29:38.000Z",
+                      "updatedAt": "2026-07-28T01:29:38.000Z",
+                      "uid": "35240-7c4ebe89-f4fc-432a-b670-bf33f9fe8330"
+                    }
+                  ],
+                  "createdAt": "2026-07-28T01:29:38.000Z",
+                  "updatedAt": "2026-07-28T01:29:38.000Z",
+                  "uid": "35240-47d68556-c2de-4b57-af46-0abea8b63c57"
+                }
+              ],
+              "id": "94913322-bb4b-4c3d-95fc-211616617270",
+              "createdAt": "2026-07-28T01:29:38.000Z",
+              "updatedAt": "2026-07-28T01:29:38.000Z",
+              "uid": "35240-94913322-bb4b-4c3d-95fc-211616617270"
+            },
+            {
+              "name": "Get a glossary",
+              "id": "2dd68e22-61a6-4055-828f-c8a696a7c15b",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{baseUrl}}/glossaries/:glossaryId",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "glossaries",
+                    ":glossaryId"
+                  ],
+                  "variable": [
+                    {
+                      "id": "d003b95b-fbfa-4c2e-b6d5-6491422a58af",
+                      "key": "glossaryId",
+                      "value": "<string>",
+                      "description": "(Required) "
+                    }
+                  ]
+                }
+              },
+              "response": [
+                {
+                  "id": "9c40a5eb-2a05-4008-9ef3-c3c570257dcd",
+                  "name": "A glossary resource.",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "description": "Added as a part of security scheme: apikey",
+                        "key": "Authorization",
+                        "value": "<API Key>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/glossaries/:glossaryId",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "glossaries",
+                        ":glossaryId"
+                      ],
+                      "variable": [
+                        {
+                          "key": "glossaryId"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "text",
+                  "header": [],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": null,
+                  "createdAt": "2026-07-28T01:29:38.000Z",
+                  "updatedAt": "2026-07-28T01:29:38.000Z",
+                  "uid": "35240-9c40a5eb-2a05-4008-9ef3-c3c570257dcd"
+                }
+              ],
+              "createdAt": "2026-07-28T01:29:38.000Z",
+              "updatedAt": "2026-07-28T01:29:38.000Z",
+              "uid": "35240-2dd68e22-61a6-4055-828f-c8a696a7c15b"
+            },
+            {
+              "name": "Delete a glossary",
+              "id": "db419a0f-1cac-4cf0-ae2e-fe58a4b218db",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "DELETE",
+                "header": [],
+                "url": {
+                  "raw": "{{baseUrl}}/glossaries/:glossaryId",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "glossaries",
+                    ":glossaryId"
+                  ],
+                  "variable": [
+                    {
+                      "id": "b13374a2-2817-4d5c-8772-4a5acbe1ac0e",
+                      "key": "glossaryId",
+                      "value": "<string>",
+                      "description": "(Required) "
+                    }
+                  ]
+                }
+              },
+              "response": [
+                {
+                  "id": "16540f09-cf76-41f6-8433-7c82ed81b59b",
+                  "name": "Glossary deleted.",
+                  "originalRequest": {
+                    "method": "DELETE",
+                    "header": [
+                      {
+                        "description": "Added as a part of security scheme: apikey",
+                        "key": "Authorization",
+                        "value": "<API Key>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/glossaries/:glossaryId",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "glossaries",
+                        ":glossaryId"
+                      ],
+                      "variable": [
+                        {
+                          "key": "glossaryId"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "No Content",
+                  "code": 204,
+                  "_postman_previewlanguage": "text",
+                  "header": [],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": null,
+                  "createdAt": "2026-07-28T01:29:38.000Z",
+                  "updatedAt": "2026-07-28T01:29:38.000Z",
+                  "uid": "35240-16540f09-cf76-41f6-8433-7c82ed81b59b"
+                }
+              ],
+              "createdAt": "2026-07-28T01:29:38.000Z",
+              "updatedAt": "2026-07-28T01:29:38.000Z",
+              "uid": "35240-db419a0f-1cac-4cf0-ae2e-fe58a4b218db"
+            }
+          ],
+          "id": "9660ae78-763f-43b1-a60d-7cdaa20e3d05",
+          "createdAt": "2026-07-28T01:29:38.000Z",
+          "updatedAt": "2026-07-28T01:29:38.000Z",
+          "uid": "35240-9660ae78-763f-43b1-a60d-7cdaa20e3d05"
+        },
+        {
+          "name": "List glossaries",
+          "id": "52cee2e5-1783-43fe-873b-e2ec66c7bda4",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/glossaries",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "glossaries"
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "bd69e9cb-66f1-4898-a5c8-d4ac35fe742c",
+              "name": "A list of glossaries.",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "description": "Added as a part of security scheme: apikey",
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/glossaries",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "glossaries"
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "text",
+              "header": [],
+              "cookie": [],
+              "responseTime": null,
+              "body": null,
+              "createdAt": "2026-07-28T01:29:38.000Z",
+              "updatedAt": "2026-07-28T01:29:38.000Z",
+              "uid": "35240-bd69e9cb-66f1-4898-a5c8-d4ac35fe742c"
+            }
+          ],
+          "createdAt": "2026-07-28T01:29:38.000Z",
+          "updatedAt": "2026-07-28T01:29:38.000Z",
+          "uid": "35240-52cee2e5-1783-43fe-873b-e2ec66c7bda4"
+        },
+        {
+          "name": "Create a glossary",
+          "id": "612516d8-3391-436c-ae71-d27b45aed8b0",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "POST",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/glossaries",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "glossaries"
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "2c81a29a-dbc5-483e-9023-724348911967",
+              "name": "Glossary created.",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "description": "Added as a part of security scheme: apikey",
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/glossaries",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "glossaries"
+                  ]
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "_postman_previewlanguage": "text",
+              "header": [],
+              "cookie": [],
+              "responseTime": null,
+              "body": null,
+              "createdAt": "2026-07-28T01:29:38.000Z",
+              "updatedAt": "2026-07-28T01:29:38.000Z",
+              "uid": "35240-2c81a29a-dbc5-483e-9023-724348911967"
+            }
+          ],
+          "createdAt": "2026-07-28T01:29:38.000Z",
+          "updatedAt": "2026-07-28T01:29:38.000Z",
+          "uid": "35240-612516d8-3391-436c-ae71-d27b45aed8b0"
+        }
+      ],
+      "id": "c6151498-22d8-40b8-a834-aabcf5808ce1",
+      "createdAt": "2026-07-28T01:29:38.000Z",
+      "updatedAt": "2026-07-28T01:29:38.000Z",
+      "uid": "35240-c6151498-22d8-40b8-a834-aabcf5808ce1"
+    },
+    {
+      "name": "glossary-language-pairs",
+      "item": [
+        {
+          "name": "List supported glossary language pairs",
+          "id": "95a162d4-78a9-4d07-b5cc-3dbaa281713e",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/glossary-language-pairs",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "glossary-language-pairs"
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "b39d0673-9303-410f-8b15-0f27b51eb0de",
+              "name": "Supported language pairs.",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "description": "Added as a part of security scheme: apikey",
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/glossary-language-pairs",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "glossary-language-pairs"
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "text",
+              "header": [],
+              "cookie": [],
+              "responseTime": null,
+              "body": null,
+              "createdAt": "2026-07-28T01:29:38.000Z",
+              "updatedAt": "2026-07-28T01:29:38.000Z",
+              "uid": "35240-b39d0673-9303-410f-8b15-0f27b51eb0de"
+            }
+          ],
+          "createdAt": "2026-07-28T01:29:38.000Z",
+          "updatedAt": "2026-07-28T01:29:38.000Z",
+          "uid": "35240-95a162d4-78a9-4d07-b5cc-3dbaa281713e"
+        }
+      ],
+      "id": "289cd01a-4e24-442b-bbe7-1941bdb72e80",
+      "createdAt": "2026-07-28T01:29:38.000Z",
+      "updatedAt": "2026-07-28T01:29:38.000Z",
+      "uid": "35240-289cd01a-4e24-442b-bbe7-1941bdb72e80"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "Authorization",
+        "type": "string"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}",
+        "type": "string"
+      },
+      {
+        "key": "in",
+        "value": "header",
+        "type": "string"
+      }
+    ]
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "https://api.deepl.com/v2"
+    }
+  ]
+}

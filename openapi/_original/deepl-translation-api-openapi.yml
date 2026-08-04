@@ -1,0 +1,187 @@
+openapi: 3.1.0
+info:
+  title: DeepL Translation API
+  description: >-
+    The DeepL API exposes machine translation, document translation,
+    glossary management, write/improve, and usage endpoints. Both Pro and
+    Free tiers are available, hosted on different base URLs.
+  version: "2"
+  contact:
+    name: DeepL Developers
+    url: https://developers.deepl.com/
+servers:
+  - url: https://api.deepl.com/v2
+    description: DeepL Pro
+  - url: https://api-free.deepl.com/v2
+    description: DeepL Free
+tags:
+  - name: Translate
+  - name: Documents
+  - name: Glossaries
+  - name: Languages
+  - name: Usage
+  - name: Write
+paths:
+  /translate:
+    post:
+      summary: Translate text
+      operationId: translateText
+      tags: [Translate]
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                text:
+                  type: array
+                  items:
+                    type: string
+                source_lang:
+                  type: string
+                target_lang:
+                  type: string
+                formality:
+                  type: string
+                  enum: [default, more, less, prefer_more, prefer_less]
+                glossary_id:
+                  type: string
+              required:
+                - text
+                - target_lang
+      responses:
+        "200":
+          description: Translated texts and detected source language.
+  /document:
+    post:
+      summary: Upload a document for translation
+      operationId: uploadDocument
+      tags: [Documents]
+      responses:
+        "200":
+          description: Document uploaded; translation in progress.
+  /document/{documentId}:
+    get:
+      summary: Check document translation status
+      operationId: getDocumentStatus
+      tags: [Documents]
+      parameters:
+        - in: path
+          name: documentId
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Document status.
+  /document/{documentId}/result:
+    get:
+      summary: Download translated document
+      operationId: downloadDocument
+      tags: [Documents]
+      parameters:
+        - in: path
+          name: documentId
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Translated document.
+  /glossaries:
+    get:
+      summary: List glossaries
+      operationId: listGlossaries
+      tags: [Glossaries]
+      responses:
+        "200":
+          description: A list of glossaries.
+    post:
+      summary: Create a glossary
+      operationId: createGlossary
+      tags: [Glossaries]
+      responses:
+        "201":
+          description: Glossary created.
+  /glossaries/{glossaryId}:
+    get:
+      summary: Get a glossary
+      operationId: getGlossary
+      tags: [Glossaries]
+      parameters:
+        - in: path
+          name: glossaryId
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: A glossary resource.
+    delete:
+      summary: Delete a glossary
+      operationId: deleteGlossary
+      tags: [Glossaries]
+      parameters:
+        - in: path
+          name: glossaryId
+          required: true
+          schema:
+            type: string
+      responses:
+        "204":
+          description: Glossary deleted.
+  /glossaries/{glossaryId}/entries:
+    get:
+      summary: Get glossary entries
+      operationId: getGlossaryEntries
+      tags: [Glossaries]
+      parameters:
+        - in: path
+          name: glossaryId
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Glossary entries.
+  /glossary-language-pairs:
+    get:
+      summary: List supported glossary language pairs
+      operationId: listGlossaryLanguagePairs
+      tags: [Glossaries]
+      responses:
+        "200":
+          description: Supported language pairs.
+  /languages:
+    get:
+      summary: List supported languages
+      operationId: listLanguages
+      tags: [Languages]
+      responses:
+        "200":
+          description: Supported source/target languages.
+  /usage:
+    get:
+      summary: Retrieve usage and quota
+      operationId: getUsage
+      tags: [Usage]
+      responses:
+        "200":
+          description: Character usage and quota for the current billing period.
+  /write/rephrase:
+    post:
+      summary: Rephrase or improve text
+      operationId: rephraseText
+      tags: [Write]
+      responses:
+        "200":
+          description: Rephrased text using DeepL Write.
+components:
+  securitySchemes:
+    authKey:
+      type: apiKey
+      in: header
+      name: Authorization
+      description: "DeepL-Auth-Key <key>"
+security:
+  - authKey: []

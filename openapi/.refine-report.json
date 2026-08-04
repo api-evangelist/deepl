@@ -1,0 +1,26 @@
+{
+  "provider": "deepl",
+  "sources": [
+    "deepl-documents-api-openapi.yml",
+    "deepl-glossaries-api-openapi.yml",
+    "deepl-languages-api-openapi.yml",
+    "deepl-translate-api-openapi.yml",
+    "deepl-usage-api-openapi.yml",
+    "deepl-voice-api-openapi.yml",
+    "deepl-write-api-openapi.yml"
+  ],
+  "outputs": [
+    "deepl-documents-api-openapi.yml",
+    "deepl-glossaries-api-openapi.yml",
+    "deepl-languages-api-openapi.yml",
+    "deepl-translate-api-openapi.yml",
+    "deepl-usage-api-openapi.yml",
+    "deepl-voice-api-openapi.yml",
+    "deepl-write-api-openapi.yml"
+  ],
+  "archived": [],
+  "errors": [],
+  "warnings": [],
+  "notes": [],
+  "skipped": []
+}

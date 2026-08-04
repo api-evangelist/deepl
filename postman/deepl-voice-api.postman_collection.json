@@ -1,0 +1,248 @@
+{
+  "info": {
+    "_postman_id": "48111140-7676-4cf4-81fa-dd0463a6e306",
+    "name": "DeepL Translation Documents Voice API",
+    "description": "The DeepL API exposes machine translation, document translation, glossary management, write/improve, and usage endpoints. Both Pro and Free tiers are available, hosted on different base URLs.\n\nContact Support:\n Name: DeepL Developers",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-07-28T01:29:36.000Z",
+    "updatedAt": "2026-07-28T01:29:36.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-48111140-7676-4cf4-81fa-dd0463a6e306"
+  },
+  "item": [
+    {
+      "name": "voice",
+      "item": [
+        {
+          "name": "realtime",
+          "item": [
+            {
+              "name": "Request a real-time voice session",
+              "id": "b496955d-9144-4c99-9fc2-f985e05ace9b",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"source_media_content_type\": \"<string>\",\n  \"message_format\": \"json\",\n  \"source_language\": \"<string>\",\n  \"source_language_mode\": \"auto\",\n  \"target_languages\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"target_media_languages\": [\n    \"<string>\"\n  ],\n  \"target_media_content_type\": \"<string>\",\n  \"target_media_voice\": \"male\",\n  \"spoken_terms_id\": \"<uuid>\",\n  \"glossary_id\": \"<string>\",\n  \"formality\": \"default\"\n}",
+                  "options": {
+                    "raw": {
+                      "headerFamily": "json",
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/voice/realtime",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "voice",
+                    "realtime"
+                  ]
+                }
+              },
+              "response": [
+                {
+                  "id": "1502196b-c865-4e67-86f0-7d98e3129487",
+                  "name": "Session created. Returns the WebSocket streaming URL and an ephemeral token.",
+                  "originalRequest": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: apikey",
+                        "key": "Authorization",
+                        "value": "<API Key>"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"source_media_content_type\": \"<string>\",\n  \"message_format\": \"json\",\n  \"source_language\": \"<string>\",\n  \"source_language_mode\": \"auto\",\n  \"target_languages\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"target_media_languages\": [\n    \"<string>\"\n  ],\n  \"target_media_content_type\": \"<string>\",\n  \"target_media_voice\": \"male\",\n  \"spoken_terms_id\": \"<uuid>\",\n  \"glossary_id\": \"<string>\",\n  \"formality\": \"default\"\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/voice/realtime",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "voice",
+                        "realtime"
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"streaming_url\": \"<uri>\",\n  \"token\": \"<string>\",\n  \"session_id\": \"<uuid>\"\n}",
+                  "createdAt": "2026-07-28T01:29:36.000Z",
+                  "updatedAt": "2026-07-28T01:29:36.000Z",
+                  "uid": "35240-1502196b-c865-4e67-86f0-7d98e3129487"
+                }
+              ],
+              "createdAt": "2026-07-28T01:29:36.000Z",
+              "updatedAt": "2026-07-28T01:29:36.000Z",
+              "uid": "35240-b496955d-9144-4c99-9fc2-f985e05ace9b"
+            },
+            {
+              "name": "Reconnect to an existing real-time voice session",
+              "id": "cc995b69-330f-4644-9778-8ddd9c2fe4d1",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/voice/realtime?token=<string>",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "voice",
+                    "realtime"
+                  ],
+                  "query": [
+                    {
+                      "description": "(Required) The latest ephemeral token obtained for the stream.",
+                      "key": "token",
+                      "value": "<string>"
+                    }
+                  ]
+                }
+              },
+              "response": [
+                {
+                  "id": "9288f051-8e03-46e7-8084-b98c9d5dbf12",
+                  "name": "Reconnect details. Returns a fresh streaming URL and token.",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: apikey",
+                        "key": "Authorization",
+                        "value": "<API Key>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/voice/realtime?token=<string>",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "voice",
+                        "realtime"
+                      ],
+                      "query": [
+                        {
+                          "description": "(Required) The latest ephemeral token obtained for the stream.",
+                          "key": "token",
+                          "value": "<string>"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"streaming_url\": \"<uri>\",\n  \"token\": \"<string>\",\n  \"session_id\": \"<uuid>\"\n}",
+                  "createdAt": "2026-07-28T01:29:36.000Z",
+                  "updatedAt": "2026-07-28T01:29:36.000Z",
+                  "uid": "35240-9288f051-8e03-46e7-8084-b98c9d5dbf12"
+                }
+              ],
+              "createdAt": "2026-07-28T01:29:36.000Z",
+              "updatedAt": "2026-07-28T01:29:36.000Z",
+              "uid": "35240-cc995b69-330f-4644-9778-8ddd9c2fe4d1"
+            }
+          ],
+          "id": "df51eefe-31ea-4b05-a2e0-9878fc139c71",
+          "createdAt": "2026-07-28T01:29:36.000Z",
+          "updatedAt": "2026-07-28T01:29:36.000Z",
+          "uid": "35240-df51eefe-31ea-4b05-a2e0-9878fc139c71"
+        }
+      ],
+      "id": "50aae4e5-6f34-4dfc-bd86-63bd07415716",
+      "createdAt": "2026-07-28T01:29:36.000Z",
+      "updatedAt": "2026-07-28T01:29:36.000Z",
+      "uid": "35240-50aae4e5-6f34-4dfc-bd86-63bd07415716"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "Authorization",
+        "type": "string"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}",
+        "type": "string"
+      },
+      {
+        "key": "in",
+        "value": "header",
+        "type": "string"
+      }
+    ]
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "https://api.deepl.com/v2"
+    }
+  ]
+}

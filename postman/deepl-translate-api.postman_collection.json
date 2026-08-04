@@ -1,0 +1,136 @@
+{
+  "info": {
+    "_postman_id": "7bba2469-22c7-4db6-9ee3-76ee2031dd17",
+    "name": "DeepL Translation Documents Translate API",
+    "description": "The DeepL API exposes machine translation, document translation, glossary management, write/improve, and usage endpoints. Both Pro and Free tiers are available, hosted on different base URLs.\n\nContact Support:\n Name: DeepL Developers",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-07-28T01:29:39.000Z",
+    "updatedAt": "2026-07-28T01:29:40.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-7bba2469-22c7-4db6-9ee3-76ee2031dd17"
+  },
+  "item": [
+    {
+      "name": "translate",
+      "item": [
+        {
+          "name": "Translate text",
+          "id": "7e083f82-cf78-4b86-8fa1-8e8fdf0c6137",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"text\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"target_lang\": \"<string>\",\n  \"source_lang\": \"<string>\",\n  \"formality\": \"more\",\n  \"glossary_id\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "headerFamily": "json",
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/translate",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "translate"
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "22323aba-eb0d-4f6e-afe2-61c3b64be1b1",
+              "name": "Translated texts and detected source language.",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: apikey",
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"text\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"target_lang\": \"<string>\",\n  \"source_lang\": \"<string>\",\n  \"formality\": \"more\",\n  \"glossary_id\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "headerFamily": "json",
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/translate",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "translate"
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "text",
+              "header": [],
+              "cookie": [],
+              "responseTime": null,
+              "body": null,
+              "createdAt": "2026-07-28T01:29:40.000Z",
+              "updatedAt": "2026-07-28T01:29:40.000Z",
+              "uid": "35240-22323aba-eb0d-4f6e-afe2-61c3b64be1b1"
+            }
+          ],
+          "createdAt": "2026-07-28T01:29:40.000Z",
+          "updatedAt": "2026-07-28T01:29:40.000Z",
+          "uid": "35240-7e083f82-cf78-4b86-8fa1-8e8fdf0c6137"
+        }
+      ],
+      "id": "dd522a46-34a9-43ad-bb59-3dc314698bc1",
+      "createdAt": "2026-07-28T01:29:40.000Z",
+      "updatedAt": "2026-07-28T01:29:40.000Z",
+      "uid": "35240-dd522a46-34a9-43ad-bb59-3dc314698bc1"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "Authorization",
+        "type": "string"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}",
+        "type": "string"
+      },
+      {
+        "key": "in",
+        "value": "header",
+        "type": "string"
+      }
+    ]
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "https://api.deepl.com/v2"
+    }
+  ]
+}

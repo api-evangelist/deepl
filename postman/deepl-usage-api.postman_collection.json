@@ -1,0 +1,107 @@
+{
+  "info": {
+    "_postman_id": "d397366f-6c71-4ef7-ad2c-893e2080998d",
+    "name": "DeepL Translation Documents Usage API",
+    "description": "The DeepL API exposes machine translation, document translation, glossary management, write/improve, and usage endpoints. Both Pro and Free tiers are available, hosted on different base URLs.\n\nContact Support:\n Name: DeepL Developers",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-07-28T01:29:40.000Z",
+    "updatedAt": "2026-07-28T01:29:40.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-d397366f-6c71-4ef7-ad2c-893e2080998d"
+  },
+  "item": [
+    {
+      "name": "usage",
+      "item": [
+        {
+          "name": "Retrieve usage and quota",
+          "id": "9ac2a465-4fc6-4aad-bacc-b952a38f8109",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/usage",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "usage"
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "22ffbd3a-9f86-4dfb-ab4b-1bfe81f34e07",
+              "name": "Character usage and quota for the current billing period.",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "description": "Added as a part of security scheme: apikey",
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/usage",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "usage"
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "text",
+              "header": [],
+              "cookie": [],
+              "responseTime": null,
+              "body": null,
+              "createdAt": "2026-07-28T01:29:41.000Z",
+              "updatedAt": "2026-07-28T01:29:41.000Z",
+              "uid": "35240-22ffbd3a-9f86-4dfb-ab4b-1bfe81f34e07"
+            }
+          ],
+          "createdAt": "2026-07-28T01:29:41.000Z",
+          "updatedAt": "2026-07-28T01:29:41.000Z",
+          "uid": "35240-9ac2a465-4fc6-4aad-bacc-b952a38f8109"
+        }
+      ],
+      "id": "8d1cd3bd-403b-4914-bb2a-2b406241d5a7",
+      "createdAt": "2026-07-28T01:29:41.000Z",
+      "updatedAt": "2026-07-28T01:29:41.000Z",
+      "uid": "35240-8d1cd3bd-403b-4914-bb2a-2b406241d5a7"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "Authorization",
+        "type": "string"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}",
+        "type": "string"
+      },
+      {
+        "key": "in",
+        "value": "header",
+        "type": "string"
+      }
+    ]
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "https://api.deepl.com/v2"
+    }
+  ]
+}

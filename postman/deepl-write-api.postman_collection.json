@@ -1,0 +1,118 @@
+{
+  "info": {
+    "_postman_id": "fe7c6985-bf50-4df4-a9b7-25004127830e",
+    "name": "DeepL Translation Documents Write API",
+    "description": "The DeepL API exposes machine translation, document translation, glossary management, write/improve, and usage endpoints. Both Pro and Free tiers are available, hosted on different base URLs.\n\nContact Support:\n Name: DeepL Developers",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-07-28T01:30:16.000Z",
+    "updatedAt": "2026-07-28T01:30:16.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-fe7c6985-bf50-4df4-a9b7-25004127830e"
+  },
+  "item": [
+    {
+      "name": "write",
+      "item": [
+        {
+          "name": "rephrase",
+          "item": [
+            {
+              "name": "Rephrase or improve text",
+              "id": "e2c43516-497c-49dc-a8c1-f0c597b3fae4",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "POST",
+                "header": [],
+                "url": {
+                  "raw": "{{baseUrl}}/write/rephrase",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "write",
+                    "rephrase"
+                  ]
+                }
+              },
+              "response": [
+                {
+                  "id": "c4d5f0c5-8dca-4359-a64a-fbf0cffbe9d9",
+                  "name": "Rephrased text using DeepL Write.",
+                  "originalRequest": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "description": "Added as a part of security scheme: apikey",
+                        "key": "Authorization",
+                        "value": "<API Key>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/write/rephrase",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "write",
+                        "rephrase"
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "text",
+                  "header": [],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": null,
+                  "createdAt": "2026-07-28T01:30:17.000Z",
+                  "updatedAt": "2026-07-28T01:30:17.000Z",
+                  "uid": "35240-c4d5f0c5-8dca-4359-a64a-fbf0cffbe9d9"
+                }
+              ],
+              "createdAt": "2026-07-28T01:30:17.000Z",
+              "updatedAt": "2026-07-28T01:30:17.000Z",
+              "uid": "35240-e2c43516-497c-49dc-a8c1-f0c597b3fae4"
+            }
+          ],
+          "id": "d51cc3c0-365a-4dd9-8be7-ae794d0c0ff6",
+          "createdAt": "2026-07-28T01:30:17.000Z",
+          "updatedAt": "2026-07-28T01:30:17.000Z",
+          "uid": "35240-d51cc3c0-365a-4dd9-8be7-ae794d0c0ff6"
+        }
+      ],
+      "id": "908a0d93-7878-4e8a-af73-2c56d0af8fc5",
+      "createdAt": "2026-07-28T01:30:17.000Z",
+      "updatedAt": "2026-07-28T01:30:17.000Z",
+      "uid": "35240-908a0d93-7878-4e8a-af73-2c56d0af8fc5"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "Authorization",
+        "type": "string"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}",
+        "type": "string"
+      },
+      {
+        "key": "in",
+        "value": "header",
+        "type": "string"
+      }
+    ]
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "https://api.deepl.com/v2"
+    }
+  ]
+}
