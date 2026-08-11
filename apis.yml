@@ -84,8 +84,6 @@ apis:
     url: json-schema/deepl-glossary.json
   - type: Rules
     url: rules/deepl-translation-api-rules.yml
-  - type: Capabilities
-    url: capabilities/deepl-translation-api-capabilities.yml
 - aid: deepl:deepl-glossaries-api
   name: DeepL Glossaries API
   description: The Glossaries API from DeepL — 4 operation(s) for glossaries.
@@ -106,8 +104,6 @@ apis:
     url: json-schema/deepl-glossary.json
   - type: Rules
     url: rules/deepl-translation-api-rules.yml
-  - type: Capabilities
-    url: capabilities/deepl-translation-api-capabilities.yml
 - aid: deepl:deepl-languages-api
   name: DeepL Languages API
   description: The Languages API from DeepL — 1 operation(s) for languages.
@@ -128,8 +124,6 @@ apis:
     url: json-schema/deepl-glossary.json
   - type: Rules
     url: rules/deepl-translation-api-rules.yml
-  - type: Capabilities
-    url: capabilities/deepl-translation-api-capabilities.yml
 - aid: deepl:deepl-translate-api
   name: DeepL Translate API
   description: The Translate API from DeepL — 1 operation(s) for translate.
@@ -150,8 +144,6 @@ apis:
     url: json-schema/deepl-glossary.json
   - type: Rules
     url: rules/deepl-translation-api-rules.yml
-  - type: Capabilities
-    url: capabilities/deepl-translation-api-capabilities.yml
 - aid: deepl:deepl-usage-api
   name: DeepL Usage API
   description: The Usage API from DeepL — 1 operation(s) for usage.
@@ -172,8 +164,6 @@ apis:
     url: json-schema/deepl-glossary.json
   - type: Rules
     url: rules/deepl-translation-api-rules.yml
-  - type: Capabilities
-    url: capabilities/deepl-translation-api-capabilities.yml
 - aid: deepl:deepl-write-api
   name: DeepL Write API
   description: The Write API from DeepL — 1 operation(s) for write.
@@ -194,8 +184,6 @@ apis:
     url: json-schema/deepl-glossary.json
   - type: Rules
     url: rules/deepl-translation-api-rules.yml
-  - type: Capabilities
-    url: capabilities/deepl-translation-api-capabilities.yml
 common:
   - type: PostmanWorkspace
     url: https://www.postman.com/kinlaneapi/deepl/overview
