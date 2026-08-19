@@ -28,7 +28,7 @@ tags:
   - Translation
 created: '2024-11-07'
 modified: '2026-05-30'
-specificationVersion: '0.19'
+specificationVersion: '0.23'
 description: >-
   DeepL is an AI-powered translation service that delivers high-quality machine translation between dozens of languages,
   with support for context-aware translation, document translation, glossaries, and rephrasing/improvement via DeepL
