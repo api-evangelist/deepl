@@ -1,7 +1,7 @@
 {
   "item": [
     {
-      "id": "e6f5e227-cbf8-4a00-acbe-5c8b5073e71f",
+      "id": "67cb75ac-fede-4917-a240-ad5e0d8b738b",
       "name": "Voice",
       "description": {
         "content": "",
@@ -9,7 +9,7 @@
       },
       "item": [
         {
-          "id": "141f5aee-6d04-4de5-965b-0d6c370ce4ad",
+          "id": "36b2ce6b-b3b4-4520-b8f6-b10451b63134",
           "name": "Request a real-time voice session",
           "request": {
             "name": "Request a real-time voice session",
@@ -49,7 +49,7 @@
           },
           "response": [
             {
-              "id": "18814bc8-edc3-434c-beca-e4e3cfeaa69c",
+              "id": "2469e68f-b0b6-448b-9ebe-f735fe96ff5c",
               "name": "Session created. Returns the WebSocket streaming URL and an ephemeral token.",
               "originalRequest": {
                 "url": {
@@ -96,7 +96,7 @@
                   "value": "application/json"
                 }
               ],
-              "body": "{\n  \"streaming_url\": \"http://JGF.kmnGs4T+jIGgKGt3my\",\n  \"token\": \"string\",\n  \"session_id\": \"ba053cfc-33f0-1e7d-f5f6-85a4247f68f6\"\n}",
+              "body": "{\n  \"streaming_url\": \"http://GCXrGEsujJoVjOsUQt.hjyvyvuFVG3QjYLqiRb8X4gEEOpW9vis8oNxUoakN\",\n  \"token\": \"string\",\n  \"session_id\": \"29d5164e-580f-e170-223f-c18884e987e5\"\n}",
               "cookie": [],
               "_postman_previewlanguage": "json"
             }
@@ -107,7 +107,7 @@
           }
         },
         {
-          "id": "0dafa6dd-8391-4821-a076-20417dce71d0",
+          "id": "9ef4bf22-ccba-4d3e-bf77-bc6b217a1491",
           "name": "Reconnect to an existing real-time voice session",
           "request": {
             "name": "Reconnect to an existing real-time voice session",
@@ -141,7 +141,7 @@
           },
           "response": [
             {
-              "id": "c46fe32d-1814-46ff-b060-0c68ddb1ba01",
+              "id": "c31b45ee-7662-4661-8a03-b63d165445ab",
               "name": "Reconnect details. Returns a fresh streaming URL and token.",
               "originalRequest": {
                 "url": {
@@ -185,7 +185,7 @@
                   "value": "application/json"
                 }
               ],
-              "body": "{\n  \"streaming_url\": \"http://JGF.kmnGs4T+jIGgKGt3my\",\n  \"token\": \"string\",\n  \"session_id\": \"ba053cfc-33f0-1e7d-f5f6-85a4247f68f6\"\n}",
+              "body": "{\n  \"streaming_url\": \"http://GCXrGEsujJoVjOsUQt.hjyvyvuFVG3QjYLqiRb8X4gEEOpW9vis8oNxUoakN\",\n  \"token\": \"string\",\n  \"session_id\": \"29d5164e-580f-e170-223f-c18884e987e5\"\n}",
               "cookie": [],
               "_postman_previewlanguage": "json"
             }
@@ -203,7 +203,7 @@
   "variable": [
     {
       "type": "string",
-      "value": "https://api.deepl.com/v3",
+      "value": "https://api.deepl.com/v2",
       "key": "baseUrl"
     }
   ],
@@ -225,11 +225,11 @@
     ]
   },
   "info": {
-    "_postman_id": "fa1431e9-c0bd-4042-8503-fcb0de3b2929",
-    "name": "DeepL Voice API",
+    "_postman_id": "3594e9a3-246a-4746-b50d-98ec54d07d07",
+    "name": "DeepL Translation Documents Voice API",
     "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
     "description": {
-      "content": "REST surface of the DeepL Voice API used to request and reconnect a real-time voice transcription / translation session. The session metadata returned by these endpoints (streaming_url + token) is then used to establish a WebSocket connection described by the companion AsyncAPI specification.\n\nContact Support:\n Name: DeepL Developers",
+      "content": "The DeepL API exposes machine translation, document translation, glossary management, write/improve, and usage endpoints. Both Pro and Free tiers are available, hosted on different base URLs.\n\nContact Support:\n Name: DeepL Developers",
       "type": "text/plain"
     }
   }

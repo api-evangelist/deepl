@@ -1,0 +1,41 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "DeepL Translation Documents Translate API",
+    "version": "2"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "Authorization",
+      "value": "{{Authorization}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Translate",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Translate text",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.deepl.com/v2/translate",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Translate text"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

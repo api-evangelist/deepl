@@ -1,0 +1,37 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "DeepL Translation Documents Write API",
+    "version": "2"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "Authorization",
+      "value": "{{Authorization}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Write",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Rephrase or improve text",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.deepl.com/v2/write/rephrase"
+          },
+          "docs": "Rephrase or improve text"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

@@ -1,0 +1,144 @@
+# DeepL Documentation
+
+## Docs
+
+- [Quickstart](https://developers.deepl.com/docs/getting-started/quickstart.md)
+- [About](https://developers.deepl.com/docs/getting-started/about.md)
+- [SDKs](https://developers.deepl.com/docs/getting-started/client-libraries.md): Using your favorite programming language with the DeepL API
+- [Languages supported](https://developers.deepl.com/docs/getting-started/supported-languages.md): The DeepL API supports the following languages.
+- [Using the Languages API](https://developers.deepl.com/docs/languages/using-the-languages-api.md): Retrieve supported language and feature data across all DeepL API resources with the v3/languages endpoints, with pseudocode examples for common lookup patterns.
+- [Migrating from v2/languages](https://developers.deepl.com/docs/languages/migrating-from-v2-languages.md): How to migrate from the v2/languages endpoint to the v3/languages endpoints.
+- [Language release process](https://developers.deepl.com/docs/resources/language-release-process.md): Here's what API users can expect when DeepL adds translation support for a new language or language variant.
+- [Regional API Endpoints](https://developers.deepl.com/docs/getting-started/regional-endpoints.md): Reference documentation for DeepL's regional API endpoints, including endpoint URLs, configuration, and technical specifications.
+- [Estimating Character Usage](https://developers.deepl.com/docs/best-practices/estimating-character-usage.md): Learn how to estimate your DeepL API character usage to find the right plan.
+- [Pre-production checklist](https://developers.deepl.com/docs/best-practices/pre-production-checklist.md): Here's what we recommend reviewing to get your DeepL API application ready for production.
+- [Error handling](https://developers.deepl.com/docs/best-practices/error-handling.md)
+- [Subscription-level cost control](https://developers.deepl.com/docs/best-practices/cost-control.md)
+- [CORS requests](https://developers.deepl.com/docs/best-practices/cors-requests.md)
+- [Usage and limits](https://developers.deepl.com/docs/resources/usage-limits.md)
+- [Automating Indie Game Localization with the DeepL API and Godot](https://developers.deepl.com/docs/learning-how-tos/cookbook/automating-indie-game-localization-with-the-deepl-api-and-godot.md): Efficiently translate content for a global audience and widen your game's reach
+- [Making API calls from client-side JavaScript](https://developers.deepl.com/docs/learning-how-tos/cookbook/nodejs-proxy.md): Two lightweight local proxies that let you try the DeepL API directly from a website
+- [Building a Document Translator with the DeepL API](https://developers.deepl.com/docs/learning-how-tos/cookbook/java-document-translator.md): Streamline document localization workflows with automated translation for businesses and developers
+- [Usage Analytics Dashboard](https://developers.deepl.com/docs/learning-how-tos/cookbook/usage-analytics-dashboard.md): A demo dashboard for visualizing DeepL API key usage across an entire account using the Admin API.
+- [Sending Custom Reporting Tags with Client Libraries](https://developers.deepl.com/docs/learning-how-tos/cookbook/sending-custom-reporting-tags-from-client-libraries.md): Code snippets for attaching X-DeepL-Reporting-Tag to translate requests using the official DeepL client libraries.
+- [API Usage Logger](https://developers.deepl.com/docs/learning-how-tos/cookbook/api-usage-logger.md): Learn how to capture per-request DeepL API usage data and visualize it in a local dashboard.
+- [DeepL MCP Server: How to build and use translation in LLM applications](https://developers.deepl.com/docs/learning-how-tos/examples-and-guides/deepl-mcp-server-how-to-build-and-use-translation-in-llm-applications.md): Efficiently translate content with AI-powered translation and enhance your interactions with large language models.
+- [Project: Google Sheets](https://developers.deepl.com/docs/learning-how-tos/cookbook/google-sheets.md): Open-source example showing how to build a Google Sheets App using the DeepL API.
+- [DeepL CLI](https://developers.deepl.com/docs/getting-started/deepl-cli.md): Install and use the DeepL CLI to translate text, documents, and more from your terminal.
+- [DeepL MCP Server](https://developers.deepl.com/docs/getting-started/deepl-mcp-server.md): Use the DeepL MCP Server to add translation capabilities to Claude, Cursor, and other AI agents.
+- [Docs MCP Server](https://developers.deepl.com/docs/getting-started/docs-mcp-server.md): Connect your AI tools to the DeepL developer documentation for source-grounded answers about the DeepL API.
+- [Postman](https://developers.deepl.com/docs/getting-started/test-your-api-requests-with-postman.md): Use our official Postman collection to get familiar with and test the DeepL API.
+- [Developer Community](https://developers.deepl.com/docs/resources/deepl-developer-community.md)
+- [OpenAPI spec](https://developers.deepl.com/docs/resources/open-api-spec.md): Download the OpenAPI specification for the DeepL API
+- [API Status Page](https://developers.deepl.com/docs/resources/api-status-page.md): Monitor the operational status and availability of the DeepL API
+- [Changelog](https://developers.deepl.com/docs/resources/roadmap-and-release-notes.md): The latest features and improvements in the DeepL API, plus what's coming next
+- [Alpha and beta features](https://developers.deepl.com/docs/resources/alpha-and-beta-features.md): Learn more about alpha and beta features in the DeepL API and how to best make use of them.
+- [Breaking changes (Change Notices)](https://developers.deepl.com/docs/resources/breaking-changes-change-notices.md)
+- [July 2024: Deprecation of insecure cipher suites](https://developers.deepl.com/docs/resources/breaking-changes-change-notices/july-2024-deprecation-of-insecure-cipher-suites.md)
+- [March 2025: Deprecating GET requests to /translate and authenticating with auth_key](https://developers.deepl.com/docs/resources/breaking-changes-change-notices/march-2025-deprecating-get-requests-to-translate-and-authenticating-with-auth_key.md)
+- [November 2025: Deprecation of query parameter and request body authentication](https://developers.deepl.com/docs/resources/breaking-changes-change-notices/november-2025-deprecation-of-legacy-auth-methods.md)
+- [Translate](https://developers.deepl.com/docs/translate/overview.md): Translate text strings and complete documents with the DeepL API. Find quickstarts, markup handling guides, and customization options.
+- [Translate Text Quickstart](https://developers.deepl.com/docs/translate/translate-text-quickstart.md): Send your first text translation request to the DeepL API and batch multiple strings into a single call.
+- [How to Use the Context Parameter Effectively](https://developers.deepl.com/docs/learning-how-tos/examples-and-guides/how-to-use-context-parameter.md): Learn when and how to use the context parameter to improve translation accuracy for ambiguous content.
+- [Translating Large Volumes of Text](https://developers.deepl.com/docs/translate/translating-large-volumes.md): Batch texts, control sentence splitting, and parallelize requests to translate high volumes efficiently with the text translation endpoint.
+- [Understanding Model Types](https://developers.deepl.com/docs/translate/understanding-model-types.md): How the model_type parameter chooses between latency-optimized and quality-optimized translation models, and how DeepL selects the model for each request.
+- [How to Use Custom Reporting Tags](https://developers.deepl.com/docs/learning-how-tos/examples-and-guides/how-to-use-custom-reporting-tags.md): Learn how to attach reporting tags to translate requests so you can break down usage by team, project, or category.
+- [How to Translate Between Language Variants](https://developers.deepl.com/docs/learning-how-tos/examples-and-guides/translating-between-variants.md): Learn how to translate between language variants, like British English and US English, using the DeepL API.
+- [Mustache placeholder tags](https://developers.deepl.com/docs/learning-how-tos/examples-and-guides/placeholder-tags.md): An example for working with placeholder tags—in this case, Mustache tags.
+- [Translating XML](https://developers.deepl.com/docs/translate/translating-xml.md): Learn how to translate XML content with the DeepL API while preserving its structure, and how to control sentence splitting.
+- [Translating HTML](https://developers.deepl.com/docs/translate/translating-html.md): Learn how to translate HTML content with the DeepL API and exclude specific elements from translation.
+- [Language detection](https://developers.deepl.com/docs/best-practices/language-detection.md)
+- [Translate Documents Quickstart](https://developers.deepl.com/docs/translate/translate-documents-quickstart.md): Upload a Word document to the DeepL API, poll its translation status, and download the translated file, in three curl calls or one client library call.
+- [Document translations](https://developers.deepl.com/docs/best-practices/document-translations.md)
+- [Write Quickstart](https://developers.deepl.com/docs/translate/write-quickstart.md): Improve your first text with the DeepL Write API: rephrase for clarity, apply corrections-only mode, and change the writing style.
+- [Controlling Writing Style and Tone](https://developers.deepl.com/docs/translate/controlling-writing-style-and-tone.md): Steer Write API output with the writing_style and tone parameters: available values, per-language support, and prefer_ fallback behavior.
+- [DeepL Voice API](https://developers.deepl.com/docs/voice/overview.md): Transcribe and translate spoken audio in real time with the DeepL Voice API. Find the streaming guide, core concepts, and language and format reference.
+- [Real-Time Voice Quickstart](https://developers.deepl.com/docs/voice/real-time-voice-quickstart.md): Stream microphone audio to the DeepL Voice API from Python and print live translations to your terminal as the speaker talks.
+- [Understanding Voice Sessions](https://developers.deepl.com/docs/voice/understanding-voice-sessions.md): Understand the lifecycle of a DeepL Voice API session: how connections are established, how tokens secure reconnection, and how audio and results flow.
+- [Message Encoding](https://developers.deepl.com/docs/voice/message-encoding.md): Choose between JSON and MessagePack encoding for DeepL Voice API WebSocket messages, and avoid the frame type and map encoding pitfalls.
+- [Supported Voice Languages](https://developers.deepl.com/docs/voice/supported-voice-languages.md): Language availability for the DeepL Voice API: transcription, translation, and translated speech support per language.
+- [Voice API Requirements](https://developers.deepl.com/docs/voice/voice-api-requirements.md): Audio format requirements and session limits for the DeepL Voice API: supported codecs and containers, chunk sizes, and connection rules.
+- [Customize](https://developers.deepl.com/docs/customize/overview.md): Tailor DeepL translations to your domain with glossaries, style rules, custom instructions, and translation memories.
+- [How to Apply Customizations to Language Variants](https://developers.deepl.com/docs/customize/customizations-for-variants.md): Learn how to apply glossaries and style rules when translating into language variants like FR-CA or EN-GB.
+- [Glossaries in the Real World](https://developers.deepl.com/docs/customize/glossaries-in-the-real-world.md): A quick guide to using DeepL glossaries in translations
+- [Managing Glossaries](https://developers.deepl.com/docs/customize/managing-glossaries.md): Create, edit, retrieve, and delete DeepL glossaries with the v3 endpoints, and apply them in translation requests.
+- [Glossary v2 vs v3 Endpoints](https://developers.deepl.com/docs/customize/glossary-v2-vs-v3-endpoints.md): How the v3 glossary endpoints differ from the deprecated v2 endpoints, what to watch out for when mixing them, and how to work with v2's immutability.
+- [Using Style Rules](https://developers.deepl.com/docs/customize/using-style-rules.md): Create style rule lists with configured rules and custom instructions, and apply them to translations with the style_id parameter.
+- [Custom instructions](https://developers.deepl.com/docs/customize/custom-instructions.md): Learn how to create effective custom instructions to customize your translation behavior
+- [Improving Transcription with Spoken Terms](https://developers.deepl.com/docs/customize/improving-transcription-with-spoken-terms.md): Keep company names, acronyms, and product terminology transcribed correctly in Voice API sessions by creating and maintaining a Spoken Terms collection.
+- [Spoken Terms Requirements](https://developers.deepl.com/docs/customize/spoken-terms-requirements.md): Size limits and content rules for Spoken Terms collections and term lists.
+- [Using Translation Memories](https://developers.deepl.com/docs/customize/using-translation-memories.md): Learn how to retrieve your translation memories and use them in translation requests
+- [Admin](https://developers.deepl.com/docs/admin/overview.md): Manage API keys, control what each key can access, and monitor usage across your organization, from the account UI or programmatically with the Admin API.
+- [Admin API Quickstart](https://developers.deepl.com/docs/admin/quickstart.md): Create a developer API key, set a usage limit on it, and pull a per-key usage report in four calls to the Admin API.
+- [Managing API Keys in the Account UI](https://developers.deepl.com/docs/admin/managing-api-keys.md): Create, rename, deactivate, and set usage limits and permissions on DeepL API keys in the account UI.
+- [Understanding API Key Permissions](https://developers.deepl.com/docs/admin/api-key-permissions.md): Why scoped API keys exist, how DeepL enforces permission scopes, and when to choose a scoped key over an unrestricted one.
+- [Permission Scopes](https://developers.deepl.com/docs/admin/permission-scopes.md): Every permission scope for DeepL developer API keys and the endpoints each scope covers.
+- [Retrieving Usage Data](https://developers.deepl.com/docs/admin/retrieving-usage-data.md): Compare DeepL's usage data sources and pull character and minute consumption for your account, API keys, or custom tags.
+- [Translate text](https://developers.deepl.com/api-reference/translate/request-translation.md)
+- [Upload and translate a document](https://developers.deepl.com/api-reference/document/upload-and-translate-a-document.md)
+- [Check document status](https://developers.deepl.com/api-reference/document/check-document-status.md)
+- [Download translated document](https://developers.deepl.com/api-reference/document/download-translated-document.md)
+- [Improve text](https://developers.deepl.com/api-reference/improve-text/request-text-improvement.md): Improves text by correcting spelling and grammar and rewriting for a target writing style or tone.
+- [Correct text](https://developers.deepl.com/api-reference/improve-text/correct-text.md): Fixes spelling and grammar errors with minimal changes to wording.
+- [Detect Language](https://developers.deepl.com/api-reference/detect-language/detect-language-beta.md): Detect the language of text using DeepL's language detection service
+- [Create a glossary](https://developers.deepl.com/api-reference/multilingual-glossaries/create-a-glossary.md)
+- [List all glossaries](https://developers.deepl.com/api-reference/multilingual-glossaries/list-all-glossaries.md): List all glossaries and their meta-information, but not the glossary entries.
+- [Retrieve glossary details](https://developers.deepl.com/api-reference/multilingual-glossaries/retrieve-glossary-details.md): Retrieve meta information for a single glossary, omitting the glossary entries.
+- [Edit glossary details](https://developers.deepl.com/api-reference/multilingual-glossaries/edit-glossary-details.md): Edit glossary details, such as name or a dictionary for a source and target language.
+- [Retrieve glossary entries](https://developers.deepl.com/api-reference/multilingual-glossaries/retrieve-glossary-entries.md): List the entries of a single glossary in tsv format.
+- [Delete a glossary](https://developers.deepl.com/api-reference/multilingual-glossaries/delete-a-glossary.md): Deletes the specified glossary.
+- [Deletes the dictionary associated with the given language pair with the given glossary ID.](https://developers.deepl.com/api-reference/multilingual-glossaries/deletes-the-dictionary-associated-with-the-given-language-pair-with-the-given-glossary-id.md)
+- [Replaces or creates a dictionary in the glossary with the specified entries.](https://developers.deepl.com/api-reference/multilingual-glossaries/replaces-or-creates-a-dictionary-in-the-glossary-with-the-specified-entries.md)
+- [List language pairs supported for glossaries](https://developers.deepl.com/api-reference/multilingual-glossaries/list-language-pairs-supported-by-glossaries.md): **Deprecated.** Use `GET /v3/languages?resource=glossary` instead, which returns per-language availability including source and target roles.
+- [Create a glossary](https://developers.deepl.com/api-reference/glossaries/create-a-glossary.md)
+- [List all glossaries](https://developers.deepl.com/api-reference/glossaries/list-all-glossaries.md): List all glossaries and their meta-information, but not the glossary entries.
+- [Retrieve glossary details](https://developers.deepl.com/api-reference/glossaries/retrieve-glossary-details.md): Retrieve meta information for a single glossary, omitting the glossary entries.
+- [Retrieve glossary entries](https://developers.deepl.com/api-reference/glossaries/retrieve-glossary-entries.md): List the entries of a single glossary in the format specified by the `Accept` header.
+- [Delete a glossary](https://developers.deepl.com/api-reference/glossaries/delete-a-glossary.md): Deletes the specified glossary.
+- [Create Spoken Terms collection](https://developers.deepl.com/api-reference/spoken-terms/create-spoken-terms-collection.md): Create a new Spoken Terms collection with one or more term lists for voice transcription
+- [List all Spoken Terms collections](https://developers.deepl.com/api-reference/spoken-terms/list-all-spoken-terms.md): Retrieve all Spoken Terms collections and their metadata
+- [Retrieve Spoken Terms collection details](https://developers.deepl.com/api-reference/spoken-terms/retrieve-spoken-terms-details.md): Get metadata for a specific Spoken Terms collection, including term list information
+- [Edit Spoken Terms collection details](https://developers.deepl.com/api-reference/spoken-terms/edit-spoken-terms-details.md): Update the collection name or merge new terms into an existing term list
+- [Retrieve Spoken Terms entries](https://developers.deepl.com/api-reference/spoken-terms/retrieve-spoken-terms-entries.md): Get the actual terms for a specific language from a Spoken Terms collection
+- [Delete Spoken Terms collection](https://developers.deepl.com/api-reference/spoken-terms/delete-spoken-terms.md): Remove a Spoken Terms collection and all its term lists
+- [Delete a term list](https://developers.deepl.com/api-reference/spoken-terms/delete-spoken-terms-list.md): Remove a term list for a specific language from the Spoken Terms collection
+- [Replace or create a term list](https://developers.deepl.com/api-reference/spoken-terms/replace-or-create-term-list.md): Replace an existing term list for a language, or create a new one if it doesn't exist
+- [Get all style rule lists](https://developers.deepl.com/api-reference/style-rules/list-all-style-rules.md)
+- [Create a style rule list](https://developers.deepl.com/api-reference/style-rules/create-style-rule.md)
+- [Get a style rule list](https://developers.deepl.com/api-reference/style-rules/get-style-rule.md)
+- [Update a style rule list's name](https://developers.deepl.com/api-reference/style-rules/update-style-rule.md)
+- [Replace configured rules](https://developers.deepl.com/api-reference/style-rules/update-configured-rules.md)
+- [Delete a style rule list](https://developers.deepl.com/api-reference/style-rules/delete-style-rule.md)
+- [Create a custom instruction](https://developers.deepl.com/api-reference/style-rules/create-custom-instruction.md)
+- [Get a custom instruction](https://developers.deepl.com/api-reference/style-rules/get-custom-instruction.md)
+- [Replace a custom instruction](https://developers.deepl.com/api-reference/style-rules/update-custom-instruction.md)
+- [Delete a custom instruction](https://developers.deepl.com/api-reference/style-rules/delete-custom-instruction.md)
+- [List translation memories](https://developers.deepl.com/api-reference/translation-memory/list-translation-memories.md): Retrieve translation memories associated with your account, used to store and reuse previously created translations. See [How to use translation memories](/docs/customize/using-translation-memories) to use them in translation requests.
+- [Retrieve a translation memory](https://developers.deepl.com/api-reference/translation-memory/retrieve-a-translation-memory.md): Learn how to fetch a single translation memory's languages, segment count, and timestamps by its ID.
+- [List translation memory segments](https://developers.deepl.com/api-reference/translation-memory/list-translation-memory-segments.md): Learn how to page through the source segments and translations stored in a translation memory using cursor-based pagination.
+- [Import a translation memory](https://developers.deepl.com/api-reference/translation-memory/import-a-translation-memory.md): Learn how to create a translation memory by declaring a TMX file, uploading it to a signed URL, and polling the import job.
+- [Export a translation memory](https://developers.deepl.com/api-reference/translation-memory/export-a-translation-memory.md): Learn how to export a translation memory as a TMX file, including how DeepL reuses recent exports and when it returns 409.
+- [Retrieve an import or export job](https://developers.deepl.com/api-reference/translation-memory/retrieve-a-translation-memory-job.md): Learn how to poll a translation memory import or export job and read its status values and results.
+- [Delete a translation memory](https://developers.deepl.com/api-reference/translation-memory/delete-a-translation-memory.md): Learn how to permanently delete a translation memory and all of its segments.
+- [Request Session](https://developers.deepl.com/api-reference/voice/request-session.md)
+- [WebSocket Streaming](https://developers.deepl.com/api-reference/voice/websocket-streaming.md): WebSocket channel for streaming audio and receiving transcriptions and translations. Messages are exchanged in JSON or MessagePack format. WebSocket messages are exchanged in TEXT frames when using JSON format and in BINARY frames when using MessagePack format. Sending the wrong frame type will resu…
+- [Reconnect Session](https://developers.deepl.com/api-reference/voice/reconnect-session.md)
+- [Retrieve languages](https://developers.deepl.com/api-reference/languages/retrieve-languages-by-resource.md): Returns languages supported by the specified DeepL API resource. Each language indicates whether it can be used as a source language, a target language, or both, along with the features it supports for that resource.
+- [Retrieve language resources](https://developers.deepl.com/api-reference/languages/retrieve-resources.md): Learn how to retrieve the list of DeepL API resources and their supported language features.
+- [Retrieve supported languages (v2)](https://developers.deepl.com/api-reference/languages/retrieve-supported-languages.md): **Deprecated.** Use `GET /v3/languages?resource=translate_text` (or the appropriate resource) instead. See the [migration guide](https://developers.deepl.com/docs/languages/migrating-from-v2-languages) for details.
+- [Create a developer key](https://developers.deepl.com/api-reference/admin-api/managing-developer-keys/create-key.md)
+- [Get developer keys](https://developers.deepl.com/api-reference/admin-api/managing-developer-keys/get-keys.md)
+- [Deactivate a developer key](https://developers.deepl.com/api-reference/admin-api/managing-developer-keys/deactivate-key.md)
+- [Rename a developer key](https://developers.deepl.com/api-reference/admin-api/managing-developer-keys/rename-key.md)
+- [Set developer key limits](https://developers.deepl.com/api-reference/admin-api/managing-developer-keys/set-usage-limits.md)
+- [Check usage and limits](https://developers.deepl.com/api-reference/usage-and-quota/check-usage-and-limits.md): Retrieve near-real-time character usage and account limits for the current billing period.
+- [Get usage analytics](https://developers.deepl.com/api-reference/admin-api/get-usage-analytics.md): Retrieve usage statistics for the organization within a specified date range. Optionally group the results by API key or by API key and day.
+- [Get custom tag usage analytics](https://developers.deepl.com/api-reference/admin-api/get-custom-tag-usage-analytics.md): Retrieve usage statistics broken down by custom tags within a specified date range. Optionally aggregate results by day or over the entire period. Results are paginated; use the `page` parameter with the `next_page` value from a previous response to retrieve subsequent pages.
+
+## OpenAPI Specs
+
+- [openapi](https://developers.deepl.com/api-reference/openapi.yaml)
+
+## AsyncAPI Specs
+
+- [voice.asyncapi](https://developers.deepl.com/api-reference/voice.asyncapi.yaml)

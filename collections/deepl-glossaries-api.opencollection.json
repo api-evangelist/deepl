@@ -1,0 +1,113 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "DeepL Translation Documents Glossaries API",
+    "version": "2"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "Authorization",
+      "value": "{{Authorization}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Glossaries",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List glossaries",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.deepl.com/v2/glossaries"
+          },
+          "docs": "List glossaries"
+        },
+        {
+          "info": {
+            "name": "Create a glossary",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.deepl.com/v2/glossaries"
+          },
+          "docs": "Create a glossary"
+        },
+        {
+          "info": {
+            "name": "Get a glossary",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.deepl.com/v2/glossaries/:glossaryId",
+            "params": [
+              {
+                "name": "glossaryId",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Get a glossary"
+        },
+        {
+          "info": {
+            "name": "Delete a glossary",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.deepl.com/v2/glossaries/:glossaryId",
+            "params": [
+              {
+                "name": "glossaryId",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Delete a glossary"
+        },
+        {
+          "info": {
+            "name": "Get glossary entries",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.deepl.com/v2/glossaries/:glossaryId/entries",
+            "params": [
+              {
+                "name": "glossaryId",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Get glossary entries"
+        },
+        {
+          "info": {
+            "name": "List supported glossary language pairs",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.deepl.com/v2/glossary-language-pairs"
+          },
+          "docs": "List supported glossary language pairs"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}
