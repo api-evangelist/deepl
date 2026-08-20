@@ -21,6 +21,14 @@ image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/icons/deepl.png
 tags:
   - Artificial Intelligence
   - Deep Learning
+  - Glossary
+  - Localization
+  - Machine-Learning
+  - Machine Translation
+  - Translation
+tags_raw:
+  - Artificial Intelligence
+  - Deep Learning
   - Glossaries
   - Localization
   - Machine Learning
@@ -90,6 +98,8 @@ apis:
   humanURL: https://developers.deepl.com/
   baseURL: https://api.deepl.com/v2
   tags:
+  - Glossary
+  tags_raw:
   - Glossaries
   properties:
   - type: OpenAPI
@@ -110,6 +120,8 @@ apis:
   humanURL: https://developers.deepl.com/
   baseURL: https://api.deepl.com/v2
   tags:
+  - Language
+  tags_raw:
   - Languages
   properties:
   - type: OpenAPI
@@ -169,7 +181,8 @@ apis:
   description: The Write API from DeepL — 1 operation(s) for write.
   humanURL: https://developers.deepl.com/
   baseURL: https://api.deepl.com/v2
-  tags:
+  tags: []
+  tags_raw:
   - Write
   properties:
   - type: OpenAPI
