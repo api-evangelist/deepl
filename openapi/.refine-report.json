@@ -1,13 +1,8 @@
 {
   "provider": "deepl",
   "sources": [
-    "deepl-documents-api-openapi.yml",
-    "deepl-glossaries-api-openapi.yml",
-    "deepl-languages-api-openapi.yml",
-    "deepl-translate-api-openapi.yml",
-    "deepl-usage-api-openapi.yml",
-    "deepl-voice-api-openapi.yml",
-    "deepl-write-api-openapi.yml"
+    "_original/deepl-translation-api-openapi.yml",
+    "deepl-voice-api-openapi.yml"
   ],
   "outputs": [
     "deepl-documents-api-openapi.yml",
@@ -15,12 +10,25 @@
     "deepl-languages-api-openapi.yml",
     "deepl-translate-api-openapi.yml",
     "deepl-usage-api-openapi.yml",
-    "deepl-voice-api-openapi.yml",
-    "deepl-write-api-openapi.yml"
+    "deepl-write-api-openapi.yml",
+    "deepl-voice-api-openapi.yml"
   ],
   "archived": [],
   "errors": [],
-  "warnings": [],
-  "notes": [],
-  "skipped": []
+  "warnings": [
+    "deepl-voice-api-openapi.yml: previously refined output kept for 2 operation(s) no archived document covers (e.g. /voice/realtime get, /voice/realtime post); its other 0 operation(s) came from the archive and were dropped from it. The archive is incomplete for this provider \u2014 re-harvest to restore _original/ as the full source of truth."
+  ],
+  "notes": [
+    "sourced from openapi/_original/ (1 archived document(s)); previously refined output at the top level was skipped rather than re-split",
+    "deepl-translation-api-openapi.yml: upgraded openapi 3.1.0 -> OpenAPI 3.2.0",
+    "apis.yml register: already-registered"
+  ],
+  "skipped": [
+    "deepl-documents-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "deepl-glossaries-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "deepl-languages-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "deepl-translate-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "deepl-usage-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "deepl-write-api-openapi.yml: previously refined output, superseded by openapi/_original/"
+  ]
 }
