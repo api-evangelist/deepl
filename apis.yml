@@ -31,14 +31,19 @@ accessModel:
 position: Consuming
 access: 3rd-Party
 image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/icons/deepl.png
+x-docs-platform: mintlify
+x-docs-platform-confidence: medium
+x-docs-platform-checked: 2026-09-25
+x-docs-hosting: vercel
 tags:
   - Artificial Intelligence
   - Deep Learning
   - Glossary
   - Localization
-  - Machine-Learning
+  - Machine Learning
   - Machine Translation
   - Translation
+  - Real-Time
 tags_raw:
   - Artificial Intelligence
   - Deep Learning
@@ -47,6 +52,8 @@ tags_raw:
   - Machine Learning
   - Machine Translation
   - Translation
+  - Machine-Learning
+  - Real-Time
 created: '2024-11-07'
 modified: '2026-05-30'
 specificationVersion: '0.23'
