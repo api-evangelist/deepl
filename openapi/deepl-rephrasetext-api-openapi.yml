@@ -1,0 +1,277 @@
+openapi: 3.2.0
+info:
+  title: DeepL API Documentation Rephrase Text API
+  description: 'The DeepL API provides programmatic access to DeepL’s language AI technology.
+
+
+    Note: this OpenAPI spec is embedded into our API documentation and has shortened descriptions.'
+  termsOfService: https://www.deepl.com/pro-license
+  contact:
+    name: DeepL - Contact us
+    url: https://www.deepl.com/contact-us
+  version: 3.13.0
+servers:
+- url: https://api.deepl.com
+  description: DeepL API Pro
+- url: https://api-free.deepl.com
+  description: DeepL API Free
+tags:
+- name: RephraseText
+  description: The `rephrase` endpoint is used to make corrections and adjustments to texts based on style or tone.
+paths:
+  /v2/write/rephrase:
+    post:
+      tags:
+      - RephraseText
+      summary: Improve text
+      operationId: rephraseText
+      description: 'Rewrite one or more texts to improve fluency and readability, optionally targeting a
+
+        specific writing style or tone. Use the `correct` endpoint instead when you want a
+
+        minimal spelling and grammar pass rather than broader rewriting.'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+              - text
+              properties:
+                text:
+                  description: Text to be improved. Only UTF-8-encoded plain text is supported. Improvements are returned in the same order as they are requested.
+                  type: array
+                  x-default:
+                  - this is a example sentence to imprve
+                  items:
+                    type: string
+                    example: this is a example sentence to imprve
+                target_lang:
+                  $ref: '#/components/schemas/TargetLanguageWrite'
+                writing_style:
+                  $ref: '#/components/schemas/WritingStyle'
+                tone:
+                  $ref: '#/components/schemas/WritingTone'
+          application/x-www-form-urlencoded:
+            schema:
+              type: object
+              required:
+              - text
+              properties:
+                text:
+                  description: Text to be improved. Only UTF-8-encoded plain text is supported. Improvements are returned in the same order as they are requested.
+                  type: array
+                  x-default:
+                  - this is a example sentence to imprve
+                  items:
+                    type: string
+                    example: this is a example sentence to imprve
+                target_lang:
+                  $ref: '#/components/schemas/TargetLanguageWrite'
+                writing_style:
+                  $ref: '#/components/schemas/WritingStyle'
+                tone:
+                  $ref: '#/components/schemas/WritingTone'
+      responses:
+        '200':
+          description: Successful text improvement.
+          headers:
+            X-Trace-ID:
+              $ref: '#/components/headers/X-Trace-ID'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  improvements:
+                    type: array
+                    minItems: 1
+                    items:
+                      type: object
+                      properties:
+                        detected_source_language:
+                          description: The language detected in the source text.
+                          type: string
+                          example: en
+                        target_language:
+                          description: The target language specified by the request.
+                          type: string
+                          example: en-US
+                        text:
+                          description: The improved text.
+                          type: string
+                          example: This is a sample sentence to improve.
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '403':
+          $ref: '#/components/responses/ForbiddenScoped'
+        '413':
+          $ref: '#/components/responses/PayloadTooLarge'
+        '415':
+          $ref: '#/components/responses/UnsupportedMediaType'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+        '456':
+          $ref: '#/components/responses/QuotaExceeded'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
+        '504':
+          $ref: '#/components/responses/ServiceUnavailable'
+      security:
+      - auth_header: []
+components:
+  schemas:
+    WritingStyle:
+      type: string
+      description: 'Specify a style to rephrase your text in a way that fits your audience and goals.
+
+        The `prefer_` prefix allows falling back to the default style if the language does not yet support styles.'
+      enum:
+      - academic
+      - business
+      - casual
+      - default
+      - simple
+      - prefer_academic
+      - prefer_business
+      - prefer_casual
+      - prefer_simple
+    TargetLanguageWrite:
+      type: string
+      description: The language for the text improvement.
+      enum:
+      - de
+      - en
+      - en-GB
+      - en-US
+      - es
+      - fr
+      - it
+      - ja
+      - ko
+      - pt
+      - pt-BR
+      - pt-PT
+      - zh
+      - zh-Hans
+      example: de
+    ErrorResponse:
+      type: object
+      required:
+      - message
+      properties:
+        message:
+          type: string
+          description: A human-readable description of the error.
+        code:
+          type: string
+          description: A machine-readable identifier for the error, when available. Clients should match on this value rather than on `message` when branching on error types.
+          example: invalid_content_type
+    WritingTone:
+      type: string
+      description: 'Specify the desired tone for your text.
+
+        The `prefer_` prefix allows falling back to the default tone if the language does not yet support tones.'
+      enum:
+      - confident
+      - default
+      - diplomatic
+      - enthusiastic
+      - friendly
+      - prefer_confident
+      - prefer_diplomatic
+      - prefer_enthusiastic
+      - prefer_friendly
+    InfrastructureErrorResponse:
+      description: 'Error body returned by DeepL''s edge infrastructure for failures that occur before a request reaches the API itself. The message is nested under `error`, unlike the application-level `ErrorResponse`. Clients that parse error bodies should handle both shapes.
+
+        '
+      type: object
+      required:
+      - error
+      properties:
+        error:
+          type: object
+          required:
+          - message
+          properties:
+            message:
+              type: string
+              description: A human-readable description of the error.
+              example: Bad Gateway.
+  responses:
+    ForbiddenScoped:
+      description: Authorization failed. Please supply a valid `DeepL-Auth-Key` via the `Authorization` header. This error is also returned when the API key is scoped but does not include the scope required for this endpoint.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    ServiceUnavailable:
+      description: Resource currently unavailable. Try again later.
+      content:
+        application/json:
+          schema:
+            oneOf:
+            - $ref: '#/components/schemas/ErrorResponse'
+            - $ref: '#/components/schemas/InfrastructureErrorResponse'
+    TooManyRequests:
+      description: Too many requests. Please wait and resend your request.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    BadRequest:
+      description: Bad request. Please check error message and your parameters.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    InternalServerError:
+      description: Internal error.
+      content:
+        application/json:
+          schema:
+            oneOf:
+            - $ref: '#/components/schemas/ErrorResponse'
+            - $ref: '#/components/schemas/InfrastructureErrorResponse'
+    PayloadTooLarge:
+      description: The request size exceeds the limit.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    UnsupportedMediaType:
+      description: Unsupported Media Type. Must be application/json or application/x-www-form-urlencoded.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+          example:
+            message: Unsupported Content-Type
+    QuotaExceeded:
+      description: Quota exceeded. The character limit has been reached.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+  headers:
+    X-Trace-ID:
+      description: A unique identifier for the request that can be included in bug reports to DeepL support.
+      schema:
+        type: string
+      example: 501c3d93cc0c4f11ae2f60a226c2f0f0
+  securitySchemes:
+    auth_header:
+      type: apiKey
+      description: 'Authentication with `Authorization` header and `DeepL-Auth-Key` authentication scheme. Example: `DeepL-Auth-Key <api-key>`
+
+        '
+      name: Authorization
+      in: header
+      x-default: 'DeepL-Auth-Key '
+externalDocs:
+  description: DeepL Pro - Plans and pricing
+  url: https://www.deepl.com/pro#developer
+x-hideTryItPanel: true
+x-codeSamples: false

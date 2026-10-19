@@ -1,0 +1,754 @@
+openapi: 3.2.0
+info:
+  title: DeepL API Documentation Meta Information API
+  description: 'The DeepL API provides programmatic access to DeepL’s language AI technology.
+
+
+    Note: this OpenAPI spec is embedded into our API documentation and has shortened descriptions.'
+  termsOfService: https://www.deepl.com/pro-license
+  contact:
+    name: DeepL - Contact us
+    url: https://www.deepl.com/contact-us
+  version: 3.13.0
+servers:
+- url: https://api.deepl.com
+  description: DeepL API Pro
+- url: https://api-free.deepl.com
+  description: DeepL API Free
+tags:
+- name: MetaInformation
+  description: Information about API usage and value ranges
+paths:
+  /v2/usage:
+    get:
+      tags:
+      - MetaInformation
+      summary: Check Usage and Limits
+      operationId: getUsage
+      description: 'Retrieve character and minute usage for the current billing period together with the
+
+        corresponding account limits. Poll this endpoint to track consumption and detect when
+
+        an account is approaching its quota.'
+      responses:
+        '200':
+          description: The account's usage and limits.
+          headers:
+            X-Trace-ID:
+              $ref: '#/components/headers/X-Trace-ID'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UsageResponse'
+              examples:
+                free:
+                  summary: Response for API users not on the Pro plan
+                  value:
+                    character_count: 180118
+                    character_limit: 1250000
+                pro:
+                  summary: Response for API Pro users
+                  value:
+                    character_count: 5947223
+                    character_limit: 1000000000000
+                    products:
+                    - product_type: write
+                      billing_unit: characters
+                      api_key_unit_count: 0
+                      account_unit_count: 5643
+                      api_key_character_count: 0
+                      character_count: 5643
+                    - product_type: translate
+                      billing_unit: characters
+                      api_key_unit_count: 636
+                      account_unit_count: 5941580
+                      api_key_character_count: 636
+                      character_count: 5941580
+                    - product_type: speechToText
+                      billing_unit: minutes
+                      api_key_unit_count: 30
+                      account_unit_count: 30
+                      api_key_character_count: 0
+                      character_count: 0
+                    - product_type: speechToSpeech
+                      billing_unit: minutes
+                      api_key_unit_count: 12
+                      account_unit_count: 12
+                      api_key_character_count: 0
+                      character_count: 0
+                    api_key_character_count: 636
+                    api_key_character_limit: 1000000000000
+                    speech_to_text_milliseconds_count: 0
+                    speech_to_text_milliseconds_limit: 0
+                    speech_to_text_minutes_count: 30
+                    speech_to_text_minutes_limit: 600
+                    speech_to_speech_minutes_count: 12
+                    speech_to_speech_minutes_limit: 600
+                    start_time: '2025-05-13T09:18:42Z'
+                    end_time: '2025-06-13T09:18:42Z'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '403':
+          $ref: '#/components/responses/ForbiddenScoped'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '413':
+          $ref: '#/components/responses/PayloadTooLarge'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+        '456':
+          $ref: '#/components/responses/QuotaExceeded'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
+        '504':
+          $ref: '#/components/responses/ServiceUnavailable'
+        '529':
+          $ref: '#/components/responses/TooManyRequests'
+      security:
+      - auth_header: []
+  /v2/languages:
+    get:
+      deprecated: true
+      tags:
+      - MetaInformation
+      summary: Retrieve Supported Languages
+      description: '**Deprecated.** Use `GET /v3/languages?resource=translate_text` (or the appropriate resource)
+
+        instead. See the migration guide
+
+        for details.'
+      operationId: getLanguagesV2
+      parameters:
+      - name: type
+        in: query
+        schema:
+          type: string
+          enum:
+          - source
+          - target
+          default: source
+        description: Supported values are "source" or "target". If type parameter is not included, defaults to "source".
+        examples:
+          target:
+            summary: Target Languages
+            value:
+              in: query
+              type: target
+      responses:
+        '200':
+          description: JSON array where each item represents a supported language.
+          headers:
+            X-Trace-ID:
+              $ref: '#/components/headers/X-Trace-ID'
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  required:
+                  - language
+                  - name
+                  properties:
+                    language:
+                      description: The language code of the given language.
+                      type: string
+                      example: DE
+                    name:
+                      description: Name of the language in English.
+                      type: string
+                      example: German
+                    supports_formality:
+                      description: Denotes formality support in case of a target language listing.
+                      type: boolean
+                      example: true
+              example:
+              - language: AR
+                name: Arabic
+              - language: BG
+                name: Bulgarian
+              - language: CS
+                name: Czech
+              - language: DA
+                name: Danish
+              - language: DE
+                name: German
+              - language: EL
+                name: Greek
+              - language: EN
+                name: English
+              - language: ES
+                name: Spanish
+              - language: ET
+                name: Estonian
+              - language: FI
+                name: Finnish
+              - language: FR
+                name: French
+              - language: HE
+                name: Hebrew
+              - language: HU
+                name: Hungarian
+              - language: ID
+                name: Indonesian
+              - language: IT
+                name: Italian
+              - language: JA
+                name: Japanese
+              - language: KO
+                name: Korean
+              - language: LT
+                name: Lithuanian
+              - language: LV
+                name: Latvian
+              - language: NB
+                name: Norwegian
+              - language: NL
+                name: Dutch
+              - language: PL
+                name: Polish
+              - language: PT
+                name: Portuguese
+              - language: RO
+                name: Romanian
+              - language: RU
+                name: Russian
+              - language: SK
+                name: Slovak
+              - language: SL
+                name: Slovenian
+              - language: SV
+                name: Swedish
+              - language: TH
+                name: Thai
+              - language: TR
+                name: Turkish
+              - language: UK
+                name: Ukrainian
+              - language: VI
+                name: Vietnamese
+              - language: ZH
+                name: Chinese
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '403':
+          $ref: '#/components/responses/ForbiddenScoped'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '413':
+          $ref: '#/components/responses/PayloadTooLarge'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+        '456':
+          $ref: '#/components/responses/QuotaExceeded'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
+        '504':
+          $ref: '#/components/responses/ServiceUnavailable'
+        '529':
+          $ref: '#/components/responses/TooManyRequests'
+      security:
+      - auth_header: []
+  /v3/languages/resources:
+    get:
+      tags:
+      - MetaInformation
+      summary: Retrieve Language Resources
+      operationId: getLanguageResources
+      description: 'Returns all DeepL API resources and the features they support.
+
+
+        For each feature, the response indicates which languages must support it for the feature to be
+
+        available — source only (`needs_source_support`), target only (`needs_target_support`), or both.
+
+        This allows clients to determine feature availability for a language pair by checking the
+
+        appropriate language''s `features` object returned by `GET /v3/languages`.'
+      responses:
+        '200':
+          description: JSON array where each item represents a DeepL API product.
+          headers:
+            X-Trace-ID:
+              $ref: '#/components/headers/X-Trace-ID'
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  required:
+                  - name
+                  - features
+                  properties:
+                    name:
+                      description: The resource identifier.
+                      type: string
+                      enum:
+                      - translate_text
+                      - translate_document
+                      - glossary
+                      - voice
+                      - write
+                      - style_rules
+                      - translation_memory
+                      example: translate_text
+                    features:
+                      description: 'Features supported by this resource. Each feature indicates which languages
+
+                        must support it for the feature to be available — source, target, or both.'
+                      type: array
+                      items:
+                        type: object
+                        required:
+                        - name
+                        properties:
+                          name:
+                            description: The feature identifier, corresponding to keys in the `features` object returned by `GET /v3/languages`.
+                            type: string
+                            enum:
+                            - formality
+                            - style_rules
+                            - tag_handling
+                            - glossary
+                            - writing_style
+                            - tone
+                            - auto_detection
+                            - transcription
+                            - translated_speech
+                            - spoken_terms
+                            - translation_memory
+                          needs_source_support:
+                            description: If `true`, the source language must support this feature for it to be available. Defaults to `false` if absent.
+                            type: boolean
+                          needs_target_support:
+                            description: If `true`, the target language must support this feature for it to be available. Defaults to `false` if absent.
+                            type: boolean
+              example:
+              - name: translate_text
+                features:
+                - name: formality
+                  needs_target_support: true
+                - name: style_rules
+                  needs_target_support: true
+                - name: tag_handling
+                  needs_source_support: true
+                  needs_target_support: true
+                - name: glossary
+                  needs_source_support: true
+                  needs_target_support: true
+                - name: auto_detection
+                  needs_source_support: true
+              - name: voice
+                features:
+                - name: glossary
+                  needs_source_support: true
+                  needs_target_support: true
+              - name: style_rules
+                features: []
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/ForbiddenScoped'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
+        '503':
+          $ref: '#/components/responses/ServiceUnavailable'
+      security:
+      - auth_header: []
+  /v3/languages:
+    get:
+      tags:
+      - MetaInformation
+      summary: Retrieve Languages
+      operationId: getLanguages
+      description: 'Returns languages supported by the specified DeepL API resource. Each language indicates whether it can
+
+        be used as a source language, a target language, or both, along with the features it supports for that
+
+        resource.'
+      parameters:
+      - name: resource
+        in: query
+        required: true
+        schema:
+          type: string
+          enum:
+          - translate_text
+          - translate_document
+          - glossary
+          - voice
+          - write
+          - style_rules
+          - translation_memory
+        example: translate_text
+        x-default: translate_text
+        description: 'The resource to retrieve languages for. Supported values: `translate_text`, `translate_document`,
+
+          `glossary`, `voice`, `write`, `style_rules`, `translation_memory`.'
+      - name: include
+        in: query
+        required: false
+        schema:
+          type: array
+          items:
+            type: string
+            enum:
+            - beta
+            - external
+        style: form
+        explode: true
+        description: 'Controls which languages and features are included in the response. By default, only stable
+
+          languages and features are returned. Values can be combined with repeated parameters
+
+          (e.g. `?include=beta&include=external`).
+
+
+          - `beta`: Include languages and features in beta, in addition to stable
+
+          - `external`: Include features that rely on third-party service providers'
+      responses:
+        '200':
+          description: JSON array where each item represents a supported language.
+          headers:
+            X-Trace-ID:
+              $ref: '#/components/headers/X-Trace-ID'
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  required:
+                  - lang
+                  - name
+                  - usable_as_source
+                  - usable_as_target
+                  - features
+                  - status
+                  properties:
+                    lang:
+                      description: The language code (BCP 47).
+                      type: string
+                      example: de
+                    name:
+                      description: Name of the language in English.
+                      type: string
+                      example: German
+                    usable_as_source:
+                      description: Whether this language can be used as a source language with the specified resource.
+                      type: boolean
+                    usable_as_target:
+                      description: Whether this language can be used as a target language with the specified resource.
+                      type: boolean
+                    status:
+                      description: Availability status of this language.
+                      type: string
+                      enum:
+                      - stable
+                      - beta
+                      - early_access
+                      example: stable
+                    features:
+                      description: 'Features supported for this language with the specified resource. Always present;
+
+                        empty object if no optional features are supported. Each key is a feature name;
+
+                        the value is an object with at least a `status` field. Consult `GET /v3/languages/resources`
+
+                        to determine whether a feature must be present on the source language, target language,
+
+                        or both for a given resource.'
+                      type: object
+                      additionalProperties:
+                        type: object
+                        required:
+                        - status
+                        properties:
+                          status:
+                            description: Availability status of this feature for this language.
+                            type: string
+                            enum:
+                            - stable
+                            - beta
+                            - early_access
+                      example:
+                        formality:
+                          status: stable
+                        tag_handling:
+                          status: stable
+                        glossary:
+                          status: stable
+              examples:
+                translateTextLanguages:
+                  summary: Languages for text translation
+                  value:
+                  - lang: de
+                    name: German
+                    usable_as_source: true
+                    usable_as_target: true
+                    status: stable
+                    features:
+                      formality:
+                        status: stable
+                      tag_handling:
+                        status: stable
+                      glossary:
+                        status: stable
+                  - lang: en
+                    name: English
+                    usable_as_source: true
+                    usable_as_target: false
+                    status: stable
+                    features:
+                      tag_handling:
+                        status: stable
+                      glossary:
+                        status: stable
+                  - lang: en-US
+                    name: English (American)
+                    usable_as_source: false
+                    usable_as_target: true
+                    status: stable
+                    features:
+                      tag_handling:
+                        status: stable
+                      glossary:
+                        status: stable
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/ForbiddenScoped'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
+        '503':
+          $ref: '#/components/responses/ServiceUnavailable'
+      security:
+      - auth_header: []
+components:
+  responses:
+    ForbiddenScoped:
+      description: Authorization failed. Please supply a valid `DeepL-Auth-Key` via the `Authorization` header. This error is also returned when the API key is scoped but does not include the scope required for this endpoint.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    NotFound:
+      description: The requested resource could not be found.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    ServiceUnavailable:
+      description: Resource currently unavailable. Try again later.
+      content:
+        application/json:
+          schema:
+            oneOf:
+            - $ref: '#/components/schemas/ErrorResponse'
+            - $ref: '#/components/schemas/InfrastructureErrorResponse'
+    TooManyRequests:
+      description: Too many requests. Please wait and resend your request.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    BadRequest:
+      description: Bad request. Please check error message and your parameters.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    InternalServerError:
+      description: Internal error.
+      content:
+        application/json:
+          schema:
+            oneOf:
+            - $ref: '#/components/schemas/ErrorResponse'
+            - $ref: '#/components/schemas/InfrastructureErrorResponse'
+    PayloadTooLarge:
+      description: The request size exceeds the limit.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    Unauthorized:
+      description: Authorization failed. Please supply a valid `DeepL-Auth-Key` via the `Authorization` header.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    QuotaExceeded:
+      description: Quota exceeded. The character limit has been reached.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+  schemas:
+    ErrorResponse:
+      type: object
+      required:
+      - message
+      properties:
+        message:
+          type: string
+          description: A human-readable description of the error.
+        code:
+          type: string
+          description: A machine-readable identifier for the error, when available. Clients should match on this value rather than on `message` when branching on error types.
+          example: invalid_content_type
+    InfrastructureErrorResponse:
+      description: 'Error body returned by DeepL''s edge infrastructure for failures that occur before a request reaches the API itself. The message is nested under `error`, unlike the application-level `ErrorResponse`. Clients that parse error bodies should handle both shapes.
+
+        '
+      type: object
+      required:
+      - error
+      properties:
+        error:
+          type: object
+          required:
+          - message
+          properties:
+            message:
+              type: string
+              description: A human-readable description of the error.
+              example: Bad Gateway.
+    UsageResponse:
+      type: object
+      properties:
+        character_count:
+          description: Characters translated so far in the current billing period.
+          type: integer
+          format: int64
+          example: 180118
+        character_limit:
+          description: Current maximum number of characters that can be translated per billing period. If cost control is set, the cost control limit will be returned in this field.
+          type: integer
+          format: int64
+          example: 1250000
+        document_count:
+          description: Documents translated so far in the current billing period. Only present for accounts with a document limit.
+          type: integer
+          format: int64
+        document_limit:
+          description: Current maximum number of documents that can be translated per billing period. Only present for accounts with a document limit.
+          type: integer
+          format: int64
+        team_document_count:
+          description: Documents translated by all users in the team so far in the current billing period. Only present for accounts with a team document limit.
+          type: integer
+          format: int64
+        team_document_limit:
+          description: Current maximum number of documents that can be translated by the team per billing period. Only present for accounts with a team document limit.
+          type: integer
+          format: int64
+        products:
+          type: array
+          description: Only present for API Pro users. Per-product usage details.
+          items:
+            type: object
+            properties:
+              product_type:
+                type: string
+                description: The type of product (e.g., 'write', 'translate').
+                example: write
+              billing_unit:
+                type: string
+                enum:
+                - characters
+                - minutes
+                description: The billing unit for this product type.
+                example: characters
+              api_key_unit_count:
+                type: integer
+                description: Units used for this product by this API key in the current period.
+                example: 0
+              account_unit_count:
+                type: integer
+                description: Total units used for this product in the current period.
+                example: 5643
+              api_key_character_count:
+                type: integer
+                deprecated: true
+                description: Use api_key_unit_count instead. Characters used for this product by this API key in the current period."
+                example: 0
+              character_count:
+                type: integer
+                deprecated: true
+                description: Use account_unit_count instead. Total characters used for this product in the current period."
+                example: 5643
+        api_key_character_count:
+          type: integer
+          description: Only present for API Pro users. Total characters used by this API key in the current period.
+          example: 636
+        api_key_character_limit:
+          type: integer
+          description: Only present for API Pro users. Character limit for this API key in the current period.
+          example: 1000000000000
+        speech_to_text_milliseconds_count:
+          type: integer
+          deprecated: true
+          description: Deprecated. Always returns 0. Use speech_to_text_minutes_count instead.
+          example: 0
+        speech_to_text_milliseconds_limit:
+          type: integer
+          deprecated: true
+          description: Deprecated. Always returns 0. Use speech_to_text_minutes_limit instead.
+          example: 0
+        speech_to_text_minutes_count:
+          type: integer
+          description: Only present for API Pro users. Minutes of speech-to-text used in the current period. Milliseconds are rounded up to the nearest minute.
+          example: 30
+        speech_to_text_minutes_limit:
+          type: integer
+          description: Only present for API Pro users. Maximum minutes of speech-to-text that can be used in the current billing period.
+          example: 600
+        speech_to_speech_minutes_count:
+          type: integer
+          description: Only present for API Pro users. Minutes of speech-to-speech used in the current period. Milliseconds are rounded up to the nearest minute.
+          example: 12
+        speech_to_speech_minutes_limit:
+          type: integer
+          description: Only present for API Pro users. Maximum minutes of speech-to-speech that can be used in the current billing period.
+          example: 600
+        start_time:
+          type: string
+          format: date-time
+          description: Only present for API Pro users. Start time of the current billing period (ISO 8601).
+          example: '2025-05-13T09:18:42Z'
+        end_time:
+          type: string
+          format: date-time
+          description: Only present for API Pro users. End time of the current billing period (ISO 8601).
+          example: '2025-06-13T09:18:42Z'
+  headers:
+    X-Trace-ID:
+      description: A unique identifier for the request that can be included in bug reports to DeepL support.
+      schema:
+        type: string
+      example: 501c3d93cc0c4f11ae2f60a226c2f0f0
+  securitySchemes:
+    auth_header:
+      type: apiKey
+      description: 'Authentication with `Authorization` header and `DeepL-Auth-Key` authentication scheme. Example: `DeepL-Auth-Key <api-key>`
+
+        '
+      name: Authorization
+      in: header
+      x-default: 'DeepL-Auth-Key '
+externalDocs:
+  description: DeepL Pro - Plans and pricing
+  url: https://www.deepl.com/pro#developer
+x-hideTryItPanel: true
+x-codeSamples: false

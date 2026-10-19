@@ -1,0 +1,699 @@
+openapi: 3.2.0
+info:
+  title: DeepL API Documentation Voice API
+  description: 'The DeepL API provides programmatic access to DeepL’s language AI technology.
+
+
+    Note: this OpenAPI spec is embedded into our API documentation and has shortened descriptions.'
+  termsOfService: https://www.deepl.com/pro-license
+  contact:
+    name: DeepL - Contact us
+    url: https://www.deepl.com/contact-us
+  version: 3.13.0
+servers:
+- url: https://api.deepl.com
+  description: DeepL API Pro
+- url: https://api-free.deepl.com
+  description: DeepL API Free
+tags:
+- name: VoiceAPI
+  description: 'The Voice API provides real-time voice transcription and translation services.
+
+    Use a two-step flow: first request a streaming URL via REST, then establish a WebSocket connection for streaming audio and receiving transcriptions.'
+paths:
+  /v3/voice/realtime:
+    servers:
+    - url: https://api.deepl.com
+      description: Override base path for all operations with the /v3/voice path
+    post:
+      tags:
+      - VoiceAPI
+      summary: Get Streaming URL
+      operationId: getVoiceStreamingUrl
+      description: 'Create a real-time voice session and return the WebSocket URL and ephemeral token used
+
+        to stream audio. Session options such as languages, message format, and media types are
+
+        fixed at creation time. Invalid options are rejected with HTTP 400 before a session is
+
+        created.'
+      parameters:
+      - $ref: '#/components/parameters/CustomReportingTag'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+              - source_media_content_type
+              properties:
+                message_format:
+                  $ref: '#/components/schemas/VoiceMessageFormat'
+                source_media_content_type:
+                  $ref: '#/components/schemas/VoiceSourceMediaContentType'
+                source_language:
+                  $ref: '#/components/schemas/VoiceSourceLanguage'
+                source_language_mode:
+                  $ref: '#/components/schemas/VoiceSourceLanguageMode'
+                target_languages:
+                  $ref: '#/components/schemas/VoiceTargetLanguages'
+                target_media_languages:
+                  $ref: '#/components/schemas/VoiceTargetMediaLanguages'
+                target_media_content_type:
+                  $ref: '#/components/schemas/VoiceTargetMediaContentType'
+                target_media_voice:
+                  $ref: '#/components/schemas/VoiceTargetMediaVoice'
+                spoken_terms_id:
+                  $ref: '#/components/schemas/SpokenTermsId'
+                glossary_id:
+                  description: 'Specify the glossary to use for the target transcripts (translations). For new integrations we
+
+                    recommend the more general `glossary_ids`.
+
+
+                    Cannot be used together with `glossary_ids`.'
+                  type: string
+                  example: def3a26b-3e84-45b3-84ae-0c0aaf3525f7
+                glossary_ids:
+                  description: 'Specify the glossaries to use for the target transcripts (translations), as an array of
+
+                    glossary IDs ordered by priority (highest first). Each glossary''s matching terms are applied to
+
+                    the translation; where entries conflict, the higher-priority glossary wins. Unknown glossary IDs
+
+                    are ignored.
+
+
+                    In realtime Voice, glossary terms are matched against the streaming source transcription,
+
+                    which affects how and when terms are applied. See
+
+                    [Glossaries in realtime Voice](/docs/voice/overview#glossaries-in-realtime-voice).
+
+
+                    Cannot be used together with `glossary_id`. Requests that exceed the
+
+                    [session limit](/docs/voice/voice-api-requirements#session-limits), contain duplicates, or
+
+                    combine `glossary_ids` with `glossary_id` are rejected with a `400 Bad Request` before a
+
+                    session is created.'
+                  type: array
+                  items:
+                    type: string
+                    example: def3a26b-3e84-45b3-84ae-0c0aaf3525f7
+                formality:
+                  $ref: '#/components/schemas/VoiceFormality'
+            examples:
+              basic:
+                summary: Basic configuration
+                value:
+                  source_media_content_type: audio/ogg; codecs=opus
+                  source_language: en
+                  source_language_mode: auto
+                  target_languages:
+                  - de
+                  - fr
+                  - es
+                  message_format: json
+              with_glossary:
+                summary: With glossary and formality to customize translation
+                value:
+                  source_media_content_type: audio/pcm; encoding=s16le; rate=16000
+                  source_language: en
+                  source_language_mode: fixed
+                  target_languages:
+                  - de
+                  - fr
+                  message_format: msgpack
+                  glossary_id: def3a26b-3e84-45b3-84ae-0c0aaf3525f7
+                  formality: formal
+              with_multiple_glossaries:
+                summary: With multiple glossaries in priority order
+                value:
+                  source_media_content_type: audio/pcm; encoding=s16le; rate=16000
+                  source_language: en
+                  source_language_mode: fixed
+                  target_languages:
+                  - de
+                  - fr
+                  glossary_ids:
+                  - def3a26b-3e84-45b3-84ae-0c0aaf3525f7
+                  - 7c4f1080-cfe2-41d4-8269-0e6ec15a0354
+              with_spoken_terms:
+                summary: With Spoken Terms to inform transcription
+                value:
+                  source_media_content_type: audio/pcm; encoding=s16le; rate=16000
+                  source_language: en
+                  source_language_mode: fixed
+                  target_languages:
+                  - de
+                  spoken_terms_id: 7c4f1080-cfe2-41d4-8269-0e6ec15a0354
+              with_tts:
+                summary: With translated audio (default format)
+                value:
+                  source_media_content_type: audio/ogg;codecs=opus
+                  source_language: en
+                  target_languages:
+                  - de
+                  - fr
+                  - es
+                  target_media_languages:
+                  - de
+                  target_media_content_type: audio/webm;codecs=opus
+                  target_media_voice: female
+              with_speaker_match:
+                summary: With translated audio using a speaker-matched voice
+                value:
+                  source_media_content_type: audio/ogg;codecs=opus
+                  source_language: en
+                  target_languages:
+                  - de
+                  target_media_languages:
+                  - de
+                  target_media_voice: match
+              with_tts_short_form:
+                summary: With translated audio using short-form MIME types
+                value:
+                  source_media_content_type: audio/webm
+                  source_language: en
+                  target_languages:
+                  - de
+                  - es
+                  target_media_languages:
+                  - de
+                  target_media_content_type: audio/ogg
+              with_tts_high_quality:
+                summary: With translated audio using high-quality PCM
+                value:
+                  source_media_content_type: audio/pcm;encoding=s16le;rate=16000
+                  source_language: en
+                  target_languages:
+                  - de
+                  target_media_languages:
+                  - de
+                  target_media_content_type: audio/pcm;encoding=s16le;rate=24000
+              with_tts_raw_opus:
+                summary: With translated audio using raw Opus
+                value:
+                  source_media_content_type: audio/pcm;encoding=s16le;rate=16000
+                  source_language: en
+                  target_languages:
+                  - de
+                  target_media_languages:
+                  - de
+                  target_media_content_type: audio/opus
+      responses:
+        '200':
+          description: Successfully obtained streaming URL and token.
+          headers:
+            X-Trace-ID:
+              $ref: '#/components/headers/X-Trace-ID'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/VoiceStreamingResponse'
+              example:
+                streaming_url: wss://api.deepl.com/v3/voice/realtime/connect
+                token: VGhpcyBpcyBhIGZha2UgdG9rZW4K
+                session_id: 4f911080-cfe2-41d4-8269-0e6ec15a0354
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+        '456':
+          $ref: '#/components/responses/QuotaExceeded'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
+        '503':
+          $ref: '#/components/responses/ServiceUnavailable'
+      security:
+      - auth_header: []
+    get:
+      tags:
+      - VoiceAPI
+      summary: Request Reconnection
+      operationId: requestReconnection
+      description: 'Exchange a session token for a fresh WebSocket URL and token so a client can rejoin a
+
+        voice session after the connection drops. Session options are carried over from the
+
+        original session.'
+      parameters:
+      - name: token
+        in: query
+        required: true
+        description: The latest ephemeral token obtained for the stream.
+        schema:
+          type: string
+        example: VGhpcyBpcyBhIGZha2UgdG9rZW4K
+      responses:
+        '200':
+          description: Successfully obtained streaming URL and reconnection token.
+          headers:
+            X-Trace-ID:
+              $ref: '#/components/headers/X-Trace-ID'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/VoiceStreamingResponse'
+              example:
+                streaming_url: wss://api.deepl.com/v3/voice/realtime/connect
+                token: VGhpcyBpcyBhIGZha2UgdG9rZW4K
+                session_id: 4f911080-cfe2-41d4-8269-0e6ec15a0354
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+        '456':
+          $ref: '#/components/responses/QuotaExceeded'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
+        '503':
+          $ref: '#/components/responses/ServiceUnavailable'
+      security:
+      - auth_header: []
+components:
+  schemas:
+    SpokenTermsId:
+      type: string
+      format: uuid
+      description: (beta) The ID of a Spoken Terms collection used to inform transcription.
+      example: 7c4f1080-cfe2-41d4-8269-0e6ec15a0354
+    VoiceTargetMediaVoice:
+      description: 'Target audio voice selection for synthesized speech. The default voice is language dependent.
+
+        Use `match` for speaker match, which produces translated speech with a voice close to the speaker''s voice. Speaker match is only available for target languages whose translated speech is provided by DeepL, not for languages provided through external service partners. See the [supported languages table](/docs/voice/supported-voice-languages) for details.
+
+        Requesting `match` for a target language that does not support it is not an error: the session is created and that language''s translated speech uses a preset voice instead.
+
+        '
+      type: string
+      enum:
+      - male
+      - female
+      - match
+      example: female
+    VoiceMessageFormat:
+      description: 'Message encoding format for WebSocket communication. Determines how messages are serialized and transmitted.
+
+        Using `json`,  messages are JSON-encoded and sent as TEXT WebSocket frames. All binary fields (such as audio data) are base64-encoded strings.
+
+        Using `msgpack`, messages are MessagePack-encoded and sent as BINARY WebSocket frames. All binary fields (such as audio data) contain raw binary data.
+
+
+        For more details, see [Message Encoding](/docs/voice/message-encoding).'
+      type: string
+      enum:
+      - json
+      - msgpack
+      default: json
+      example: json
+    VoiceSourceLanguageMode:
+      type: string
+      description: 'Controls how the source_language value is used.
+
+        - `auto`: Treats source language as a hint; server can override
+
+        - `fixed`: Treats source language as mandatory; server must use this language'
+      enum:
+      - auto
+      - fixed
+      default: auto
+      example: fixed
+    InfrastructureErrorResponse:
+      description: 'Error body returned by DeepL''s edge infrastructure for failures that occur before a request reaches the API itself. The message is nested under `error`, unlike the application-level `ErrorResponse`. Clients that parse error bodies should handle both shapes.
+
+        '
+      type: object
+      required:
+      - error
+      properties:
+        error:
+          type: object
+          required:
+          - message
+          properties:
+            message:
+              type: string
+              description: A human-readable description of the error.
+              example: Bad Gateway.
+    VoiceFormality:
+      description: "Sets whether the translated text should lean towards formal or informal language.\nPossible options are:\n  * `default` - use the default formality for the target language\n  * `formal`/`more` - for a more formal language\n  * `informal`/`less` - for a more informal language"
+      type: string
+      enum:
+      - default
+      - formal
+      - more
+      - informal
+      - less
+      default: default
+      example: formal
+    VoiceTargetMediaLanguages:
+      type: array
+      description: 'List of target languages for which to generate synthesized audio. Languages specified here will automatically be added to target_languages if not already present, ensuring you receive both text translation and audio synthesis for these languages. If omitted, only text transcription and translation will be provided (no audio synthesis). Language identifiers must comply with IETF BCP 47.
+
+        Note: Some translated audio languages are provided through external service partners. See the [supported languages table](/docs/voice/supported-voice-languages) for details.
+
+        '
+      items:
+        type: string
+        enum:
+        - ar
+        - bg
+        - ca
+        - cs
+        - da
+        - de
+        - el
+        - en
+        - en-GB
+        - en-US
+        - es
+        - es-419
+        - fi
+        - fr
+        - fr-CA
+        - fr-FR
+        - gl
+        - he
+        - hi
+        - hr
+        - hu
+        - id
+        - it
+        - ja
+        - ko
+        - ms
+        - nb
+        - nl
+        - pl
+        - pt
+        - pt-BR
+        - pt-PT
+        - ro
+        - ru
+        - sk
+        - sl
+        - sv
+        - ta
+        - th
+        - tl
+        - tr
+        - uk
+        - vi
+        - zh
+        - zh-HANS
+        - zh-HANT
+      maxItems: 1
+      default: []
+      example:
+      - de
+    VoiceSourceMediaContentType:
+      type: string
+      description: " The audio format for streaming, which specifies container, codec, and encoding parameters. See the table below for supported formats. If `audio/auto` is specified, the server will auto-detect the container and codec for all supported combinations, except PCM. That requires explicit encoding parameters. All formats need to be single channel audio.\n \n | Content Type                          | Container                                         | Codec                                     |\n | :------------------------------------ | :------------------------------------------------ | :---------------------------------------- |\n | `audio/auto`                          | Auto-detect: FLAC / Matroska / MPEG / Ogg / WebM  | Auto-detect AAC / FLAC / MP3 / OPUS       |\n | `audio/flac`                          | FLAC (flac)                                       | FLAC                                      |\n | `audio/mpeg`                          | MPEG (mp3/m4a)                                    | MP3                                       |\n | `audio/ogg`                           | Ogg (ogg/oga)                                     | Auto-detect FLAC / OPUS                   |\n | `audio/webm`                          | WebM (webm)                                       | OPUS                                      |\n | `audio/x-matroska`                    | Matroska (mkv/mka)                                | Auto-detect: AAC / FLAC / MP3 / OPUS      |\n | `audio/ogg;codecs=flac`               | Ogg (ogg/oga)                                     | FLAC                                      |\n | `audio/ogg;codecs=opus`               | Ogg (ogg/oga)                                     | OPUS                                      |\n | `audio/pcm;encoding=alaw;rate=8000`   | -                                                 | PCM A-Law 8000 Hz (G.711)                 |\n | `audio/pcm;encoding=ulaw;rate=8000`   | -                                                 | PCM µ-Law 8000 Hz (G.711)                 |\n | `audio/pcm;encoding=s16le;rate=8000`  | -                                                 | PCM signed 16-bit little-endian 8000 Hz   |\n | `audio/pcm;encoding=s16le;rate=16000` | -                                                 | PCM signed 16-bit little-endian 16000 Hz  |\n | `audio/pcm;encoding=s16le;rate=44100` | -                                                 | PCM signed 16-bit little-endian 44100 Hz  |\n | `audio/pcm;encoding=s16le;rate=48000` | -                                                 | PCM signed 16-bit little-endian 48000 Hz  |\n | `audio/webm;codecs=opus`              | WebM (webm)                                       | OPUS                                      |\n | `audio/x-matroska;codecs=aac`         | Matroska (mkv/mka)                                | AAC                                       |\n | `audio/x-matroska;codecs=flac`        | Matroska (mkv/mka)                                | FLAC                                      |\n | `audio/x-matroska;codecs=mp3`         | Matroska (mkv/mka)                                | MP3                                       |\n | `audio/x-matroska;codecs=opus`        | Matroska (mkv/mka)                                | OPUS                                      |\n \n\nWe recommend the following bitrates as good tradeoff between quality and bandwidth:\n - AAC: 96 kbps\n - FLAC: 256 kbps  (16000 Hz)\n - MP3: 128 kbps\n - OPUS: 32 kbps (recommendation for low bandwidth scenarios)\n - PCM: 256 kbps (16000 Hz, default recommendation)\n "
+      enum:
+      - audio/auto
+      - audio/flac
+      - audio/mpeg
+      - audio/ogg
+      - audio/webm
+      - audio/x-matroska
+      - audio/ogg;codecs=flac
+      - audio/ogg;codecs=opus
+      - audio/pcm;encoding=alaw;rate=8000
+      - audio/pcm;encoding=ulaw;rate=8000
+      - audio/pcm;encoding=s16le;rate=8000
+      - audio/pcm;encoding=s16le;rate=16000
+      - audio/pcm;encoding=s16le;rate=44100
+      - audio/pcm;encoding=s16le;rate=48000
+      - audio/webm;codecs=opus
+      - audio/x-matroska;codecs=aac
+      - audio/x-matroska;codecs=flac
+      - audio/x-matroska;codecs=mp3
+      - audio/x-matroska;codecs=opus
+      example: audio/ogg;codecs=opus
+    ErrorResponse:
+      type: object
+      required:
+      - message
+      properties:
+        message:
+          type: string
+          description: A human-readable description of the error.
+        code:
+          type: string
+          description: A machine-readable identifier for the error, when available. Clients should match on this value rather than on `message` when branching on error types.
+          example: invalid_content_type
+    VoiceSourceLanguage:
+      type: string
+      description: 'The source language of the audio stream. It can be left empty or must be one of the supported Voice API source languages and comply with IETF BCP 47 language tags.
+
+        Note: Some source transcription languages are provided through external service partners. See the [supported languages table](/docs/voice/supported-voice-languages) for details.
+
+        '
+      enum:
+      - ar
+      - bg
+      - bn
+      - ca
+      - cs
+      - da
+      - de
+      - el
+      - en
+      - es
+      - et
+      - fi
+      - fr
+      - ga
+      - gl
+      - he
+      - hi
+      - hr
+      - hu
+      - id
+      - it
+      - ja
+      - ko
+      - lt
+      - lv
+      - ms
+      - mt
+      - nb
+      - nl
+      - pl
+      - pt
+      - ro
+      - ru
+      - sk
+      - sl
+      - sv
+      - ta
+      - th
+      - tl
+      - tr
+      - uk
+      - vi
+      - zh
+      example: en
+    VoiceStreamingResponse:
+      type: object
+      required:
+      - streaming_url
+      - token
+      properties:
+        streaming_url:
+          type: string
+          description: 'The WebSocket URL to use for establishing [the stream connection](/api-reference/voice/websocket-streaming).
+
+            '
+          example: wss://api.deepl.com/v3/voice/realtime/connect
+        token:
+          type: string
+          description: 'A unique ephemeral token for authentication with the streaming endpoint. Pass this as a query parameter when connecting to [the streaming URL](/api-reference/voice/websocket-streaming). This token is ephemeral and valid for a short time and one-time use only.
+
+            '
+          example: VGhpcyBpcyBhIGZha2UgdG9rZW4K
+        session_id:
+          type: string
+          description: 'Internal use only. A unique identifier for the requested stream.
+
+            '
+          example: 4f911080-cfe2-41d4-8269-0e6ec15a0354
+    VoiceTargetMediaContentType:
+      type: string
+      description: " The audio format for synthesized target media streaming.\n Specifies container, codec, and encoding parameters for the audio returned in target_media_chunk messages.\n If not specified, defaults to audio/webm;codecs=opus.\n Only applies when target_media_languages is specified.\n \n | Content Type | Container | Codec |\n | :--- | :--- | :--- |\n | `audio/flac` | FLAC (flac) | FLAC 24000 Hz |\n | `video/mp2t;codecs=aac` | MPEG Transport Stream (Audio only) | AAC 70 kbit/s |\n | `video/mp2t;codecs=opus` | MPEG Transport Stream (Audio only) | OPUS 32 kbit/s |\n | `audio/ogg` | Ogg (ogg/oga) | OPUS 32 kbit/s |\n | `audio/ogg;codecs=flac` | Ogg (ogg/oga) | FLAC 24000 Hz |\n | `audio/ogg;codecs=opus` | Ogg (ogg/oga) | OPUS 32 kbit/s |\n | `audio/opus` | - | OPUS 32 kbit/s |\n | `audio/pcm;encoding=alaw;rate=8000` | - | PCM A-Law 8000 Hz (G.711) |\n | `audio/pcm;encoding=ulaw;rate=8000` | - | PCM µ-Law 8000 Hz (G.711) |\n | `audio/pcm;encoding=s16le;rate=16000` | - | PCM signed 16-bit little-endian 16000 Hz |\n | `audio/pcm;encoding=s16le;rate=24000` | - | PCM signed 16-bit little-endian 24000 Hz |\n | `audio/webm` | WebM (webm) | OPUS 32 kbit/s  |\n | `audio/webm;codecs=opus` | WebM (webm) | OPUS 32 kbit/s |\n | `audio/x-matroska;codecs=aac` | Matroska (mkv/mka) | AAC 70 kbit/s |\n | `audio/x-matroska;codecs=flac` | Matroska (mkv/mka) | FLAC 24000 Hz |\n | `audio/x-matroska;codecs=opus` | Matroska (mkv/mka) | OPUS 32 kbit/s |\n \n We recommend the following formats as good tradeoffs between quality and bandwidth:\n - OPUS (WebM): 32 kbps, recommended for low bandwidth scenarios (default)\n - PCM 24kHz: 384 kbps, high quality"
+      enum:
+      - audio/flac
+      - video/mp2t;codecs=aac
+      - video/mp2t;codecs=opus
+      - audio/ogg
+      - audio/ogg;codecs=flac
+      - audio/ogg;codecs=opus
+      - audio/opus
+      - audio/pcm;encoding=alaw;rate=8000
+      - audio/pcm;encoding=ulaw;rate=8000
+      - audio/pcm;encoding=s16le;rate=16000
+      - audio/pcm;encoding=s16le;rate=24000
+      - audio/webm
+      - audio/webm;codecs=opus
+      - audio/x-matroska;codecs=aac
+      - audio/x-matroska;codecs=flac
+      - audio/x-matroska;codecs=opus
+      default: audio/webm;codecs=opus
+      example: audio/webm;codecs=opus
+    VoiceTargetLanguages:
+      type: array
+      description: 'List of target languages for translation. The stream will emit translations for each language. Language identifiers must comply with IETF BCP 47. See the [supported languages table](/docs/voice/supported-voice-languages) for details.
+
+        '
+      items:
+        type: string
+        enum:
+        - ar
+        - bg
+        - bn
+        - ca
+        - cs
+        - da
+        - de
+        - el
+        - en
+        - en-GB
+        - en-US
+        - es
+        - es-419
+        - et
+        - fi
+        - fr
+        - fr-CA
+        - fr-FR
+        - ga
+        - gl
+        - he
+        - hi
+        - hr
+        - hu
+        - id
+        - it
+        - ja
+        - ko
+        - lt
+        - lv
+        - ms
+        - mt
+        - nb
+        - nl
+        - pl
+        - pt
+        - pt-BR
+        - pt-PT
+        - ro
+        - ru
+        - sk
+        - sl
+        - sv
+        - ta
+        - th
+        - tl
+        - tr
+        - uk
+        - vi
+        - zh
+        - zh-HANS
+        - zh-HANT
+      maxItems: 5
+      default: []
+      example:
+      - de
+      - fr
+      - es
+  headers:
+    X-Trace-ID:
+      description: A unique identifier for the request that can be included in bug reports to DeepL support.
+      schema:
+        type: string
+      example: 501c3d93cc0c4f11ae2f60a226c2f0f0
+  responses:
+    Unauthorized:
+      description: Authorization failed. Please supply a valid `DeepL-Auth-Key` via the `Authorization` header.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    QuotaExceeded:
+      description: Quota exceeded. The character limit has been reached.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    ServiceUnavailable:
+      description: Resource currently unavailable. Try again later.
+      content:
+        application/json:
+          schema:
+            oneOf:
+            - $ref: '#/components/schemas/ErrorResponse'
+            - $ref: '#/components/schemas/InfrastructureErrorResponse'
+    TooManyRequests:
+      description: Too many requests. Please wait and resend your request.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    InternalServerError:
+      description: Internal error.
+      content:
+        application/json:
+          schema:
+            oneOf:
+            - $ref: '#/components/schemas/ErrorResponse'
+            - $ref: '#/components/schemas/InfrastructureErrorResponse'
+    Forbidden:
+      description: Authorization failed. Please supply a valid `DeepL-Auth-Key` via the `Authorization` header.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    BadRequest:
+      description: Bad request. Please check error message and your parameters.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+  parameters:
+    CustomReportingTag:
+      name: X-DeepL-Reporting-Tag
+      in: header
+      required: false
+      description: 'An optional custom reporting tag used to attribute this request''s usage to a team, project, customer, or other category of your choosing. Values are limited to 100 characters. See [How to use custom reporting tags](/docs/learning-how-tos/examples-and-guides/how-to-use-custom-reporting-tags) for validation rules, naming guidance, and how to retrieve usage by tag.
+
+        '
+      schema:
+        type: string
+        maxLength: 100
+      example: team-billing
+  securitySchemes:
+    auth_header:
+      type: apiKey
+      description: 'Authentication with `Authorization` header and `DeepL-Auth-Key` authentication scheme. Example: `DeepL-Auth-Key <api-key>`
+
+        '
+      name: Authorization
+      in: header
+      x-default: 'DeepL-Auth-Key '
+externalDocs:
+  description: DeepL Pro - Plans and pricing
+  url: https://www.deepl.com/pro#developer
+x-hideTryItPanel: true
+x-codeSamples: false

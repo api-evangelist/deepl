@@ -1,0 +1,779 @@
+openapi: 3.2.0
+info:
+  title: DeepL API Documentation Admin API
+  description: 'The DeepL API provides programmatic access to DeepL’s language AI technology.
+
+
+    Note: this OpenAPI spec is embedded into our API documentation and has shortened descriptions.'
+  termsOfService: https://www.deepl.com/pro-license
+  contact:
+    name: DeepL - Contact us
+    url: https://www.deepl.com/contact-us
+  version: 3.13.0
+servers:
+- url: https://api.deepl.com
+  description: DeepL API Pro
+- url: https://api-free.deepl.com
+  description: DeepL API Free
+tags:
+- name: AdminApi
+  description: Endpoints for organization administrators to manage API keys and retrieve usage analytics.
+paths:
+  /v2/admin/analytics:
+    get:
+      tags:
+      - AdminApi
+      summary: Get usage statistics as an admin
+      operationId: adminGetAnalytics
+      description: 'Retrieve usage statistics for the organization within a specified date range.
+
+        Optionally group the results by API key or by API key and day.'
+      parameters:
+      - name: start_date
+        in: query
+        required: true
+        description: Start date for the usage report (ISO 8601 date format).
+        schema:
+          type: string
+          format: date
+        example: '2025-09-29'
+      - name: end_date
+        in: query
+        required: true
+        description: End date for the usage report (ISO 8601 date format).
+        schema:
+          type: string
+          format: date
+        example: '2025-10-01'
+      - name: group_by
+        in: query
+        required: false
+        description: "Optional parameter to group usage statistics. Possible values:\n * `key` - Group by API key\n * `key_and_day` - Group by API key and usage date"
+        schema:
+          type: string
+          enum:
+          - key
+          - key_and_day
+        example: key_and_day
+      responses:
+        '200':
+          description: The usage statistics for the specified date range.
+          headers:
+            X-Trace-ID:
+              $ref: '#/components/headers/X-Trace-ID'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AdminUsageReport'
+              examples:
+                withGrouping:
+                  summary: Usage report grouped by key and day
+                  value:
+                    usage_report:
+                      total_usage:
+                        total_characters: 9619
+                        text_translation_characters: 4892
+                        document_translation_characters: 0
+                        text_improvement_characters: 4727
+                        speech_to_text_minutes: 107.46
+                      group_by: key_and_day
+                      start_date: '2025-09-29T00:00:00'
+                      end_date: '2025-10-01T00:00:00'
+                      key_and_day_usages:
+                      - api_key: dc88****3a2c
+                        api_key_label: Staging API Key
+                        usage_date: '2025-09-29T00:00:00Z'
+                        usage:
+                          total_characters: 315
+                          text_translation_characters: 159
+                          document_translation_characters: 0
+                          text_improvement_characters: 156
+                          speech_to_text_minutes: 11.94
+                withoutGrouping:
+                  summary: Usage report without grouping
+                  value:
+                    usage_report:
+                      total_usage:
+                        total_characters: 9619
+                        text_translation_characters: 4892
+                        document_translation_characters: 0
+                        text_improvement_characters: 4727
+                        speech_to_text_minutes: 107.46
+                      start_date: '2025-09-29T00:00:00'
+                      end_date: '2025-10-01T00:00:00'
+        '400':
+          description: Bad request. Please check error message and your parameters.
+          headers:
+            X-Trace-ID:
+              $ref: '#/components/headers/X-Trace-ID'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    description: Error message describing the issue.
+              examples:
+                dateRangeExceeded:
+                  summary: Date range exceeds maximum allowed
+                  value:
+                    message: 'Bad request. Reason: Date range cannot exceed 366 days'
+                invalidGroupBy:
+                  summary: Invalid group_by parameter value
+                  value:
+                    message: 'Value for ''group_by'' not supported. Allowed: '''', ''key'', ''key_and_day''.'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
+      security:
+      - auth_header: []
+  /v2/admin/analytics/custom-tags:
+    get:
+      tags:
+      - AdminApi
+      summary: Get custom tag usage statistics as an admin
+      operationId: adminGetCustomTagAnalytics
+      description: 'Retrieve usage statistics broken down by custom tags within a specified date range.
+
+        Optionally aggregate results by day or over the entire period.
+
+        Results are paginated; use the `page` parameter with the `next_page` value from
+
+        a previous response to retrieve subsequent pages.'
+      parameters:
+      - name: start_date
+        in: query
+        required: true
+        description: Start date for the usage report (ISO 8601 date format).
+        schema:
+          type: string
+          format: date
+        example: '2026-05-17'
+      - name: end_date
+        in: query
+        required: true
+        description: End date for the usage report (ISO 8601 date format).
+        schema:
+          type: string
+          format: date
+        example: '2026-05-18'
+      - name: aggregate_by
+        in: query
+        required: false
+        description: "Optional parameter to control aggregation of usage statistics. Possible values:\n * `period` - Aggregate usage over the entire date range (default)\n * `day` - Group usage by individual day"
+        schema:
+          type: string
+          enum:
+          - period
+          - day
+          default: period
+        example: day
+      - name: page
+        in: query
+        required: false
+        description: 'Page number for pagination. Use the integer value returned in `next_page` from
+
+          a previous response to retrieve the next page of results.'
+        schema:
+          type: integer
+        example: 2
+      responses:
+        '200':
+          description: The custom tag usage statistics for the specified date range.
+          headers:
+            X-Trace-ID:
+              $ref: '#/components/headers/X-Trace-ID'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CustomTagUsageReport'
+              examples:
+                aggregateByPeriod:
+                  summary: Usage report aggregated over the full period
+                  value:
+                    custom_tag_usage_report:
+                      aggregate_by: period
+                      start_date: '2026-05-03T00:00:00'
+                      end_date: '2026-05-05T00:00:00'
+                      next_page: null
+                      usage:
+                      - custom_tag: example-custom-tag
+                        breakdown:
+                          total_characters: 380
+                          text_translation_characters: 380
+                          text_improvement_characters: 0
+                          speech_to_text_minutes: 12.5
+                          speech_to_speech_minutes: 4.2
+                      - custom_tag: example-custom-tag-2
+                        breakdown:
+                          total_characters: 475
+                          text_translation_characters: 475
+                          text_improvement_characters: 0
+                          speech_to_text_minutes: 0
+                          speech_to_speech_minutes: 0
+                aggregateByDay:
+                  summary: Usage report aggregated by day
+                  value:
+                    custom_tag_usage_report:
+                      aggregate_by: day
+                      start_date: '2026-05-03T00:00:00'
+                      end_date: '2026-05-15T00:00:00'
+                      next_page: null
+                      usage:
+                      - custom_tag: example-custom-tag
+                        usage_date: '2026-05-04T00:00:00Z'
+                        breakdown:
+                          total_characters: 380
+                          text_translation_characters: 380
+                          text_improvement_characters: 0
+                          speech_to_text_minutes: 12.5
+                          speech_to_speech_minutes: 4.2
+                      - custom_tag: example-custom-tag
+                        usage_date: '2026-05-11T00:00:00Z'
+                        breakdown:
+                          total_characters: 595
+                          text_translation_characters: 595
+                          text_improvement_characters: 0
+                          speech_to_text_minutes: 0
+                          speech_to_speech_minutes: 0
+        '400':
+          description: Bad request. Please check error message and your parameters.
+          headers:
+            X-Trace-ID:
+              $ref: '#/components/headers/X-Trace-ID'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    description: Error message describing the issue.
+              examples:
+                dateRangeExceeded:
+                  summary: Date range exceeds maximum allowed
+                  value:
+                    message: 'Bad request. Reason: Date range cannot exceed 366 days'
+                invalidAggregateBy:
+                  summary: Invalid aggregate_by parameter value
+                  value:
+                    message: 'Value for ''aggregate_by'' not supported. Allowed: '''', ''period'', ''day''.'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
+      security:
+      - auth_header: []
+  /v2/admin/developer-keys:
+    post:
+      tags:
+      - AdminApi
+      summary: Create a developer key as an admin
+      operationId: adminCreateDeveloperKey
+      description: 'Create a developer key in your organization with the given label and return its
+
+        metadata, including the `key_id`. Requires an Admin API key.'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                label:
+                  $ref: '#/components/schemas/ApiKeyLabel'
+      responses:
+        '200':
+          description: The create function returns a JSON representation of the created API key.
+          headers:
+            X-Trace-ID:
+              $ref: '#/components/headers/X-Trace-ID'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiKey'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
+      security:
+      - auth_header: []
+    get:
+      tags:
+      - AdminApi
+      summary: Get all developer keys as an admin
+      operationId: adminGetDeveloperKeys
+      description: 'List every developer key in your organization, including labels, creation and
+
+        deactivation timestamps, and any configured usage limits. Requires an Admin API key.'
+      responses:
+        '200':
+          description: The get function returns a JSON representation of all developer API keys in the organization.
+          headers:
+            X-Trace-ID:
+              $ref: '#/components/headers/X-Trace-ID'
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ApiKey'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
+      security:
+      - auth_header: []
+  /v2/admin/developer-keys/deactivate:
+    put:
+      tags:
+      - AdminApi
+      summary: Deactivate a developer key as an admin
+      operationId: adminDeactivateDeveloperKey
+      description: 'Deactivate a developer key so it can no longer authenticate API requests.
+
+        Deactivation is permanent: create a new key to restore access. Requires an Admin API key.'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+              - key_id
+              properties:
+                key_id:
+                  $ref: '#/components/schemas/ApiKeyId'
+      responses:
+        '200':
+          description: The deactivate function returns a JSON representation of the deactivated API key.
+          headers:
+            X-Trace-ID:
+              $ref: '#/components/headers/X-Trace-ID'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiKey'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
+      security:
+      - auth_header: []
+  /v2/admin/developer-keys/label:
+    put:
+      tags:
+      - AdminApi
+      summary: Rename a developer key as an admin
+      operationId: adminRenameDeveloperKey
+      description: 'Change the label of a developer key. Labels are for your own bookkeeping and do not
+
+        affect the key''s permissions. Requires an Admin API key.'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+              - key_id
+              - label
+              properties:
+                key_id:
+                  $ref: '#/components/schemas/ApiKeyId'
+                label:
+                  type: string
+                  description: API key label.
+                  example: developer key prod
+      responses:
+        '200':
+          description: The set label function returns a JSON representation of the renamed API key.
+          headers:
+            X-Trace-ID:
+              $ref: '#/components/headers/X-Trace-ID'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiKey'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
+      security:
+      - auth_header: []
+  /v2/admin/developer-keys/limits:
+    put:
+      tags:
+      - AdminApi
+      summary: Set developer key usage limits as an admin
+      operationId: adminSetDeveloperKeyUsageLimits
+      description: 'Set per-key usage limits for characters and speech-to-text milliseconds. Requests made
+
+        with the key fail with HTTP 456 once a limit is reached. Requires an Admin API key.'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+              - key_id
+              properties:
+                key_id:
+                  $ref: '#/components/schemas/ApiKeyId'
+                characters:
+                  $ref: '#/components/schemas/ApiKeyUsageCharacters'
+                speech_to_text_milliseconds:
+                  $ref: '#/components/schemas/ApiKeyUsageSpeechToTextMilliseconds'
+      responses:
+        '200':
+          description: The set usage limits function returns a JSON representation of the modified API key.
+          headers:
+            X-Trace-ID:
+              $ref: '#/components/headers/X-Trace-ID'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiKey'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
+      security:
+      - auth_header: []
+components:
+  schemas:
+    AdminUsageReport:
+      type: object
+      description: The response for admin usage statistics.
+      properties:
+        usage_report:
+          $ref: '#/components/schemas/AdminUsageReportData'
+    KeyAndDayUsageItem:
+      type: object
+      description: Usage statistics for a specific API key and optionally a specific date.
+      properties:
+        api_key:
+          type: string
+          description: Masked API key identifier.
+          example: db96****cb2c
+        api_key_label:
+          type: string
+          description: Label associated with the API key.
+          example: DeepL API Key Prod
+        usage_date:
+          type: string
+          format: date-time
+          description: The usage date. Only present when group_by is "key_and_day".
+          example: '2025-09-29T00:00:00Z'
+        usage:
+          $ref: '#/components/schemas/UsageBreakdown'
+    InfrastructureErrorResponse:
+      description: 'Error body returned by DeepL''s edge infrastructure for failures that occur before a request reaches the API itself. The message is nested under `error`, unlike the application-level `ErrorResponse`. Clients that parse error bodies should handle both shapes.
+
+        '
+      type: object
+      required:
+      - error
+      properties:
+        error:
+          type: object
+          required:
+          - message
+          properties:
+            message:
+              type: string
+              description: A human-readable description of the error.
+              example: Bad Gateway.
+    AdminUsageReportData:
+      type: object
+      description: Contains the detailed usage statistics for the specified date range.
+      properties:
+        total_usage:
+          $ref: '#/components/schemas/UsageBreakdown'
+        start_date:
+          type: string
+          format: date-time
+          description: Start date of the usage report period.
+          example: '2025-09-29T00:00:00'
+        end_date:
+          type: string
+          format: date-time
+          description: End date of the usage report period.
+          example: '2025-10-01T00:00:00'
+        group_by:
+          type: string
+          description: The grouping method used, if any.
+          enum:
+          - key
+          - key_and_day
+          example: key_and_day
+        key_usages:
+          type: array
+          description: Usage statistics grouped by key. Present when group_by='key'.
+          items:
+            $ref: '#/components/schemas/KeyUsageItem'
+        key_and_day_usages:
+          type: array
+          description: Usage statistics grouped by key and day. Present when group_by='key_and_day'.
+          items:
+            $ref: '#/components/schemas/KeyAndDayUsageItem'
+    ApiKeyId:
+      description: API key ID. Consists of two valid GUIDs separated by a colon.
+      type: string
+      example: ca7d5694-96eb-4263-a9a4-7f7e4211529e:20c2abcf-4c3c-4cd6-8ae8-8bd2a7d4da38
+    ErrorResponse:
+      type: object
+      required:
+      - message
+      properties:
+        message:
+          type: string
+          description: A human-readable description of the error.
+        code:
+          type: string
+          description: A machine-readable identifier for the error, when available. Clients should match on this value rather than on `message` when branching on error types.
+          example: invalid_content_type
+    CustomTagBreakdown:
+      type: object
+      description: Breakdown of usage by category for a custom tag.
+      properties:
+        total_characters:
+          type: integer
+          description: 'Total number of characters used across character-based services. Voice usage is reported in minutes and is not included in this total.
+
+            '
+          example: 380
+        text_translation_characters:
+          type: integer
+          description: Number of characters used for text translation.
+          example: 380
+        text_improvement_characters:
+          type: integer
+          description: Number of characters used for text improvement.
+          example: 0
+        speech_to_text_minutes:
+          type: number
+          description: Duration of speech-to-text usage in minutes.
+          example: 12.5
+        speech_to_speech_minutes:
+          type: number
+          description: Duration of speech-to-speech usage in minutes.
+          example: 4.2
+    ApiKey:
+      description: The API key.
+      type: object
+      properties:
+        key_id:
+          $ref: '#/components/schemas/ApiKeyId'
+        label:
+          $ref: '#/components/schemas/ApiKeyLabel'
+        creation_time:
+          description: Timestamp when the key was created (ISO 8601 format)
+          type: string
+          example: '2025-07-08T08:15:29.362Z'
+        deactivated_time:
+          description: Timestamp when the key was deactivated (ISO 8601 format). The default value is `null`.
+          type: string
+          example: '2025-07-09T08:15:29.362Z'
+        is_deactivated:
+          description: Flag indicating whether the API key is deactivated. The default value is `false`.
+          type: boolean
+          example: true
+        usage_limits:
+          description: Usage limits for the API key.
+          type: object
+          properties:
+            characters:
+              $ref: '#/components/schemas/ApiKeyUsageCharacters'
+            speech_to_text_milliseconds:
+              $ref: '#/components/schemas/ApiKeyUsageSpeechToTextMilliseconds'
+    UsageBreakdown:
+      type: object
+      description: Breakdown of character usage by category.
+      properties:
+        total_characters:
+          type: integer
+          description: Total number of characters used.
+          example: 9619
+        text_translation_characters:
+          type: integer
+          description: Number of characters used for text translation.
+          example: 4892
+        document_translation_characters:
+          type: integer
+          description: Number of characters used for document translation.
+          example: 0
+        text_improvement_characters:
+          type: integer
+          description: Number of characters used for text improvement.
+          example: 4727
+        speech_to_text_minutes:
+          type: number
+          description: Duration of speech-to-text usage in minutes.
+          example: 107.46
+    CustomTagUsageItem:
+      type: object
+      description: Usage statistics for a specific custom tag.
+      properties:
+        custom_tag:
+          type: string
+          description: The custom tag identifier.
+          example: example-custom-tag
+        usage_date:
+          type: string
+          format: date-time
+          description: The day the usage was recorded. Only returned when `aggregate_by` is `day`.
+          example: '2026-05-04T00:00:00Z'
+        breakdown:
+          $ref: '#/components/schemas/CustomTagBreakdown'
+    CustomTagUsageReport:
+      type: object
+      description: The response for admin custom tag usage statistics.
+      properties:
+        custom_tag_usage_report:
+          $ref: '#/components/schemas/CustomTagUsageReportData'
+    CustomTagUsageReportData:
+      type: object
+      description: Contains the detailed custom tag usage statistics for the specified date range.
+      properties:
+        aggregate_by:
+          type: string
+          description: The aggregation method used.
+          enum:
+          - period
+          - day
+          example: period
+        start_date:
+          type: string
+          format: date-time
+          description: Start date of the usage report period.
+          example: '2026-05-03T00:00:00'
+        end_date:
+          type: string
+          format: date-time
+          description: End date of the usage report period.
+          example: '2026-05-05T00:00:00'
+        next_page:
+          type:
+          - integer
+          - 'null'
+          description: Cursor for the next page of results. Null if there are no further pages.
+          example: 2
+        usage:
+          type: array
+          description: List of custom tag usage entries.
+          items:
+            $ref: '#/components/schemas/CustomTagUsageItem'
+    ApiKeyLabel:
+      description: API key label. The default value is `DeepL API Key`.
+      type: string
+      example: developer key prod
+    ApiKeyUsageCharacters:
+      description: 'Restricts the number of total characters (across text translation, document translation, and text improvement) that can be consumed by an API key in a one-month usage period.
+
+
+        Setting the limit to `0` means the API key will not be able to consume characters.
+
+        Setting the limit to `null` disables the limit, effectively allowing unlimited usage.
+
+        '
+      type: number
+      example: 5000
+    KeyUsageItem:
+      type: object
+      description: Usage statistics for a specific API key and optionally a specific date.
+      properties:
+        api_key:
+          type: string
+          description: Masked API key identifier.
+          example: db96****cb2c
+        api_key_label:
+          type: string
+          description: Label associated with the API key.
+          example: DeepL API Key Prod
+        usage:
+          $ref: '#/components/schemas/UsageBreakdown'
+    ApiKeyUsageSpeechToTextMilliseconds:
+      description: 'Restricts the number of milliseconds of speech-to-text that can be consumed by an API key in a one-month usage period.
+
+        Setting the limit to `0` means the API key will not be able to consume speech-to-text milliseconds.
+
+        Setting the limit to `null` disables the limit, effectively allowing unlimited usage.
+
+        '
+      type: number
+      example: 3600000
+  headers:
+    X-Trace-ID:
+      description: A unique identifier for the request that can be included in bug reports to DeepL support.
+      schema:
+        type: string
+      example: 501c3d93cc0c4f11ae2f60a226c2f0f0
+  responses:
+    InternalServerError:
+      description: Internal error.
+      content:
+        application/json:
+          schema:
+            oneOf:
+            - $ref: '#/components/schemas/ErrorResponse'
+            - $ref: '#/components/schemas/InfrastructureErrorResponse'
+    NotFound:
+      description: The requested resource could not be found.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    Forbidden:
+      description: Authorization failed. Please supply a valid `DeepL-Auth-Key` via the `Authorization` header.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    BadRequest:
+      description: Bad request. Please check error message and your parameters.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+  securitySchemes:
+    auth_header:
+      type: apiKey
+      description: 'Authentication with `Authorization` header and `DeepL-Auth-Key` authentication scheme. Example: `DeepL-Auth-Key <api-key>`
+
+        '
+      name: Authorization
+      in: header
+      x-default: 'DeepL-Auth-Key '
+externalDocs:
+  description: DeepL Pro - Plans and pricing
+  url: https://www.deepl.com/pro#developer
+x-hideTryItPanel: true
+x-codeSamples: false

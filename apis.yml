@@ -92,16 +92,17 @@ apis:
     url: asyncapi/deepl-voice-api-asyncapi.yml
   - type: AsyncAPI
     url: https://developers.deepl.com/api-reference/voice.asyncapi.yaml
-- aid: deepl:deepl-documents-api
-  name: DeepL Documents API
-  description: The Documents API from DeepL — 3 operation(s) for documents.
-  humanURL: https://developers.deepl.com/
-  baseURL: https://api.deepl.com/v2
+- aid: deepl:deepl-adminapi-api
+  name: DeepL Admin API
+  description: >-
+    Endpoints for organization administrators to manage API keys and retrieve usage analytics.
+  humanURL: https://developers.deepl.com/api-reference/voice
+  baseURL: https://api.deepl.com/v3
   tags:
-  - Documents
+  - AdminApi
   properties:
   - type: OpenAPI
-    url: openapi/deepl-documents-api-openapi.yml
+    url: openapi/deepl-adminapi-api-openapi.yml
   - type: Documentation
     url: https://developers.deepl.com/docs
   - type: Reference
@@ -112,18 +113,20 @@ apis:
     url: json-schema/deepl-glossary.json
   - type: Rules
     url: rules/deepl-translation-api-rules.yml
-- aid: deepl:deepl-glossaries-api
-  name: DeepL Glossaries API
-  description: The Glossaries API from DeepL — 4 operation(s) for glossaries.
-  humanURL: https://developers.deepl.com/
-  baseURL: https://api.deepl.com/v2
+- aid: deepl:deepl-correcttext-api
+  name: DeepL Correct Text API
+  description: >-
+    The `correct` endpoint fixes spelling and grammar errors without broader rephrasing. Use it when you
+    want
+
+    a minimal-change correction pass rather than the broader rewriting performed by `rephrase`.
+  humanURL: https://developers.deepl.com/api-reference/voice
+  baseURL: https://api.deepl.com/v3
   tags:
-  - Glossary
-  tags_raw:
-  - Glossaries
+  - CorrectText
   properties:
   - type: OpenAPI
-    url: openapi/deepl-glossaries-api-openapi.yml
+    url: openapi/deepl-correcttext-api-openapi.yml
   - type: Documentation
     url: https://developers.deepl.com/docs
   - type: Reference
@@ -134,18 +137,32 @@ apis:
     url: json-schema/deepl-glossary.json
   - type: Rules
     url: rules/deepl-translation-api-rules.yml
-- aid: deepl:deepl-languages-api
-  name: DeepL Languages API
-  description: The Languages API from DeepL — 1 operation(s) for languages.
-  humanURL: https://developers.deepl.com/
-  baseURL: https://api.deepl.com/v2
+- aid: deepl:deepl-manageglossaries-api
+  name: DeepL Manage Glossaries API
+  description: >-
+    Please note that this is the spec for the (old) v2 glossary endpoint.
+
+    We recommend users switch to the newer v3 glossary endpoints, which support editability and multilinguality.
+
+
+    The *glossary* functions allow you to create, inspect, and delete glossaries.
+
+    Glossaries created with the glossary function can be used in translate requests by specifying the
+
+    `glossary_id` parameter.
+
+    If you encounter issues, please let us know at support@DeepL.com.
+
+
+    Currently you can create glossaries with any of the languages DeepL supports (with the exception of
+    Thai).
+  humanURL: https://developers.deepl.com/api-reference/voice
+  baseURL: https://api.deepl.com/v3
   tags:
-  - Language
-  tags_raw:
-  - Languages
+  - ManageGlossaries
   properties:
   - type: OpenAPI
-    url: openapi/deepl-languages-api-openapi.yml
+    url: openapi/deepl-manageglossaries-api-openapi.yml
   - type: Documentation
     url: https://developers.deepl.com/docs
   - type: Reference
@@ -156,16 +173,56 @@ apis:
     url: json-schema/deepl-glossary.json
   - type: Rules
     url: rules/deepl-translation-api-rules.yml
-- aid: deepl:deepl-translate-api
-  name: DeepL Translate API
-  description: The Translate API from DeepL — 1 operation(s) for translate.
-  humanURL: https://developers.deepl.com/
-  baseURL: https://api.deepl.com/v2
+- aid: deepl:deepl-managemultilingualglossaries-api
+  name: DeepL Manage Multilingual Glossaries API
+  description: >-
+    The *glossary* functions allow you to create, inspect, edit and delete glossaries.
+
+    Glossaries created with the glossary function can be used in translate requests by specifying the
+
+    `glossary_id` parameter. A glossary contains (several) dictionaries.
+
+    A dictionary is a mapping of source phrases to target phrases for a single language pair.
+
+    If you encounter issues, please let us know at support@DeepL.com.
+
+
+    Currently you can create glossaries with any of the languages DeepL supports (with the exception of
+    Thai).
+
+
+    The maximum size limit for a glossary is 10 MiB = 10485760 bytes and each source/target text,
+
+    as well as the name of the glossary, is limited to 1024 UTF-8 bytes.
+
+    A total of 1000 glossaries are allowed per account.
+
+
+    When creating a dictionary with target language `EN`, `PT`, or `ZH`, it's not necessary to specify
+    a variant
+
+    (e.g. `EN-US`, `EN-GB`, `PT-PT`, `PT-BR`, or `ZH-HANS`).
+
+    Dictionaries with target language `EN` can be used in translations with either English variant.
+
+    Similarly `PT`, and `ZH` dictionaries can be used in translations with their corresponding variants.
+
+    (When you provide the ID of a glossary to a translation, the appropriate dictionary is automatically
+    applied. Currently glossaries can not yet be used with source language detection.)
+
+
+    Glossaries created via the DeepL API are now unified with glossaries created via the DeepL website
+    and DeepL apps.
+
+    Please only use the v3 glossary API in conjunction with multilingual or edited glossaries from the
+    website.
+  humanURL: https://developers.deepl.com/api-reference/voice
+  baseURL: https://api.deepl.com/v3
   tags:
-  - Translate
+  - ManageMultilingualGlossaries
   properties:
   - type: OpenAPI
-    url: openapi/deepl-translate-api-openapi.yml
+    url: openapi/deepl-managemultilingualglossaries-api-openapi.yml
   - type: Documentation
     url: https://developers.deepl.com/docs
   - type: Reference
@@ -176,16 +233,25 @@ apis:
     url: json-schema/deepl-glossary.json
   - type: Rules
     url: rules/deepl-translation-api-rules.yml
-- aid: deepl:deepl-usage-api
-  name: DeepL Usage API
-  description: The Usage API from DeepL — 1 operation(s) for usage.
-  humanURL: https://developers.deepl.com/
-  baseURL: https://api.deepl.com/v2
+- aid: deepl:deepl-managespokenterms-api
+  name: DeepL Manage Spoken Terms API
+  description: >-
+    The *Spoken Terms* functions allow you to create, inspect, edit and delete Spoken Terms collections.
+
+    Spoken Terms improve speech recognition in the Voice API: they ensure specific words and phrases,
+
+    such as company names, acronyms, and product names, are transcribed correctly. A collection contains
+
+    one or more term lists, each holding terms for a single language, and is applied to a voice session
+
+    via the `spoken_terms_id` parameter.
+  humanURL: https://developers.deepl.com/api-reference/voice
+  baseURL: https://api.deepl.com/v3
   tags:
-  - Usage
+  - ManageSpokenTerms
   properties:
   - type: OpenAPI
-    url: openapi/deepl-usage-api-openapi.yml
+    url: openapi/deepl-managespokenterms-api-openapi.yml
   - type: Documentation
     url: https://developers.deepl.com/docs
   - type: Reference
@@ -196,17 +262,239 @@ apis:
     url: json-schema/deepl-glossary.json
   - type: Rules
     url: rules/deepl-translation-api-rules.yml
-- aid: deepl:deepl-write-api
-  name: DeepL Write API
-  description: The Write API from DeepL — 1 operation(s) for write.
-  humanURL: https://developers.deepl.com/
-  baseURL: https://api.deepl.com/v2
-  tags: []
-  tags_raw:
-  - Write
+- aid: deepl:deepl-metainformation-api
+  name: DeepL Meta Information API
+  description: Information about API usage and value ranges
+  humanURL: https://developers.deepl.com/api-reference/voice
+  baseURL: https://api.deepl.com/v3
+  tags:
+  - MetaInformation
   properties:
   - type: OpenAPI
-    url: openapi/deepl-write-api-openapi.yml
+    url: openapi/deepl-metainformation-api-openapi.yml
+  - type: Documentation
+    url: https://developers.deepl.com/docs
+  - type: Reference
+    url: https://developers.deepl.com/docs/api-reference
+  - type: JSONSchema
+    url: json-schema/deepl-translation.json
+  - type: JSONSchema
+    url: json-schema/deepl-glossary.json
+  - type: Rules
+    url: rules/deepl-translation-api-rules.yml
+- aid: deepl:deepl-qualityevaluation-api
+  name: DeepL Quality Evaluation API
+  description: >-
+    **Beta.** Retrieve a quality evaluation report for a document DeepL has translated. Reports are requested
+    with `enable_quality_evaluation` on `POST /v2/document` and polled here. A report lists per-segment
+    quality issues categorized by error type and severity, with character spans pointing to where each
+    issue occurs.
+  humanURL: https://developers.deepl.com/api-reference/voice
+  baseURL: https://api.deepl.com/v3
+  tags:
+  - QualityEvaluation
+  properties:
+  - type: OpenAPI
+    url: openapi/deepl-qualityevaluation-api-openapi.yml
+  - type: Documentation
+    url: https://developers.deepl.com/docs
+  - type: Reference
+    url: https://developers.deepl.com/docs/api-reference
+  - type: JSONSchema
+    url: json-schema/deepl-translation.json
+  - type: JSONSchema
+    url: json-schema/deepl-glossary.json
+  - type: Rules
+    url: rules/deepl-translation-api-rules.yml
+- aid: deepl:deepl-rephrasetext-api
+  name: DeepL Rephrase Text API
+  description: >-
+    The `rephrase` endpoint  is used to make corrections and adjustments to texts based on style or tone.
+  humanURL: https://developers.deepl.com/api-reference/voice
+  baseURL: https://api.deepl.com/v3
+  tags:
+  - RephraseText
+  properties:
+  - type: OpenAPI
+    url: openapi/deepl-rephrasetext-api-openapi.yml
+  - type: Documentation
+    url: https://developers.deepl.com/docs
+  - type: Reference
+    url: https://developers.deepl.com/docs/api-reference
+  - type: JSONSchema
+    url: json-schema/deepl-translation.json
+  - type: JSONSchema
+    url: json-schema/deepl-glossary.json
+  - type: Rules
+    url: rules/deepl-translation-api-rules.yml
+- aid: deepl:deepl-style-rules-api
+  name: DeepL Style Rules API
+  description: The Style Rules API from DeepL — 5 operation(s) for style rules.
+  humanURL: https://developers.deepl.com/api-reference/voice
+  baseURL: https://api.deepl.com/v3
+  tags:
+  - Style Rules
+  properties:
+  - type: OpenAPI
+    url: openapi/deepl-style-rules-api-openapi.yml
+  - type: Documentation
+    url: https://developers.deepl.com/docs
+  - type: Reference
+    url: https://developers.deepl.com/docs/api-reference
+  - type: JSONSchema
+    url: json-schema/deepl-translation.json
+  - type: JSONSchema
+    url: json-schema/deepl-glossary.json
+  - type: Rules
+    url: rules/deepl-translation-api-rules.yml
+- aid: deepl:deepl-translatedocuments-api
+  name: DeepL Translate Documents API
+  description: >-
+    The document translation API allows you to translate whole documents and supports the following file
+    types and extensions:
+      * `docx` - Microsoft Word Document
+      * `pptx` - Microsoft PowerPoint Document
+      * `xlsx` - Microsoft Excel Document
+      * `xlsm` - Microsoft Excel Macro-Enabled Workbook (currently in beta)
+      * `pdf` - Portable Document Format
+      * `htm / html` - HTML Document
+      * `txt` - Plain Text Document
+      * `xlf / xliff` - XLIFF Document (versions 1.2, 2.0, and 2.1)
+      * `srt` - SRT Document
+      * `vtt` - WebVTT Subtitle Document (currently in beta)
+      * `idml` - Adobe InDesign Markup Language
+      * `xml` - XML Document
+      * `json` - JSON Document
+      * `yaml / yml` - YAML Document (currently in beta)
+      * `properties` - Java Properties Document (currently in beta)
+      * `strings` - iOS/macOS Strings Document (currently in beta)
+      * `md / markdown` - Markdown Document (currently in beta)
+      * `dita` - DITA topic (Darwin Information Typing Architecture)
+      * `mif` - Adobe FrameMaker Interchange Format
+      * `zip` - SCORM Package (e-learning content, currently in beta)
+      * `odt` - OpenDocument Text Document (currently in beta)
+      * `rtf` - Rich Text Format Document (currently in beta)
+      * `resx` - .NET Resource Document (currently in beta)
+      * `jpeg` / `jpg` / `png` - Image (currently in beta)
+  humanURL: https://developers.deepl.com/api-reference/voice
+  baseURL: https://api.deepl.com/v3
+  tags:
+  - TranslateDocuments
+  properties:
+  - type: OpenAPI
+    url: openapi/deepl-translatedocuments-api-openapi.yml
+  - type: Documentation
+    url: https://developers.deepl.com/docs
+  - type: Reference
+    url: https://developers.deepl.com/docs/api-reference
+  - type: JSONSchema
+    url: json-schema/deepl-translation.json
+  - type: JSONSchema
+    url: json-schema/deepl-glossary.json
+  - type: Rules
+    url: rules/deepl-translation-api-rules.yml
+- aid: deepl:deepl-translatetext-api
+  name: DeepL Translate Text API
+  description: >-
+    The text-translation API currently consists of a single endpoint, `translate`, which is described
+    below.
+  humanURL: https://developers.deepl.com/api-reference/voice
+  baseURL: https://api.deepl.com/v3
+  tags:
+  - TranslateText
+  properties:
+  - type: OpenAPI
+    url: openapi/deepl-translatetext-api-openapi.yml
+  - type: Documentation
+    url: https://developers.deepl.com/docs
+  - type: Reference
+    url: https://developers.deepl.com/docs/api-reference
+  - type: JSONSchema
+    url: json-schema/deepl-translation.json
+  - type: JSONSchema
+    url: json-schema/deepl-glossary.json
+  - type: Rules
+    url: rules/deepl-translation-api-rules.yml
+- aid: deepl:deepl-translationmemories-api
+  name: DeepL Translation Memories API
+  description: >-
+    The translation memory endpoints allow you to manage your account's translation memories, used to
+    store
+
+    and reuse previously created translations. You can list and retrieve translation memories, page through
+
+    their stored segments, create one by importing a TMX file, export one back to TMX, and delete one.
+
+    Editing the contents of an existing translation memory is not supported; import a new one instead.
+
+
+    Importing and exporting run as background jobs. Create the job, then poll
+
+    `GET /v3/translation_memories/jobs/{job_id}` until it reports `completed`.
+
+
+    Translation memories can be used in text translation requests by
+
+    specifying the `translation_memory_id` parameter to denote a specific translation memory and the
+
+    `translation_memory_threshold` which defines the minimum matching percentage required for a translation
+    memory
+
+    segment to be applied (recommended to be 75% or higher). A translation request fails with `404` if
+    the
+
+    translation memory does not exist or does not cover the requested language pair.
+  humanURL: https://developers.deepl.com/api-reference/voice
+  baseURL: https://api.deepl.com/v3
+  tags:
+  - TranslationMemories
+  properties:
+  - type: OpenAPI
+    url: openapi/deepl-translationmemories-api-openapi.yml
+  - type: Documentation
+    url: https://developers.deepl.com/docs
+  - type: Reference
+    url: https://developers.deepl.com/docs/api-reference
+  - type: JSONSchema
+    url: json-schema/deepl-translation.json
+  - type: JSONSchema
+    url: json-schema/deepl-glossary.json
+  - type: Rules
+    url: rules/deepl-translation-api-rules.yml
+- aid: deepl:deepl-voiceapi-api
+  name: DeepL Voice API
+  description: >-
+    The Voice API provides real-time voice transcription and translation services.
+
+    Use a two-step flow: first request a streaming URL via REST, then establish a WebSocket connection
+    for streaming audio and receiving transcriptions.
+  humanURL: https://developers.deepl.com/api-reference/voice
+  baseURL: https://api.deepl.com/v3
+  tags:
+  - VoiceAPI
+  properties:
+  - type: OpenAPI
+    url: openapi/deepl-voiceapi-api-openapi.yml
+  - type: Documentation
+    url: https://developers.deepl.com/docs
+  - type: Reference
+    url: https://developers.deepl.com/docs/api-reference
+  - type: JSONSchema
+    url: json-schema/deepl-translation.json
+  - type: JSONSchema
+    url: json-schema/deepl-glossary.json
+  - type: Rules
+    url: rules/deepl-translation-api-rules.yml
+- aid: deepl:deepl-voicetranslatejob-api
+  name: DeepL Voice Translate Job API
+  description: '**Alpha.** Async voice translation jobs. This API may change without notice.'
+  humanURL: https://developers.deepl.com/api-reference/voice
+  baseURL: https://api.deepl.com/v3
+  tags:
+  - VoiceTranslateJob
+  properties:
+  - type: OpenAPI
+    url: openapi/deepl-voicetranslatejob-api-openapi.yml
   - type: Documentation
     url: https://developers.deepl.com/docs
   - type: Reference

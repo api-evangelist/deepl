@@ -1,0 +1,373 @@
+openapi: 3.2.0
+info:
+  title: DeepL API Documentation Quality Evaluation API
+  description: 'The DeepL API provides programmatic access to DeepL’s language AI technology.
+
+
+    Note: this OpenAPI spec is embedded into our API documentation and has shortened descriptions.'
+  termsOfService: https://www.deepl.com/pro-license
+  contact:
+    name: DeepL - Contact us
+    url: https://www.deepl.com/contact-us
+  version: 3.13.0
+servers:
+- url: https://api.deepl.com
+  description: DeepL API Pro
+- url: https://api-free.deepl.com
+  description: DeepL API Free
+tags:
+- name: QualityEvaluation
+  description: '**Beta.** Retrieve a quality evaluation report for a document DeepL has translated. Reports are requested with `enable_quality_evaluation` on `POST /v2/document` and polled here. A report lists per-segment quality issues categorized by error type and severity, with character spans pointing to where each issue occurs.'
+paths:
+  /v1/quality-evaluations/{job_id}:
+    get:
+      tags:
+      - QualityEvaluation
+      summary: Poll for the evaluation result
+      operationId: pollQualityEvaluation
+      description: 'Returns the current state of a quality evaluation. While the evaluation is in progress the response carries only status information; once it completes, the response carries the full report.
+
+
+        Evaluations are requested with `enable_quality_evaluation` on `POST /v2/document`. There is no public endpoint for starting one.'
+      parameters:
+      - name: job_id
+        in: path
+        required: true
+        description: The unique ID of the quality evaluation, returned as `quality_evaluation_job_id` when the document was [uploaded for translation](/api-reference/document/upload-and-translate-a-document).
+        schema:
+          type: string
+          example: 04DE5AD98A02647D83285A36021911C6
+      responses:
+        '200':
+          description: Polling result. The response shape depends on the `status` field. `done` carries the full report; `error` carries error details.
+          content:
+            application/json:
+              schema:
+                oneOf:
+                - $ref: '#/components/schemas/QualityEvaluationDone'
+                - $ref: '#/components/schemas/QualityEvaluationFailed'
+              example:
+                job_id: 04DE5AD98A02647D83285A36021911C6
+                status: done
+                segments:
+                - segment_index: 0
+                  segment_score: 38.5
+                  source: Our Q3 revenue came in 5% above forecast.
+                  target: Unser Q3-Umsatz lag 5 % unter der Prognose.
+                  applied_glossary_term_pairs:
+                  - source_term: forecast
+                    target_term: Prognose
+                    ranges:
+                    - start: 34
+                      end: 42
+                  errors:
+                  - type: Accuracy
+                    sub_type: Mistranslation
+                    severity: Critical
+                    explanation: The source says revenue was '5% above forecast' but the translation says '5 % unter der Prognose' (5% below forecast). This completely reverses the meaning and has financial implications.
+                    source_spans:
+                    - start: 23
+                      end: 31
+                    target_spans:
+                    - start: 20
+                      end: 29
+                - segment_index: 1
+                  segment_score: 62
+                  source: Please share these results with your teams by Friday.
+                  target: Bitte teilen Sie diese Ergebnisse mit Ihrem Team.
+                  errors:
+                  - type: Accuracy
+                    sub_type: Omission
+                    severity: Major
+                    explanation: The source specifies the deadline 'by Friday' but the translation omits this temporal information entirely.
+                    source_spans:
+                    - start: 43
+                      end: 52
+                    target_spans: []
+                  - type: Accuracy
+                    sub_type: Mistranslation
+                    severity: Minor
+                    explanation: The source says 'your teams' (plural) but the translation says 'Ihrem Team' (singular). This changes the scope of the instruction.
+                    source_spans:
+                    - start: 32
+                      end: 42
+                    target_spans:
+                    - start: 38
+                      end: 48
+        '202':
+          description: The evaluation is still running. Continue polling after the time suggested by the `Retry-After` header.
+          headers:
+            Retry-After:
+              description: Suggested number of seconds to wait before polling again.
+              schema:
+                type: integer
+              example: 5
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/QualityEvaluationProcessing'
+              example:
+                job_id: 04DE5AD98A02647D83285A36021911C6
+                status: processing
+        '400':
+          description: The `job_id` is not a well-formed identifier.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/QualityEvaluationApiError'
+              example:
+                message: job_id must be a valid UUID.
+        '404':
+          description: No evaluation exists for this `job_id`, it belongs to another account, or it has expired. See [Report retention](/api-reference/quality-evaluations/poll#report-retention).
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/QualityEvaluationApiError'
+              example:
+                message: Quality estimation job not found.
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+      security:
+      - auth_header: []
+components:
+  schemas:
+    QualityEvaluationProcessing:
+      type: object
+      required:
+      - job_id
+      - status
+      properties:
+        job_id:
+          type: string
+          example: 04DE5AD98A02647D83285A36021911C6
+        status:
+          type: string
+          enum:
+          - processing
+          example: processing
+    QualityEvaluationApiError:
+      type: object
+      required:
+      - message
+      properties:
+        message:
+          type: string
+          description: Error message.
+    ErrorResponse:
+      type: object
+      required:
+      - message
+      properties:
+        message:
+          type: string
+          description: A human-readable description of the error.
+        code:
+          type: string
+          description: A machine-readable identifier for the error, when available. Clients should match on this value rather than on `message` when branching on error types.
+          example: invalid_content_type
+    QualityEvaluationFailed:
+      title: Error
+      type: object
+      required:
+      - job_id
+      - status
+      - error
+      properties:
+        job_id:
+          type: string
+          example: 04DE5AD98A02647D83285A36021911C6
+        status:
+          type: string
+          enum:
+          - error
+          example: error
+        error:
+          type: object
+          required:
+          - code
+          - message
+          properties:
+            code:
+              type: string
+              description: Machine-readable error code. Currently always `evaluation_failed`.
+              example: evaluation_failed
+            message:
+              type: string
+              description: Error message.
+              example: The evaluation pipeline encountered an unexpected error.
+    QualityEvaluationAppliedGlossaryTermPair:
+      type: object
+      description: A glossary term pair that was applied to the segment's translation.
+      required:
+      - source_term
+      - target_term
+      - ranges
+      properties:
+        source_term:
+          type: string
+          description: The source term, as defined in the glossary.
+          example: forecast
+        target_term:
+          type: string
+          description: The target term, as applied to the translation.
+          example: Prognose
+        ranges:
+          type: array
+          description: Spans in `target` where the target term was applied, using the same convention as `source_spans` and `target_spans`. See [Span ranges](/api-reference/quality-evaluations/poll#span-ranges).
+          items:
+            $ref: '#/components/schemas/QualityEvaluationSpan'
+    QualityEvaluationDone:
+      title: Done
+      type: object
+      required:
+      - job_id
+      - status
+      - segments
+      properties:
+        job_id:
+          type: string
+          example: 04DE5AD98A02647D83285A36021911C6
+        status:
+          type: string
+          enum:
+          - done
+          example: done
+        segments:
+          type: array
+          description: One entry per evaluated segment of the document, in reading order.
+          items:
+            $ref: '#/components/schemas/QualityEvaluationSegment'
+    QualityEvaluationSegment:
+      type: object
+      required:
+      - segment_index
+      - segment_score
+      - errors
+      properties:
+        segment_index:
+          type: integer
+          description: Zero-based index of this segment within the document, in reading order.
+          example: 0
+        segment_score:
+          type: number
+          format: float
+          minimum: 0
+          maximum: 100
+          description: Quality score for this segment, where 0 is lowest and 100 is highest.
+          example: 38.5
+        source:
+          type: string
+          description: The segment's source text as the evaluation read it. `source_spans` are offsets into this text. Omitted when the text is unavailable. See [Segment text](/api-reference/quality-evaluations/poll#segment-text).
+          example: Our Q3 revenue came in 5% above forecast.
+        target:
+          type: string
+          description: The segment's translated text as the evaluation read it. `target_spans` are offsets into this text. Omitted when the text is unavailable. See [Segment text](/api-reference/quality-evaluations/poll#segment-text).
+          example: Unser Q3-Umsatz lag 5 % unter der Prognose.
+        applied_glossary_term_pairs:
+          type: array
+          description: Glossary term pairs applied to this segment when the document was translated, so you can tell which customizations were in play where an issue was reported. Omitted when no term pair was applied.
+          items:
+            $ref: '#/components/schemas/QualityEvaluationAppliedGlossaryTermPair'
+        errors:
+          type: array
+          description: Quality issues identified in this segment. Empty if no issues were found.
+          items:
+            $ref: '#/components/schemas/QualityEvaluationIssue'
+    QualityEvaluationIssue:
+      type: object
+      required:
+      - type
+      - sub_type
+      - severity
+      - explanation
+      - source_spans
+      - target_spans
+      properties:
+        type:
+          type: string
+          description: Top-level category of the issue. See [Type and sub-type values](/api-reference/quality-evaluations/poll#type-and-sub-type-values).
+          enum:
+          - Accuracy
+          - Fluency
+          - Style
+          - Miscellaneous
+          - InternalTQEError
+          example: Accuracy
+        sub_type:
+          type: string
+          description: Finer-grained category within `type`. See [Type and sub-type values](/api-reference/quality-evaluations/poll#type-and-sub-type-values).
+          enum:
+          - Addition
+          - Omission
+          - Mistranslation
+          - Over-translation
+          - Under-translation
+          - Untranslated text
+          - Punctuation
+          - Spelling
+          - Grammar
+          - Grammatical register
+          - Inconsistency
+          - Character encoding
+          - Awkward
+          - Inconsistent style
+          - SegmentTooLarge
+          example: Mistranslation
+        severity:
+          type: string
+          description: How serious the issue is. See [Severity values](/api-reference/quality-evaluations/poll#severity-values).
+          enum:
+          - Critical
+          - Major
+          - Minor
+          example: Critical
+        explanation:
+          type: string
+          description: Description of the issue. May span multiple sentences.
+          example: The source says revenue was '5% above forecast' but the translation says '5 % unter der Prognose' (5% below forecast). This completely reverses the meaning and has financial implications.
+        source_spans:
+          type: array
+          description: Spans on the segment's source text where this issue applies. Empty if no source-side highlight. See [Span ranges](/api-reference/quality-evaluations/poll#span-ranges).
+          items:
+            $ref: '#/components/schemas/QualityEvaluationSpan'
+        target_spans:
+          type: array
+          description: Spans on the segment's target text where this issue applies. Empty if no target-side highlight. See [Span ranges](/api-reference/quality-evaluations/poll#span-ranges).
+          items:
+            $ref: '#/components/schemas/QualityEvaluationSpan'
+    QualityEvaluationSpan:
+      type: object
+      required:
+      - start
+      - end
+      description: A half-open `[start, end)` range of Unicode code points within a segment's source or target text. See [Span ranges](/api-reference/quality-evaluations/poll#span-ranges).
+      properties:
+        start:
+          type: integer
+          description: Inclusive start index. A 0-based Unicode code-point offset.
+          example: 23
+        end:
+          type: integer
+          description: Exclusive end index. A 0-based Unicode code-point offset.
+          example: 31
+  responses:
+    TooManyRequests:
+      description: Too many requests. Please wait and resend your request.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+  securitySchemes:
+    auth_header:
+      type: apiKey
+      description: 'Authentication with `Authorization` header and `DeepL-Auth-Key` authentication scheme. Example: `DeepL-Auth-Key <api-key>`
+
+        '
+      name: Authorization
+      in: header
+      x-default: 'DeepL-Auth-Key '
+externalDocs:
+  description: DeepL Pro - Plans and pricing
+  url: https://www.deepl.com/pro#developer
+x-hideTryItPanel: true
+x-codeSamples: false

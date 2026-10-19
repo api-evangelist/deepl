@@ -1,0 +1,239 @@
+openapi: 3.2.0
+info:
+  title: DeepL API Documentation Correct Text API
+  description: 'The DeepL API provides programmatic access to DeepL’s language AI technology.
+
+
+    Note: this OpenAPI spec is embedded into our API documentation and has shortened descriptions.'
+  termsOfService: https://www.deepl.com/pro-license
+  contact:
+    name: DeepL - Contact us
+    url: https://www.deepl.com/contact-us
+  version: 3.13.0
+servers:
+- url: https://api.deepl.com
+  description: DeepL API Pro
+- url: https://api-free.deepl.com
+  description: DeepL API Free
+tags:
+- name: CorrectText
+  description: 'The `correct` endpoint fixes spelling and grammar errors without broader rephrasing. Use it when you want
+
+    a minimal-change correction pass rather than the broader rewriting performed by `rephrase`.'
+paths:
+  /v2/write/correct:
+    post:
+      tags:
+      - CorrectText
+      summary: Correct text
+      description: 'Fix spelling and grammar errors in one or more texts. Unlike `/v2/write/rephrase`, this endpoint applies
+
+        a minimal-change correction pass and does not rewrite the text for style or tone.'
+      operationId: correctText
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+              - text
+              properties:
+                text:
+                  description: Text to be corrected. Only UTF-8-encoded plain text is supported. Corrections are returned in the same order as they are requested.
+                  type: array
+                  x-default:
+                  - this is a example sentence to imprve
+                  items:
+                    type: string
+                    example: this is a example sentence to imprve
+                target_lang:
+                  $ref: '#/components/schemas/TargetLanguageWrite'
+          application/x-www-form-urlencoded:
+            schema:
+              type: object
+              required:
+              - text
+              properties:
+                text:
+                  description: Text to be corrected. Only UTF-8-encoded plain text is supported. Corrections are returned in the same order as they are requested.
+                  type: array
+                  x-default:
+                  - this is a example sentence to imprve
+                  items:
+                    type: string
+                    example: this is a example sentence to imprve
+                target_lang:
+                  $ref: '#/components/schemas/TargetLanguageWrite'
+      responses:
+        '200':
+          description: Successful text correction.
+          headers:
+            X-Trace-ID:
+              $ref: '#/components/headers/X-Trace-ID'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  improvements:
+                    type: array
+                    minItems: 1
+                    items:
+                      type: object
+                      properties:
+                        detected_source_language:
+                          description: The language detected in the source text.
+                          type: string
+                          example: en
+                        target_language:
+                          description: The target language specified by the request.
+                          type: string
+                          example: en-US
+                        text:
+                          description: The corrected text.
+                          type: string
+                          example: This is a sample sentence to improve.
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '403':
+          $ref: '#/components/responses/ForbiddenScoped'
+        '413':
+          $ref: '#/components/responses/PayloadTooLarge'
+        '415':
+          $ref: '#/components/responses/UnsupportedMediaType'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+        '456':
+          $ref: '#/components/responses/QuotaExceeded'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
+        '504':
+          $ref: '#/components/responses/ServiceUnavailable'
+      security:
+      - auth_header: []
+components:
+  schemas:
+    TargetLanguageWrite:
+      type: string
+      description: The language for the text improvement.
+      enum:
+      - de
+      - en
+      - en-GB
+      - en-US
+      - es
+      - fr
+      - it
+      - ja
+      - ko
+      - pt
+      - pt-BR
+      - pt-PT
+      - zh
+      - zh-Hans
+      example: de
+    ErrorResponse:
+      type: object
+      required:
+      - message
+      properties:
+        message:
+          type: string
+          description: A human-readable description of the error.
+        code:
+          type: string
+          description: A machine-readable identifier for the error, when available. Clients should match on this value rather than on `message` when branching on error types.
+          example: invalid_content_type
+    InfrastructureErrorResponse:
+      description: 'Error body returned by DeepL''s edge infrastructure for failures that occur before a request reaches the API itself. The message is nested under `error`, unlike the application-level `ErrorResponse`. Clients that parse error bodies should handle both shapes.
+
+        '
+      type: object
+      required:
+      - error
+      properties:
+        error:
+          type: object
+          required:
+          - message
+          properties:
+            message:
+              type: string
+              description: A human-readable description of the error.
+              example: Bad Gateway.
+  responses:
+    ForbiddenScoped:
+      description: Authorization failed. Please supply a valid `DeepL-Auth-Key` via the `Authorization` header. This error is also returned when the API key is scoped but does not include the scope required for this endpoint.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    ServiceUnavailable:
+      description: Resource currently unavailable. Try again later.
+      content:
+        application/json:
+          schema:
+            oneOf:
+            - $ref: '#/components/schemas/ErrorResponse'
+            - $ref: '#/components/schemas/InfrastructureErrorResponse'
+    TooManyRequests:
+      description: Too many requests. Please wait and resend your request.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    BadRequest:
+      description: Bad request. Please check error message and your parameters.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    InternalServerError:
+      description: Internal error.
+      content:
+        application/json:
+          schema:
+            oneOf:
+            - $ref: '#/components/schemas/ErrorResponse'
+            - $ref: '#/components/schemas/InfrastructureErrorResponse'
+    PayloadTooLarge:
+      description: The request size exceeds the limit.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    UnsupportedMediaType:
+      description: Unsupported Media Type. Must be application/json or application/x-www-form-urlencoded.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+          example:
+            message: Unsupported Content-Type
+    QuotaExceeded:
+      description: Quota exceeded. The character limit has been reached.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+  headers:
+    X-Trace-ID:
+      description: A unique identifier for the request that can be included in bug reports to DeepL support.
+      schema:
+        type: string
+      example: 501c3d93cc0c4f11ae2f60a226c2f0f0
+  securitySchemes:
+    auth_header:
+      type: apiKey
+      description: 'Authentication with `Authorization` header and `DeepL-Auth-Key` authentication scheme. Example: `DeepL-Auth-Key <api-key>`
+
+        '
+      name: Authorization
+      in: header
+      x-default: 'DeepL-Auth-Key '
+externalDocs:
+  description: DeepL Pro - Plans and pricing
+  url: https://www.deepl.com/pro#developer
+x-hideTryItPanel: true
+x-codeSamples: false

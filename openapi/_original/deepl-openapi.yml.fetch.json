@@ -1,0 +1,12 @@
+{
+ "url": "https://developers.deepl.com/api-reference/openapi.yaml",
+ "final": "https://developers.deepl.com/api-reference/openapi.yaml",
+ "status": 200,
+ "content_type": "text/yaml",
+ "bytes": 343884,
+ "sha256": "9b5e1791c24d0ae0c30f0120168466a38d96ecd0ef48045320a778032afacb29",
+ "fetched_at": "2026-10-19",
+ "fetched_by": "APIEvangelist-Harvest/1.0 (+https://apievangelist.com)",
+ "match": "byte-identical",
+ "note": "re-archived: the provider's current document replaced a stale archive (roadmap#793); the old files are in openapi/_superseded/2026-10-19-stale"
+}
