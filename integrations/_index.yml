@@ -15,6 +15,32 @@
   relationship: distribution-channel
   status: not-a-workflow
   arazzo: null
+- slug: deepl-microsoft-teams-own
+  label: Microsoft Teams (own)
+  partner: microsoft-teams
+  partner_name: Microsoft Teams (own)
+  category: Microsoft Teams app
+  type: marketplace
+  marketplace: own
+  channel: partner-built
+  evidence: https://appsource.microsoft.com/en-us/product/office/WA200007424
+  source: edge
+  relationship: platform-app
+  status: not-a-workflow
+  arazzo: null
+- slug: deepl-zoom-own
+  label: Zoom (own)
+  partner: zoom
+  partner_name: Zoom (own)
+  category: Zoom app
+  type: marketplace
+  marketplace: own
+  channel: partner-built
+  evidence: https://marketplace.zoom.us/apps/1xnzDCSiQNmHP5khtgN28Q
+  source: edge
+  relationship: platform-app
+  status: not-a-workflow
+  arazzo: null
 - slug: deepl-zapier
   label: Zapier
   partner: zapier
@@ -47,7 +73,7 @@
   type: marketplace
   marketplace: n8n-nodes-base
   channel: open-source-node
-  evidence: https://github.com/n8n-io/n8n/tree/860f1273ebd73fabbd668cbec2c49ed9b48a286d/packages/nodes-base/nodes/DeepL
+  evidence: https://github.com/n8n-io/n8n/tree/f73dc337f8dc61a4fd44aebe41c55faafe4f53a4/packages/nodes-base/nodes/DeepL
   source: edge
   relationship: ipaas-bridge
   contract_reference:
@@ -63,31 +89,5 @@
     node_path: DeepL
     trigger: false
     builder: n8n (built-in node)
-  status: not-a-workflow
-  arazzo: null
-- slug: deepl-microsoft-teams-own
-  label: Microsoft Teams (own)
-  partner: microsoft-teams
-  partner_name: Microsoft Teams (own)
-  category: Microsoft Teams app
-  type: marketplace
-  marketplace: own
-  channel: partner-built
-  evidence: https://appsource.microsoft.com/en-us/product/office/WA200007424
-  source: edge
-  relationship: platform-app
-  status: not-a-workflow
-  arazzo: null
-- slug: deepl-zoom-own
-  label: Zoom (own)
-  partner: zoom
-  partner_name: Zoom (own)
-  category: Zoom app
-  type: marketplace
-  marketplace: own
-  channel: partner-built
-  evidence: https://marketplace.zoom.us/apps/1xnzDCSiQNmHP5khtgN28Q
-  source: edge
-  relationship: platform-app
   status: not-a-workflow
   arazzo: null
