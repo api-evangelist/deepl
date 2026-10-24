@@ -99,6 +99,8 @@ apis:
   humanURL: https://developers.deepl.com/api-reference/voice
   baseURL: https://api.deepl.com/v3
   tags:
+  - Admin API
+  tags_raw:
   - AdminApi
   properties:
   - type: OpenAPI
@@ -471,6 +473,8 @@ apis:
   humanURL: https://developers.deepl.com/api-reference/voice
   baseURL: https://api.deepl.com/v3
   tags:
+  - Voice API
+  tags_raw:
   - VoiceAPI
   properties:
   - type: OpenAPI
