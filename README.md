@@ -1,4 +1,4 @@
-# DeepL (deepl)
+# DeepL
 
 <!-- API-EVANGELIST-PROVENANCE:BEGIN -->
 > ### About this repository
@@ -66,103 +66,186 @@
 
 DeepL is an AI-powered translation service that delivers high-quality machine translation between dozens of languages, with support for context-aware translation, document translation, glossaries, and rephrasing/improvement via DeepL Write. The DeepL API is offered in Pro and Free tiers and exposes endpoints for text translation, document translation, glossaries, language metadata, usage, and write/rephrase.
 
-**APIs.json:** [https://raw.githubusercontent.com/api-evangelist/deepl/refs/heads/main/apis.yml](https://raw.githubusercontent.com/api-evangelist/deepl/refs/heads/main/apis.yml)
+**Areas:** Artificial Intelligence · Deep Learning · Glossary · Localization · Machine Learning · Machine Translation · Translation · Real-Time
 
-## Scope
+## DeepL on APIs.io
 
-- **Position:** Consuming
-- **Access:** 3rd-Party
+Everything profiled for DeepL is published on APIs.io rather than in this repository. Start at the provider page — **[apis.io/providers/deepl/](https://apis.io/providers/deepl/)** — or go straight to one of the APIs or properties below.
 
-## Tags
+### APIs (7)
 
-- Artificial Intelligence
-- Deep Learning
-- Glossaries
-- Localization
-- Machine Learning
-- Machine Translation
-- Translation
+- [DeepL Voice API](https://apis.io/apis/deepl/deepl-voice-api/) — The DeepL Voice API provides real-time speech transcription and translation. A POST to /v3/voice/realtime issues an ephemeral token and WebSocket streaming…
+- [DeepL Documents API](https://apis.io/apis/deepl/deepl-documents-api/) — The Documents API from DeepL — 3 operation(s) for documents.
+- [DeepL Glossaries API](https://apis.io/apis/deepl/deepl-glossaries-api/) — The Glossaries API from DeepL — 4 operation(s) for glossaries.
+- [DeepL Languages API](https://apis.io/apis/deepl/deepl-languages-api/) — The Languages API from DeepL — 1 operation(s) for languages.
+- [DeepL Translate API](https://apis.io/apis/deepl/deepl-translate-api/) — The Translate API from DeepL — 1 operation(s) for translate.
+- [DeepL Usage API](https://apis.io/apis/deepl/deepl-usage-api/) — The Usage API from DeepL — 1 operation(s) for usage.
+- [DeepL Write API](https://apis.io/apis/deepl/deepl-write-api/) — The Write API from DeepL — 1 operation(s) for write.
 
-## Timestamps
+### Published properties
 
-- **Created:** 2024-11-07
-- **Modified:** 2026-05-30
+Each property below is a page on APIs.io carrying the machine-readable artifact and what it says.
 
-## APIs
+#### AsyncAPI (1)
 
-### DeepL Translation API
+Event-driven and webhook contracts.
 
-The DeepL Translation API provides programmatic access to DeepL's machine translation technology including text translate, document translate, glossaries, language metadata, usage, and DeepL Write rephrasing.
+- [DeepL Voice API - WebSocket Streaming](https://apis.io/asyncapis/deepl/deepl-voice-api-asyncapi/)
 
-- **Human URL:** [https://developers.deepl.com/](https://developers.deepl.com/)
-- **Base URL:** `https://api.deepl.com/v2`
+#### Event channels (1)
 
-#### Tags
+Individual events and webhooks the provider emits.
 
-- Documents
-- Glossaries
-- Languages
-- Translate
-- Usage
-- Write
+- [/v1/voice/realtime/connect?token={token}](https://apis.io/channels/deepl/v1-voice-realtime-connect-token-token/)
 
-#### Properties
+#### MCP servers (1)
 
-- [Documentation](https://developers.deepl.com/docs)
-- [Reference](https://developers.deepl.com/docs/api-reference)
-- [OpenAPI](openapi/deepl-translation-api-openapi.yml) — [OpenAPI Specification](https://spec.openapis.org/oas/latest.html)
-- [Postman Collection](collections/deepl-translation-api.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/deepl-translation-api.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
-- [JSON Schema](json-schema/deepl-translation.json) — [JSON Schema](https://json-schema.org/specification)
-- [JSON Schema](json-schema/deepl-glossary.json) — [JSON Schema](https://json-schema.org/specification)
-- [Rules](rules/deepl-translation-api-rules.yml)
-- [Capabilities](capabilities/deepl-translation-api-capabilities.yml)
+Model Context Protocol servers that expose the API to agents.
 
-### DeepL Voice API
+- [deepl](https://apis.io/servers/deepl/deepl/)
 
-The DeepL Voice API provides real-time speech transcription and translation. A POST to /v3/voice/realtime issues an ephemeral token and WebSocket streaming URL; clients then open a WSS channel to stream source audio chunks and receive incremental source-language transcriptions, translated transcriptions, and (closed beta) synthesized translated audio. There is no documented webhook callback URL on the REST APIs; document translation remains polling-based.
+#### Agentic access (1)
 
-- **Human URL:** [https://developers.deepl.com/api-reference/voice](https://developers.deepl.com/api-reference/voice)
-- **Base URL:** `https://api.deepl.com/v3`
+Which operations an agent can call, which act, and which need a human in the loop.
 
-#### Tags
+- [Deepl Agentic Access](https://apis.io/agentic-access/deepl/deepl-agentic-access/)
 
-- Real-Time
-- Speech-to-Text
-- Streaming
-- Transcription
-- Translation
-- Voice
-- WebSocket
+#### JSON Schema (2)
 
-#### Properties
+The data models the API reads and writes.
 
-- [Documentation](https://developers.deepl.com/api-reference/voice)
-- [Reference](https://developers.deepl.com/api-reference/voice/websocket-streaming)
-- [OpenAPI](openapi/deepl-voice-api-openapi.yml) — [OpenAPI Specification](https://spec.openapis.org/oas/latest.html)
-- [Postman Collection](collections/deepl-voice-api.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/deepl-voice-api.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
-- [AsyncAPI](asyncapi/deepl-voice-api-asyncapi.yml) — [AsyncAPI Specification](https://www.asyncapi.com/docs/reference/specification/latest)
-- [AsyncAPI](https://developers.deepl.com/api-reference/voice.asyncapi.yaml) — [AsyncAPI Specification](https://www.asyncapi.com/docs/reference/specification/latest)
+- [DeepL Glossary](https://apis.io/schemas/deepl/deepl-glossary/)
+- [DeepL Translation](https://apis.io/schemas/deepl/deepl-translation/)
 
-## Common Properties
+#### JSON-LD (1)
 
-- [LinkedIn](https://www.linkedin.com/company/deepl)
+Linked-data contexts for the provider's vocabulary.
+
+- [Deepl Context](https://apis.io/jsonld/deepl/deepl-context/)
+
+#### Vocabulary (1)
+
+The provider's domain terms, defined.
+
+- [DeepL Vocabulary](https://apis.io/vocabularies/deepl/deepl-vocabulary/)
+
+#### Collections (15)
+
+Postman and Open Collection request collections.
+
+- [DeepL Translation Documents API](https://apis.io/collections/deepl/open-deepl-documents-api/)
+- [DeepL Translation Documents Glossaries API](https://apis.io/collections/deepl/open-deepl-glossaries-api/)
+- [DeepL Translation Documents Languages API](https://apis.io/collections/deepl/open-deepl-languages-api/)
+- [DeepL Translation Documents Translate API](https://apis.io/collections/deepl/open-deepl-translate-api/)
+- [DeepL Translation API](https://apis.io/collections/deepl/open-deepl-translation-api/)
+- [DeepL Translation Documents Usage API](https://apis.io/collections/deepl/open-deepl-usage-api/)
+- [DeepL Translation Documents Voice API](https://apis.io/collections/deepl/open-deepl-voice-api/)
+- [DeepL Translation Documents Write API](https://apis.io/collections/deepl/open-deepl-write-api/)
+- [DeepL Translation Documents API](https://apis.io/collections/deepl/postman-deepl-documents-api/)
+- [DeepL Translation Documents Glossaries API](https://apis.io/collections/deepl/postman-deepl-glossaries-api/)
+- [DeepL Translation Documents Languages API](https://apis.io/collections/deepl/postman-deepl-languages-api/)
+- [DeepL Translation Documents Translate API](https://apis.io/collections/deepl/postman-deepl-translate-api/)
+- [DeepL Translation Documents Usage API](https://apis.io/collections/deepl/postman-deepl-usage-api/)
+- [DeepL Translation Documents Voice API](https://apis.io/collections/deepl/postman-deepl-voice-api/)
+- [DeepL Translation Documents Write API](https://apis.io/collections/deepl/postman-deepl-write-api/)
+
+#### Governance rules (3)
+
+Spectral rulesets for the provider's contracts.
+
+- [DeepL — asyncapi rules](https://apis.io/rules/deepl/deepl-asyncapi-spectral-rules/)
+- [DeepL — jsonschema rules](https://apis.io/rules/deepl/deepl-jsonschema-spectral-rules/)
+- [DeepL — translation api rules](https://apis.io/rules/deepl/deepl-translation-api-rules/)
+
+#### Security (4)
+
+Authentication, trust centre, and vulnerability disclosure.
+
+- [Deepl Authentication](https://apis.io/security/deepl/deepl-authentication/)
+- [Deepl Domain Security](https://apis.io/security/deepl/deepl-domain-security/)
+- [Deepl Trust Center](https://apis.io/security/deepl/deepl-trust-center/)
+- [Deepl Vulnerability Disclosure](https://apis.io/security/deepl/deepl-vulnerability-disclosure/)
+
+#### Plans and pricing (1)
+
+Published plans, tiers and prices.
+
+- [Deepl Plans Pricing](https://apis.io/plans/deepl/deepl-plans-pricing/)
+
+#### Rate limits (1)
+
+Published request limits.
+
+- [Deepl Rate Limits](https://apis.io/rate-limits/deepl/deepl-rate-limits/)
+
+#### FinOps (1)
+
+What the API costs to run, by operation.
+
+- [Deepl Finops](https://apis.io/finops/deepl/deepl-finops/)
+
+## Where to find this API
+
+Links to the company's own pages. This repository publishes no copy of their specifications — the canonical document is theirs and lives at the URLs below.
+
 - [Website](https://www.deepl.com/)
-- [Portal](https://developers.deepl.com/)
 - [Documentation](https://developers.deepl.com/docs)
-- [Authentication](https://developers.deepl.com/docs/getting-started/auth)
 - [Pricing](https://www.deepl.com/pro)
-- [SDK](https://github.com/DeepLcom/deepl-python)
-- [SDK](https://github.com/DeepLcom/deepl-node)
-- [Terms of Service](https://www.deepl.com/pro-license)
-- [Privacy Policy](https://www.deepl.com/privacy)
-- [JSON-LD](json-ld/deepl-context.jsonld) — [JSON-LD](https://www.w3.org/TR/json-ld11/)
-- [Vocabulary](vocabulary/deepl-vocabulary.yml)
-- [Integrations](https://www.deepl.com/en/integrations)
-- [L L Ms Txt](https://developers.deepl.com/llms.txt)
+- [Blog](https://www.deepl.com/en/blog/rss.xml)
+- [Terms of service](https://www.deepl.com/pro-license)
+- [Privacy policy](https://www.deepl.com/privacy)
 
-## Maintainers
+## API Evangelist rating
 
-**FN:** Kin Lane
-**Email:** kin@apievangelist.com
+**Kin Score 51.8** — developing · rubric 0.25.0 · scored 2026-10-23
+
+| Facet | Score |
+|---|---|
+| Discoverability | 75.0 |
+| Contract quality | 69.9 |
+| Contract governance | 27.3 |
+| Operational transparency | 18.4 |
+| Developer ergonomics | 48.8 |
+| Access clarity | 47.4 |
+
+**Agent readiness 36.4** — agent-ready
+
+| Agent-readiness dimension | Result |
+|---|---|
+| Spec Presence | yes |
+| Agentic Access | derived (partial credit) |
+| Reversibility Documented | — |
+| MCP Server | platform (partial credit) |
+| Auth Clarity | bearer (partial credit) |
+| Idempotency | — |
+| Error Semantics | verified |
+| OpenAPI Examples | verified |
+| Rate Limit Signal | verified |
+| Event Surface Described | derived (partial credit) |
+| Agent Skills | — |
+| Well Known Catalog | — |
+| Consent Identity | — |
+| Agent Card | — |
+| Dry Run Mode | — |
+| Delegated Identity | — |
+| Protected Resource Metadata | — |
+| Dynamic Client Registration | — |
+| Agentic Commerce | — |
+| Pagination Ratio | — |
+| Operation Distinctiveness | distinct |
+
+**Regulatory alignment 32.7** — Horizontal (data, software, accessibility, platform)
+
+The rubric is published at [github.com/api-evangelist/kin-score](https://github.com/api-evangelist/kin-score). The per-check breakdown behind these numbers — which checks were earned, partial or missed — along with score history and how this provider compares to its peers, is available at [apis.io/providers/deepl/](https://apis.io/providers/deepl/).
+
+## How this profile is made
+
+API Evangelist profiles a company's public API surface the way a developer would find it: the website, developer portal and documentation, the specifications it publishes, its public repositories, and its pricing, status and changelog pages. From that it derives the properties above — contracts split per API, workflows, schemas, collections, governance rules, plans and rate limits — and scores them against the published [Kin Score rubric](https://github.com/api-evangelist/kin-score).
+
+The artifacts are published on [APIs.io](https://apis.io), not in this repository. This repository is the public record for DeepL: the place to say something is wrong, missing or out of date, and to ask for a re-score or a removal.
+
+## Open an issue
+
+- **Something about this listing** — a wrong description, a missing API, a stale artifact or a question about the rating: [open an issue on this repository](https://github.com/api-evangelist/deepl/issues/new).
+- **A new API, or one that is not in the catalog yet** — [submit it on APIs.io](https://apis.io/add/).
+- **Anything else** — [the APIs.io inbox](https://github.com/api-search/inbox/issues/new) or [info@apievangelist.com](mailto:info@apievangelist.com).
